@@ -54,7 +54,7 @@ const SignUp = () => {
       <Container
         maxWidth="sm"
         sx={{
-          height: "100vh",
+          mt: 4,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
