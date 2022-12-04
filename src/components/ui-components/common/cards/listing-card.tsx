@@ -13,7 +13,7 @@ export const ListingCard: React.FunctionComponent<Props> = ({
   productPrice,
 }) => {
   return (
-    <Card sx={{ width: 200, height: 350 }}>
+    <Card sx={{ width: { xs: 170, sm: 200 }, height: 350 }}>
       <CardMedia component="img" height={200} image={img} alt="" />
       <CardContent>
         <Typography

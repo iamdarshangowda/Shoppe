@@ -44,13 +44,8 @@ const Home = () => {
   }, []);
 
   return (
-    <Box display="flex" gap={4}>
-      <Box
-        width={"100%"}
-        maxWidth={252}
-        flexGrow={1}
-        display={{ xs: "none", sm: "block" }}
-      >
+    <Box display={{ xs: "block", sm: "flex" }} gap={4}>
+      <Box width={"100%"} maxWidth={{ xs: "100%", sm: 252 }} flexGrow={1}>
         <Filters
           handleSort={(value: string) => getAllProducts({ sort: value })}
           handleSearch={(value: string) => handleSearchDebounce(value)}
