@@ -82,16 +82,9 @@ const SignIn = () => {
           flexDirection: "column",
         }}
       >
-        <Typography
-          fontSize={35}
-          fontWeight={500}
-          color="#A18A68"
-          letterSpacing={10}
-          textTransform="uppercase"
-          mb={{ xs: 4, sm: 0 }}
-        >
-          Shoppe
-        </Typography>
+        <Box mb={{ xs: 3, sm: 0 }}>
+          <img src="/logo.gif" alt="" width={200} />
+        </Box>
 
         <Box
           minWidth={410}
@@ -102,7 +95,7 @@ const SignIn = () => {
           py={2}
         >
           <Typography
-            fontSize={24}
+            fontSize={22}
             fontWeight={700}
             lineHeight={"30px"}
             letterSpacing={"-0.02em"}
@@ -113,7 +106,7 @@ const SignIn = () => {
             SignIn
           </Typography>
           <Typography
-            fontSize={15}
+            fontSize={13}
             fontWeight={500}
             lineHeight={"24px"}
             letterSpacing={"0.01em"}

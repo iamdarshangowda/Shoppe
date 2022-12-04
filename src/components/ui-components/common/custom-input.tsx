@@ -10,6 +10,7 @@ interface inputFieldProps {
   disabled?: boolean;
   onChange?: any;
   placeholder?: string;
+  sx?: any;
 }
 
 const CustomInput: React.FunctionComponent<inputFieldProps> = ({
@@ -21,6 +22,7 @@ const CustomInput: React.FunctionComponent<inputFieldProps> = ({
   disabled,
   onChange,
   placeholder,
+  sx,
 }) => {
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     onChange(event?.target.value);
@@ -57,6 +59,7 @@ const CustomInput: React.FunctionComponent<inputFieldProps> = ({
             fontSize: "16px",
             boxShadow: "none",
             paddingLeft: "10px",
+            ...sx,
           },
         }}
         sx={{
@@ -64,6 +67,7 @@ const CustomInput: React.FunctionComponent<inputFieldProps> = ({
             height: "48px",
             fontSize: "15px !important",
             color: "#495057",
+            ...sx,
           },
         }}
       />
