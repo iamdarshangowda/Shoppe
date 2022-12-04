@@ -10,6 +10,9 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
+  GoogleAuthProvider,
+  signInWithPopup,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 import { auth } from "../pages/firebase";
 
@@ -19,6 +22,12 @@ interface contextProviderProp {
 
 interface context {
   GlobalDetails: any;
+  SignUp: any;
+  LogIn: any;
+  LogOut: any;
+  user: any;
+  googleSignIn: any;
+  forgotPassword: any;
 }
 
 interface UserDataProp {
@@ -31,7 +40,7 @@ import {
   reducer as globalDetails,
 } from "./reducers/globalDetails";
 
-const Context = createContext<context | null>(null);
+export const Context = createContext<context | null>(null);
 const ContextProvider = Context.Provider;
 
 export const ContextProviderWrapper: React.FunctionComponent<
@@ -52,6 +61,19 @@ export const ContextProviderWrapper: React.FunctionComponent<
     return signInWithEmailAndPassword(auth, email, password);
   };
 
+  const LogOut = () => {
+    return signOut(auth);
+  };
+
+  const googleSignIn = () => {
+    const googleAuthProvider = new GoogleAuthProvider();
+    return signInWithPopup(auth, googleAuthProvider);
+  };
+
+  const forgotPassword = (email: string) => {
+    return sendPasswordResetEmail(auth, email);
+  };
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) =>
       setUser(currentUser)
@@ -63,6 +85,12 @@ export const ContextProviderWrapper: React.FunctionComponent<
   }, []);
 
   const store: any = {
+    SignUp,
+    LogIn,
+    LogOut,
+    user,
+    googleSignIn,
+    forgotPassword,
     GlobalDetails: {
       state: globalDetailsData,
       dispatch: globalDetailsDispatch,

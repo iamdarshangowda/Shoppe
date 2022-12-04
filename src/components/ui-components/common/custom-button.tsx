@@ -3,7 +3,7 @@ import { Button } from "@mui/material";
 
 interface PrimaryButtonProps {
   label: string;
-  onClick: any;
+  onClick?: any;
   sx?: any;
   disabled?: boolean;
   variant?: VariantProps;
