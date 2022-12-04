@@ -1,16 +1,25 @@
 import React from "react";
 import { Box, Typography, Theme } from "@mui/material";
-import CustomInput from "@/components/ui-components/common/custom-input";
-import CustomSelect from "@/components/ui-components/common/custom-select";
+import CustomInput from "@/components/ui-components/common/inputs/custom-input";
+import CustomSelect from "@/components/ui-components/common/inputs/custom-select";
 
-const SortPrice = [{ label: "Acending" }, { label: "Decending" }];
+const SortPrice = [
+  { label: "Acending", key: "asc" },
+  { label: "Decending", key: "desc" },
+];
 
-export const Filters = () => {
-  const handleSortProduct = () => {};
+interface Props {
+  handleSort: any;
+  handleSearch: any;
+}
 
+export const Filters: React.FunctionComponent<Props> = ({
+  handleSort,
+  handleSearch,
+}) => {
   return (
-    <Box maxWidth={252}>
-      <Box my={2}>
+    <Box>
+      <Box mb={2}>
         <Typography
           fontSize={23}
           fontWeight={500}
@@ -19,10 +28,11 @@ export const Filters = () => {
           Shop The Latest
         </Typography>
       </Box>
-      <Box my={4}>
+      <Box mb={3}>
         <CustomInput
           placeholder="Search..."
           sx={{ height: "40px", border: "none" }}
+          onChange={handleSearch}
         />
       </Box>
       <Box>
@@ -31,8 +41,8 @@ export const Filters = () => {
           displayValueKey={"label"}
           defaultValue="default"
           placeholder={"Sort By"}
-          valueKey={"label"}
-          onChange={handleSortProduct}
+          valueKey={"key"}
+          onChange={handleSort}
         />
       </Box>
     </Box>

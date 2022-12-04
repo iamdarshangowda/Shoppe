@@ -70,17 +70,16 @@ const CustomSelect: React.FunctionComponent<props> = ({
         onChange={handleSelectChange}
         multiple={multiple}
         sx={{
-          height: "48px",
+          height: "40px",
           minHeight: "auto",
           width: "100%",
-          borderRadius: "2px",
+          borderRadius: "24px",
 
           ["& .MuiSelect-outlined"]: {
             minHeight: "auto",
-            height: "48px",
+            height: "40px",
             fontSize: "15px !important",
             color: "#495057",
-            borderRadius: "0 !important",
           },
         }}
       >

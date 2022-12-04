@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Container, Box, Typography, Theme, Divider } from "@mui/material";
 import { GoogleSigninButton } from "./inc/google-signin-button";
-import CustomInput from "@/components/ui-components/common/custom-input";
-import CustomButton from "@/components/ui-components/common/custom-button";
+import CustomInput from "@/components/ui-components/common/inputs/custom-input";
+import CustomButton from "@/components/ui-components/common/buttons/custom-button";
 import Link from "next/link";
 import { useUserAuth } from "src/context/ContextProvider";
 import { SnackbarModal } from "@/components/ui-components/snackbar";

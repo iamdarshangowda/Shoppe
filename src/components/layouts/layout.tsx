@@ -12,7 +12,7 @@ export const Layout: React.FunctionComponent<Props> = ({ children }) => {
   return (
     <Container maxWidth="xl">
       <Box>{router.pathname == "/" ? null : <Topbar />}</Box>
-      <Box component="main" width="100%">
+      <Box component="main" width="100%" mt={3}>
         {children}
       </Box>
     </Container>
