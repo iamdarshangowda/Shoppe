@@ -36,6 +36,9 @@ const CustomButton: React.FunctionComponent<PrimaryButtonProps> = ({
         width: "100%",
         borderRadius: "30px",
         fontSize: "14px",
+        "&:hover": {
+          bgcolor: "#453825",
+        },
         ...sx,
       }}
       disabled={disabled}

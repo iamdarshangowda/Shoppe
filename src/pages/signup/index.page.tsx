@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Container, Box, Typography, Theme, Divider } from "@mui/material";
-import { GoogleSigninButton } from "./inc/google-signin-button";
 import CustomInput from "@/components/ui-components/common/custom-input";
 import CustomButton from "@/components/ui-components/common/custom-button";
 import Link from "next/link";
@@ -58,33 +57,8 @@ const SignIn = () => {
           textAlign="center"
           mb={1}
         >
-          SignIn
+          SignUp
         </Typography>
-        <Typography
-          fontSize={15}
-          fontWeight={500}
-          lineHeight={"24px"}
-          letterSpacing={"0.01em"}
-          color={(theme: Theme) => theme.palette.secondary.main}
-          textAlign="center"
-        >
-          Please select one of the options to sign in below
-        </Typography>
-        <Box my={3}>
-          <GoogleSigninButton
-            handleClick={handleGoogleSignIn}
-            loading={loading}
-          />
-        </Box>
-        <Divider>
-          <Typography
-            fontSize={15}
-            letterSpacing={"0.01em"}
-            color={(theme: Theme) => theme.palette.secondary.light}
-          >
-            or
-          </Typography>
-        </Divider>
         <Box my={3}>
           <CustomInput
             label="Email"
@@ -103,7 +77,7 @@ const SignIn = () => {
         </Box>
         <Box mt={3}>
           <CustomButton
-            label={"Sign in to continue"}
+            label={"Sign up to continue"}
             onClick={handleSignIn}
             disabled={loading}
           />
@@ -117,7 +91,7 @@ const SignIn = () => {
           textAlign="center"
           my={2}
         >
-          Don’t have an account yet?{" "}
+          Already have an account?{" "}
           <Typography
             component="span"
             fontSize={15}
@@ -126,8 +100,8 @@ const SignIn = () => {
             letterSpacing={"0.01em"}
             color={(theme: Theme) => theme.palette.primary.main}
           >
-            <Link href="/signup" legacyBehavior>
-              Sign Up
+            <Link href="/signin" legacyBehavior>
+              Sign In
             </Link>
           </Typography>
         </Typography>
