@@ -14,6 +14,7 @@ import {
 import BackdropLoader from "@/components/ui-components/common/backdropLoader";
 import { NextPage } from "next";
 import GroupedButtons from "@/components/ui-components/common/buttons/grouped-button";
+import CustomButton from "@/components/ui-components/common/buttons/custom-button";
 
 interface Props {
   query?: any;
@@ -59,10 +60,12 @@ const SingleProduct: NextPage<Props> = ({ query }) => {
       <Container maxWidth="lg">
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6}>
-            <img src={productDetails.image} alt="" width={300} />
+            <Box display="flex" justifyContent="center">
+              <img src={productDetails.image} alt="" width={300} />
+            </Box>
           </Grid>
           <Grid item xs={12} sm={6}>
-            <Box display="flex" flexDirection="column" gap={2}>
+            <Box display="flex" flexDirection="column" gap={2} py={2}>
               <Typography
                 fontSize={26}
                 fontWeight={400}
@@ -74,7 +77,7 @@ const SingleProduct: NextPage<Props> = ({ query }) => {
                 {productDetails?.price}
               </Typography>
               <Typography
-                fontSize={20}
+                fontSize={16}
                 fontWeight={400}
                 color={(theme: Theme) => theme.palette.primary.light}
               >
@@ -87,7 +90,16 @@ const SingleProduct: NextPage<Props> = ({ query }) => {
                   {productDetails?.rating?.count} customer review
                 </Typography>
               </Box>
-              <GroupedButtons handleChange={handleProductCount} />
+              <Box
+                display="flex"
+                gap={3}
+                justifyContent="space-between"
+                mt={3}
+                flexDirection={{ xs: "column", sm: "row" }}
+              >
+                <GroupedButtons handleChange={handleProductCount} />
+                <CustomButton label="ADD TO CART" />
+              </Box>
             </Box>
           </Grid>
         </Grid>
