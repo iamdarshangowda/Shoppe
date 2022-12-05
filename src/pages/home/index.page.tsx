@@ -69,11 +69,11 @@ const Home = () => {
             flexWrap={"wrap"}
           >
             {productList.map((item: any, index: number) => (
-              <Box key={index}>
-                <Link href={`/product/${item.id}`} legacyBehavior>
+              <Link href={`/product/${item.id}`} legacyBehavior key={index}>
+                <Box>
                   <ListingCard productDetails={item} />
-                </Link>
-              </Box>
+                </Box>
+              </Link>
             ))}
           </Box>
         ) : (
