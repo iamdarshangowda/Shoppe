@@ -1,1 +1,4 @@
-/ /home
+# Redirects from what the browser requests to what we serve
+/              /home
+
+
