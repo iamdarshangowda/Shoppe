@@ -25,7 +25,7 @@ export const Filters: React.FunctionComponent<Props> = ({
           fontWeight={500}
           color={(theme: Theme) => theme.palette.primary.light}
         >
-          Shop The Latest
+          Filter Products
         </Typography>
       </Box>
       <Box mb={3}>
