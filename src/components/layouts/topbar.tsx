@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import { useUserAuth } from "src/context/ContextProvider";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 export const Topbar = () => {
   const [value, setValue] = React.useState("one");
@@ -46,7 +47,9 @@ export const Topbar = () => {
     <>
       <Box display={"flex"} justifyContent={"space-between"} py={1} gap={2}>
         <Box flexGrow={1}>
-          <img src="/logo.gif" alt="" width={180} />
+          <Link href="/home">
+            <img src="/logo.gif" alt="" width={180} />
+          </Link>
         </Box>
         <Box>
           <Tabs

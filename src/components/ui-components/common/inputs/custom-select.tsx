@@ -83,7 +83,7 @@ const CustomSelect: React.FunctionComponent<props> = ({
           },
         }}
       >
-        <MenuItem value={"default"} disabled>
+        <MenuItem value={""} disabled>
           {placeholder}
         </MenuItem>
         {data?.map((item: any, index: number) => (

@@ -3,15 +3,17 @@ import { Button } from "@mui/material";
 
 interface PrimaryButtonProps {
   label: string;
-  onClick?: any;
+  onClick?: () => void;
   sx?: any;
   disabled?: boolean;
   variant?: VariantProps;
-  color?: any;
+  color?: string;
   icon?: any;
+  height?: string;
 }
 
 type VariantProps = "text" | "outlined" | "contained" | undefined;
+type SizeProps = "small" | "medium" | "large" | undefined;
 
 const CustomButton: React.FunctionComponent<PrimaryButtonProps> = ({
   label,
@@ -21,6 +23,7 @@ const CustomButton: React.FunctionComponent<PrimaryButtonProps> = ({
   variant,
   color,
   icon,
+  height,
 }) => {
   return (
     <Button
@@ -32,7 +35,7 @@ const CustomButton: React.FunctionComponent<PrimaryButtonProps> = ({
         bgcolor: "#453825",
         textTransform: "none",
         fontWeight: 500,
-        height: "48px",
+        height: height ? height : "48px",
         width: "100%",
         borderRadius: "30px",
         fontSize: "14px",
@@ -42,8 +45,8 @@ const CustomButton: React.FunctionComponent<PrimaryButtonProps> = ({
         ...sx,
       }}
       disabled={disabled}
+      startIcon={icon}
     >
-      {icon}
       {label}
     </Button>
   );

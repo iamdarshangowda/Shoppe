@@ -1,19 +1,26 @@
 import React, { useState, useEffect } from "react";
-import { Box, Divider, Skeleton, Theme } from "@mui/material";
+import { Box, Divider, Skeleton } from "@mui/material";
 import { Filters } from "./inc/filters";
 import { get } from "src/config/axiosClient";
 import { ListingCard } from "@/components/ui-components/common/cards/listing-card";
 import { debounce } from "@/utils/dataModifiers";
 import Link from "next/link";
 import BackdropLoader from "@/components/ui-components/common/backdropLoader";
+import { useRouter } from "next/router";
+import { NextPage } from "next";
 
-const Home = () => {
+interface Props {
+  query?: any;
+}
+
+const Home: NextPage<Props> = ({ query }) => {
+  const router = useRouter();
   const [productList, setProductList] = useState<any | []>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const getAllProducts = async (params?: any) => {
+  const getAllProducts = async (value: any) => {
     setLoading(true);
-    await get("products", params).then(
+    await get("products", { sort: value }).then(
       (res) => {
         setProductList(res.data);
         setLoading(false);
@@ -28,7 +35,7 @@ const Home = () => {
     if (value.length > 0) {
       getProductsByCategory(value);
     } else {
-      getAllProducts();
+      getAllProducts(router.query.sortby);
     }
   });
 
@@ -45,19 +52,28 @@ const Home = () => {
     );
   };
 
-  const handleSingleProduct = () => {};
+  const handleSort = (value: string) => {
+    router.replace(`${router.pathname}?sortby=${value}`);
+    getAllProducts(value);
+  };
+
+  const handleClearFilters = () => {
+    router.replace(`${router.pathname}`);
+    getAllProducts("");
+  };
 
   useEffect(() => {
-    getAllProducts();
-  }, []);
+    getAllProducts(router.query.sortby);
+  }, [router.query.sortby]);
 
   return (
     <>
       <Box display={{ xs: "block", sm: "flex" }} gap={4}>
         <Box width={"100%"} maxWidth={{ xs: "100%", sm: 252 }} flexGrow={1}>
           <Filters
-            handleSort={(value: string) => getAllProducts({ sort: value })}
+            handleSort={handleSort}
             handleSearch={(value: string) => handleSearchDebounce(value)}
+            clearFilters={handleClearFilters}
           />
         </Box>
         <Divider orientation="vertical" flexItem />
@@ -86,3 +102,7 @@ const Home = () => {
 };
 
 export default Home;
+
+Home.getInitialProps = async ({ query }) => {
+  return { query };
+};
