@@ -16,6 +16,8 @@ import { NextPage } from "next";
 import GroupedButtons from "@/components/ui-components/common/buttons/grouped-button";
 import CustomButton from "@/components/ui-components/common/buttons/custom-button";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import { useUserAuth } from "src/context/ContextProvider";
+import { validateHeaderValue } from "http";
 
 interface Props {
   query?: any;
@@ -28,7 +30,11 @@ const SingleProduct: NextPage<Props> = ({ query }) => {
   const [openSnackModal, setOpenSnackModal] = useState<boolean>(false);
   const [productDetails, setProductDetails] = useState<any | {}>({});
   const [snackText, setSnackText] = useState<any>("");
-
+  const { GlobalDetails, user }: any = useUserAuth();
+  const [productCart, setProductCart] = useState<any | {}>({
+    id: router.query.id,
+    count: "",
+  });
   const getSingleProductDetail = async (id: any) => {
     setSnackText("");
     setLoading(true);
@@ -47,7 +53,31 @@ const SingleProduct: NextPage<Props> = ({ query }) => {
   };
 
   const handleProductCount = (value: number) => {
-    console.log(value);
+    setProductCart((prev: any) => {
+      return { ...prev, count: value };
+    });
+  };
+
+  const handleAddtoCart = () => {
+    let tempArr: any = [...GlobalDetails.state.cartDetails];
+    let otherItems = tempArr.filter((item: any) => item.id !== router.query.id);
+    GlobalDetails.dispatch({
+      type: "cart-details",
+      value: [...otherItems, productCart],
+    });
+    handleUserCart();
+  };
+
+  const handleUserCart = () => {
+    if (user.email) {
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          email: user.email,
+          cartData: GlobalDetails.state.cartDetails,
+        })
+      );
+    }
   };
 
   const handleBack = () => {
@@ -115,7 +145,7 @@ const SingleProduct: NextPage<Props> = ({ query }) => {
                 flexDirection={{ xs: "column", sm: "row" }}
               >
                 <GroupedButtons handleChange={handleProductCount} />
-                <CustomButton label="ADD TO CART" />
+                <CustomButton label="ADD TO CART" onClick={handleAddtoCart} />
               </Box>
             </Box>
           </Grid>

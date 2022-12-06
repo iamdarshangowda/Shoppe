@@ -25,7 +25,13 @@ export const Filters: React.FunctionComponent<Props> = ({
 
   return (
     <Box>
-      <Box mb={2} display="flex" justifyContent={"space-between"}>
+      <Box
+        mb={2}
+        display="flex"
+        justifyContent={"space-between"}
+        flexWrap={"wrap"}
+        gap={2}
+      >
         <Typography
           fontSize={23}
           fontWeight={500}
@@ -35,7 +41,7 @@ export const Filters: React.FunctionComponent<Props> = ({
         </Typography>
         <CustomButton
           label="Clear Filters"
-          sx={{ maxWidth: "120px" }}
+          sx={{ minWidth: "120px" }}
           height={"38px"}
           onClick={clearFilters}
         />

@@ -8,6 +8,7 @@ import Link from "next/link";
 import BackdropLoader from "@/components/ui-components/common/backdropLoader";
 import { useRouter } from "next/router";
 import { NextPage } from "next";
+import { useUserAuth } from "src/context/ContextProvider";
 
 interface Props {
   query?: any;
@@ -17,6 +18,7 @@ const Home: NextPage<Props> = ({ query }) => {
   const router = useRouter();
   const [productList, setProductList] = useState<any | []>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const { GlobalDetails, user }: any = useUserAuth();
 
   const getAllProducts = async (value: any) => {
     setLoading(true);
@@ -65,6 +67,23 @@ const Home: NextPage<Props> = ({ query }) => {
   useEffect(() => {
     getAllProducts(router.query.sortby);
   }, [router.query.sortby]);
+
+  const handleUserCartPrefillDetails = () => {
+    if (localStorage.getItem("user")) {
+      let savedUserData = localStorage.getItem("user");
+      let parsedData = JSON.parse(savedUserData || "");
+      if (user.email == parsedData.email) {
+        GlobalDetails.dispatch({
+          type: "cart-details",
+          value: parsedData.cartData,
+        });
+      }
+    }
+  };
+
+  useEffect(() => {
+    handleUserCartPrefillDetails();
+  }, []);
 
   return (
     <>
