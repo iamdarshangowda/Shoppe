@@ -1,7 +1,7 @@
-import { useUserAuth } from "src/context/ContextProvider";
+import { useContextDetails } from "src/context/ContextProvider";
 
 export const getCartPrefillDetails = () => {
-  const { user, GlobalDetails }: any = useUserAuth();
+  const { user, GlobalDetails }: any = useContextDetails();
 
   if (localStorage.getItem("user")) {
     let savedUserData = localStorage.getItem("user");
