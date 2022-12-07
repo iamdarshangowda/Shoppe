@@ -15,6 +15,7 @@ import {
   sendPasswordResetEmail,
 } from "firebase/auth";
 import { auth } from "../pages/firebase";
+import { cartReducer } from "./reducers/cartReducer";
 
 interface contextProviderProp {
   children: any;
@@ -35,11 +36,6 @@ interface UserDataProp {
   password: string;
 }
 
-import {
-  initialState as globalDetailsInitialState,
-  reducer as globalDetails,
-} from "./reducers/globalDetails";
-
 export const Context = createContext<context | null>(null);
 const ContextProvider = Context.Provider;
 
@@ -47,11 +43,9 @@ export const ContextProviderWrapper: React.FunctionComponent<
   contextProviderProp
 > = ({ children }) => {
   const [user, setUser] = useState<any>("");
-
-  const [globalDetailsData, globalDetailsDispatch] = useReducer(
-    globalDetails,
-    globalDetailsInitialState
-  );
+  const [cartState, cartDispatch] = useReducer(cartReducer, {
+    cart: [],
+  });
 
   const SignUp = (email: string, password: string) => {
     return createUserWithEmailAndPassword(auth, email, password);
@@ -91,14 +85,12 @@ export const ContextProviderWrapper: React.FunctionComponent<
     user,
     googleSignIn,
     forgotPassword,
-    GlobalDetails: {
-      state: globalDetailsData,
-      dispatch: globalDetailsDispatch,
-    },
+    cartState,
+    cartDispatch,
   };
   return <ContextProvider value={store}>{children}</ContextProvider>;
 };
 
-export const useUserAuth = () => {
+export const useContextDetails = () => {
   return useContext(Context);
 };

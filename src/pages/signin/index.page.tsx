@@ -4,7 +4,7 @@ import { GoogleSigninButton } from "./inc/google-signin-button";
 import CustomInput from "@/components/ui-components/common/inputs/custom-input";
 import CustomButton from "@/components/ui-components/common/buttons/custom-button";
 import Link from "next/link";
-import { useUserAuth } from "src/context/ContextProvider";
+import { useContextDetails } from "src/context/ContextProvider";
 import { SnackbarModal } from "@/components/ui-components/snackbar";
 import { useRouter } from "next/router";
 
@@ -18,7 +18,7 @@ const SignIn = () => {
     email: "",
     password: "",
   });
-  const { LogIn, googleSignIn }: any = useUserAuth();
+  const { LogIn, googleSignIn }: any = useContextDetails();
   const handleGoogleSignIn = async () => {
     setIsError(false);
     setLoading(true);

@@ -10,14 +10,16 @@ import {
   Rating,
   Divider,
   Theme,
+  IconButton,
+  Tooltip,
 } from "@mui/material";
 import BackdropLoader from "@/components/ui-components/common/backdropLoader";
 import { NextPage } from "next";
 import GroupedButtons from "@/components/ui-components/common/buttons/grouped-button";
 import CustomButton from "@/components/ui-components/common/buttons/custom-button";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import { useUserAuth } from "src/context/ContextProvider";
-import { validateHeaderValue } from "http";
+import { useContextDetails } from "src/context/ContextProvider";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 interface Props {
   query?: any;
@@ -30,11 +32,13 @@ const SingleProduct: NextPage<Props> = ({ query }) => {
   const [openSnackModal, setOpenSnackModal] = useState<boolean>(false);
   const [productDetails, setProductDetails] = useState<any | {}>({});
   const [snackText, setSnackText] = useState<any>("");
-  const { GlobalDetails, user }: any = useUserAuth();
-  const [productCart, setProductCart] = useState<any | {}>({
-    id: router.query.id,
-    count: "",
-  });
+  const {
+    cartState: { cart },
+    cartDispatch,
+    user,
+  }: any = useContextDetails();
+  const [cartCount, setCartCount] = useState<number>(0);
+
   const getSingleProductDetail = async (id: any) => {
     setSnackText("");
     setLoading(true);
@@ -53,31 +57,23 @@ const SingleProduct: NextPage<Props> = ({ query }) => {
   };
 
   const handleProductCount = (value: number) => {
-    setProductCart((prev: any) => {
-      return { ...prev, count: value };
-    });
+    setCartCount(value);
   };
 
   const handleAddtoCart = () => {
-    let tempArr: any = [...GlobalDetails.state.cartDetails];
-    let otherItems = tempArr.filter((item: any) => item.id !== router.query.id);
-    GlobalDetails.dispatch({
-      type: "cart-details",
-      value: [...otherItems, productCart],
+    cartDispatch({
+      type: "ADD-TO-CART",
+      payload: productDetails,
+      qty: cartCount,
     });
-    handleUserCart();
   };
 
-  const handleUserCart = () => {
-    if (user.email) {
-      localStorage.setItem(
-        "user",
-        JSON.stringify({
-          email: user.email,
-          cartData: GlobalDetails.state.cartDetails,
-        })
-      );
-    }
+  const handleRemovefromCart = () => {
+    cartDispatch({
+      type: "REMOVE-FROM-CART",
+      payload: productDetails,
+    });
+    setCartCount(0);
   };
 
   const handleBack = () => {
@@ -86,6 +82,20 @@ const SingleProduct: NextPage<Props> = ({ query }) => {
   useEffect(() => {
     getSingleProductDetail(query?.id);
   }, [query?.id]);
+
+  const handleSetCartPrefill = () => {
+    const currentProduct = cart.filter(
+      (item: any) => item.id == router.query.id
+    );
+
+    if (currentProduct.length) {
+      setCartCount(currentProduct[0].qty);
+    }
+  };
+
+  useEffect(() => {
+    handleSetCartPrefill();
+  }, []);
 
   return (
     <>
@@ -140,12 +150,25 @@ const SingleProduct: NextPage<Props> = ({ query }) => {
               <Box
                 display="flex"
                 gap={3}
-                justifyContent="space-between"
+                justifyContent="flex-start"
+                alignItems={"center"}
                 mt={3}
                 flexDirection={{ xs: "column", sm: "row" }}
               >
-                <GroupedButtons handleChange={handleProductCount} />
-                <CustomButton label="ADD TO CART" onClick={handleAddtoCart} />
+                <GroupedButtons
+                  handleChange={handleProductCount}
+                  cartCount={cartCount}
+                />
+                <CustomButton
+                  label="ADD TO CART"
+                  onClick={handleAddtoCart}
+                  sx={{ width: "200px" }}
+                />
+                <Tooltip title="Remove Item from Cart">
+                  <IconButton onClick={handleRemovefromCart}>
+                    <DeleteIcon sx={{ fontSize: "30px" }} />
+                  </IconButton>
+                </Tooltip>
               </Box>
             </Box>
           </Grid>

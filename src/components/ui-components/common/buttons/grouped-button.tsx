@@ -1,28 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, ButtonGroup } from "@mui/material";
 
 interface Props {
   handleChange: (value: number) => void;
+  cartCount: number;
 }
 
-const GroupedButtons: React.FunctionComponent<Props> = ({ handleChange }) => {
-  const [value, setValue] = useState<number>(0);
-
+const GroupedButtons: React.FunctionComponent<Props> = ({
+  handleChange,
+  cartCount,
+}) => {
   const handleIncrement = () => {
-    setValue((prev) => prev + 1);
-    handleChange(value + 1);
+    handleChange(cartCount + 1);
   };
   const handleDecrement = () => {
-    setValue((prev) => prev - 1);
-    handleChange(value - 1);
+    handleChange(cartCount - 1);
   };
 
   return (
     <ButtonGroup size="small" aria-label="small outlined button group">
-      <Button onClick={handleDecrement} disabled={value <= 0}>
+      <Button onClick={handleDecrement} disabled={cartCount <= 0}>
         -
       </Button>
-      <Button disabled>{value}</Button>
+      <Button disabled>{cartCount}</Button>
       <Button onClick={handleIncrement}>+</Button>
     </ButtonGroup>
   );

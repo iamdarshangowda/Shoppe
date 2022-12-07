@@ -4,7 +4,7 @@ import CustomInput from "@/components/ui-components/common/inputs/custom-input";
 import CustomButton from "@/components/ui-components/common/buttons/custom-button";
 import Link from "next/link";
 import { SnackbarModal } from "@/components/ui-components/snackbar";
-import { useUserAuth } from "src/context/ContextProvider";
+import { useContextDetails } from "src/context/ContextProvider";
 import { useRouter } from "next/router";
 
 const SignUp = () => {
@@ -17,7 +17,7 @@ const SignUp = () => {
     email: "",
     password: "",
   });
-  const { SignUp }: any = useUserAuth();
+  const { SignUp }: any = useContextDetails();
 
   const handleSignUp = async () => {
     setIsError(false);

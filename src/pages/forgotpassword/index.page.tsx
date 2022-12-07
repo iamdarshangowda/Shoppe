@@ -4,7 +4,7 @@ import CustomInput from "@/components/ui-components/common/inputs/custom-input";
 import CustomButton from "@/components/ui-components/common/buttons/custom-button";
 import Link from "next/link";
 import { SnackbarModal } from "@/components/ui-components/snackbar";
-import { useUserAuth } from "src/context/ContextProvider";
+import { useContextDetails } from "src/context/ContextProvider";
 import Router, { useRouter } from "next/router";
 
 const ForgotPassword = () => {
@@ -13,7 +13,7 @@ const ForgotPassword = () => {
   const [snackText, setSnackText] = useState<any>("");
   const [openSnackModal, setOpenSnackModal] = useState<boolean>(false);
   const [email, setEmail] = useState<any>("");
-  const { forgotPassword }: any = useUserAuth();
+  const { forgotPassword }: any = useContextDetails();
 
   const handleForgotPassword = async () => {
     setLoading(true);

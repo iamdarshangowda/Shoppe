@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import {
   Box,
-  Tabs,
-  Tab,
   Divider,
   Tooltip,
   MenuItem,
@@ -12,14 +10,17 @@ import {
   Typography,
   Badge,
 } from "@mui/material";
-import { useUserAuth } from "src/context/ContextProvider";
+import { useContextDetails } from "src/context/ContextProvider";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 export const Topbar = () => {
-  const [value, setValue] = React.useState("one");
-  const { LogOut, user, GlobalDetails }: any = useUserAuth();
+  const {
+    LogOut,
+    user,
+    cartState: { cart },
+  }: any = useContextDetails();
   const router = useRouter();
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -30,15 +31,7 @@ export const Topbar = () => {
     setAnchorElUser(null);
   };
 
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-    setValue(newValue);
-  };
-
   const handleLogOut = async () => {
-    GlobalDetails.dispatch({
-      type: "cart-details",
-      value: [],
-    });
     await LogOut().then(
       (res: any) => {
         router.push("/signin");
@@ -53,10 +46,11 @@ export const Topbar = () => {
   const handleLogIn = () => {
     router.push("/signin");
   };
-  const totalCartItem = GlobalDetails.state.cartDetails.reduce(
-    (t: any, c: any) => Number(c.count) + t,
+  const cartCount = cart.reduce(
+    (total: number, current: any) => Number(current.qty) + total,
     0
   );
+
   return (
     <>
       <Box
@@ -73,7 +67,7 @@ export const Topbar = () => {
         </Box>
         <Box mr={2}>
           <IconButton>
-            <Badge badgeContent={totalCartItem} color="primary">
+            <Badge badgeContent={cartCount} color="primary">
               <ShoppingCartIcon sx={{ fontSize: "30px" }} />
             </Badge>
           </IconButton>

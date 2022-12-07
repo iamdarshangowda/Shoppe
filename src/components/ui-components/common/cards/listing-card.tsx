@@ -1,5 +1,6 @@
 import React from "react";
 import { Card, CardMedia, CardContent, Typography, Theme } from "@mui/material";
+import { useContextDetails } from "src/context/ContextProvider";
 
 interface Props {
   productDetails: any;
@@ -8,6 +9,12 @@ interface Props {
 export const ListingCard: React.FunctionComponent<Props> = ({
   productDetails,
 }) => {
+  // if add cart is added in listing use below data
+  // const {
+  //   cartState: { cart },
+  //   cartDispatch,
+  // }: any = useContextDetails();
+
   return (
     <Card
       sx={{

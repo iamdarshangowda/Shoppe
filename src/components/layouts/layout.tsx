@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React from "react";
-import { Box, Container } from "@mui/material";
+import { Box } from "@mui/material";
 import { Topbar } from "./topbar";
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
 export const Layout: React.FunctionComponent<Props> = ({ children }) => {
   const router = useRouter();
   return (
-    <Container maxWidth="xl">
+    <Box px={2}>
       <Box>
         {router.pathname == "/" ||
         router.pathname == "/signin" ||
@@ -22,6 +22,6 @@ export const Layout: React.FunctionComponent<Props> = ({ children }) => {
       <Box component="main" width="100%" mt={3}>
         {children}
       </Box>
-    </Container>
+    </Box>
   );
 };
