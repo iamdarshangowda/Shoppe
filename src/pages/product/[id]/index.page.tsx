@@ -106,7 +106,7 @@ const SingleProduct: NextPage<Props> = ({ query }) => {
         handleClose={() => setOpenSnackModal(false)}
       />
       <Container maxWidth="xl">
-        <Grid container rowSpacing={2}>
+        <Grid container rowSpacing={2} mb={4}>
           <Grid item xs={12}>
             <CustomButton
               label="back"
@@ -159,16 +159,18 @@ const SingleProduct: NextPage<Props> = ({ query }) => {
                   handleChange={handleProductCount}
                   cartCount={cartCount}
                 />
-                <CustomButton
-                  label="ADD TO CART"
-                  onClick={handleAddtoCart}
-                  sx={{ width: "200px" }}
-                />
-                <Tooltip title="Remove Item from Cart">
-                  <IconButton onClick={handleRemovefromCart}>
-                    <DeleteIcon sx={{ fontSize: "30px" }} />
-                  </IconButton>
-                </Tooltip>
+                <Box display="flex" justifyContent={"space-between"} gap={3}>
+                  <CustomButton
+                    label="ADD TO CART"
+                    onClick={handleAddtoCart}
+                    sx={{ width: "200px" }}
+                  />
+                  <Tooltip title="Remove Item from Cart">
+                    <IconButton onClick={handleRemovefromCart}>
+                      <DeleteIcon sx={{ fontSize: "30px" }} />
+                    </IconButton>
+                  </Tooltip>
+                </Box>
               </Box>
             </Box>
           </Grid>

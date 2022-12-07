@@ -18,7 +18,7 @@ const GroupedButtons: React.FunctionComponent<Props> = ({
   };
 
   return (
-    <ButtonGroup size="small" aria-label="small outlined button group">
+    <ButtonGroup size="medium">
       <Button onClick={handleDecrement} disabled={cartCount <= 0}>
         -
       </Button>
