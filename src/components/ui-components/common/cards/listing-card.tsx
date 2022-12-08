@@ -1,7 +1,15 @@
 import React from "react";
-import { Card, CardMedia, CardContent, Typography, Theme } from "@mui/material";
+import {
+  Card,
+  CardMedia,
+  CardContent,
+  CardActions,
+  Typography,
+  Theme,
+  Chip,
+} from "@mui/material";
 import { useContextDetails } from "src/context/ContextProvider";
-
+import SellIcon from "@mui/icons-material/Sell";
 interface Props {
   productDetails: any;
 }
@@ -18,14 +26,16 @@ export const ListingCard: React.FunctionComponent<Props> = ({
   return (
     <Card
       sx={{
+        boxShadow: "0 0 2px",
+        position: "relative",
         width: {
           xs: 170,
-          sm: 200,
+          sm: 220,
           "&:hover": {
             cursor: "pointer",
           },
         },
-        height: 350,
+        height: 340,
       }}
     >
       <CardMedia
@@ -36,16 +46,31 @@ export const ListingCard: React.FunctionComponent<Props> = ({
       />
       <CardContent>
         <Typography
-          fontSize={15}
+          fontSize="0.9em"
           fontWeight={500}
           color={(theme: Theme) => theme.palette.primary.light}
         >
-          {productDetails?.title.substring(0, 60)}
-        </Typography>
-        <Typography fontSize={20} fontWeight={500} color="#A18A68">
-          ${productDetails?.price}
+          {productDetails?.title.substring(0, 40)}
         </Typography>
       </CardContent>
+      <CardActions
+        sx={{
+          position: "absolute",
+          left: "10px",
+          bottom: "10px",
+        }}
+      >
+        <Chip
+          label={`$${productDetails?.price}`}
+          icon={<SellIcon />}
+          sx={{
+            fontSize: "20px",
+            fontWeight: 500,
+            color: "#A18A68",
+            cursor: "pointer",
+          }}
+        />
+      </CardActions>
     </Card>
   );
 };

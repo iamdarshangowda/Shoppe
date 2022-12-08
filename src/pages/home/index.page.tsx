@@ -68,7 +68,7 @@ const Home: NextPage<Props> = ({ query }) => {
 
   return (
     <>
-      <Box display={{ xs: "block", sm: "flex" }} gap={4}>
+      <Box display={{ xs: "block", sm: "flex" }} gap={4} mb={4}>
         <Box width={"100%"} maxWidth={{ xs: "100%", sm: 252 }} flexGrow={1}>
           <Filters
             handleSort={handleSort}

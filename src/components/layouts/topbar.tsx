@@ -84,7 +84,7 @@ export const Topbar = () => {
               handleLogIn={handleLogIn}
             />
           ) : (
-            <CustomButton label="Login" height="40px" />
+            <CustomButton label="Login" height="40px" onClick={handleLogIn} />
           )}
         </Box>
       </Box>

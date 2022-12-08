@@ -8,11 +8,13 @@ import {
   Theme,
   IconButton,
   Tooltip,
+  Chip,
 } from "@mui/material";
 import CustomButton from "@/components/ui-components/common/buttons/custom-button";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import GroupedButtons from "@/components/ui-components/common/buttons/grouped-button";
+import SellIcon from "@mui/icons-material/Sell";
 
 interface Props {
   productDetails: any;
@@ -58,9 +60,16 @@ export const SingleProductView: React.FunctionComponent<Props> = ({
           >
             {productDetails?.title}
           </Typography>
-          <Typography fontSize={22} fontWeight={400} color="#A18A68">
-            ${productDetails?.price}
-          </Typography>
+          <Chip
+            label={`$${productDetails?.price}`}
+            icon={<SellIcon />}
+            sx={{
+              fontSize: "20px",
+              fontWeight: 500,
+              color: "#A18A68",
+              maxWidth: "130px",
+            }}
+          />
           <Typography
             fontSize={16}
             fontWeight={400}
