@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import { CartPopover } from "./inc/cartPopover";
 import { ProfileMenu } from "./inc/profileMenu";
+import CustomButton from "../ui-components/common/buttons/custom-button";
 
 export const Topbar = () => {
   const {
@@ -76,11 +77,15 @@ export const Topbar = () => {
           />
         </Box>
         <Box sx={{ flexGrow: 0 }} mr={2}>
-          <ProfileMenu
-            user={user}
-            handleLogOut={handleLogOut}
-            handleLogIn={handleLogIn}
-          />
+          {user ? (
+            <ProfileMenu
+              user={user}
+              handleLogOut={handleLogOut}
+              handleLogIn={handleLogIn}
+            />
+          ) : (
+            <CustomButton label="Login" height="40px" />
+          )}
         </Box>
       </Box>
       <Divider />

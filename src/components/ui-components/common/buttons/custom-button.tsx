@@ -36,6 +36,7 @@ const CustomButton: React.FunctionComponent<PrimaryButtonProps> = ({
         textTransform: "none",
         fontWeight: 500,
         height: height ? height : "48px",
+        minWidth: "80px",
         width: "100%",
         borderRadius: "30px",
         fontSize: "14px",

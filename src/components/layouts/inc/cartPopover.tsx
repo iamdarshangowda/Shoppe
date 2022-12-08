@@ -89,7 +89,7 @@ export const CartPopover: React.FunctionComponent<Props> = ({
             </Box>
           </Box>
         ) : (
-          <Typography fontSize={18} p={2} fontWeight={600}>
+          <Typography fontSize={18} p={2}>
             No Items Added
           </Typography>
         )}

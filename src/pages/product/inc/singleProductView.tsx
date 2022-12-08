@@ -34,7 +34,7 @@ export const SingleProductView: React.FunctionComponent<Props> = ({
   handleRemovefromCart,
 }) => {
   return (
-    <Grid container>
+    <Grid container mb={4}>
       <Grid item xs={12}>
         <CustomButton
           label="back"
@@ -77,21 +77,20 @@ export const SingleProductView: React.FunctionComponent<Props> = ({
           </Box>
           <Box
             display="flex"
-            gap={3}
-            justifyContent="flex-start"
+            gap={2}
+            justifyContent={{ xs: "center", sm: "flex-start" }}
             alignItems={"center"}
-            mt={3}
-            flexDirection={{ xs: "column", sm: "row" }}
+            mt={1}
           >
             <GroupedButtons
               handleChange={handleProductCount}
               cartCount={cartCount}
             />
-            <Box display="flex" justifyContent={"space-between"} gap={3}>
+            <Box display="flex" justifyContent={"space-between"} gap={1}>
               <CustomButton
                 label="ADD TO CART"
                 onClick={handleAddtoCart}
-                sx={{ width: "200px" }}
+                sx={{ width: { xs: "150px", sm: "200px" } }}
               />
               <Tooltip title="Remove Item from Cart">
                 <IconButton onClick={handleRemovefromCart}>
