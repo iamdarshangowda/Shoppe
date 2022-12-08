@@ -13,6 +13,9 @@ const theme = createTheme({
       light: "#919191",
       main: "#6D6D6D",
     },
+    warning: {
+      main: "#DC3535",
+    },
   },
 });
 
