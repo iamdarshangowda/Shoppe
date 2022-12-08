@@ -22,7 +22,12 @@ export const SingleItem: React.FunctionComponent<Props> = ({
         maxHeight="120px"
       >
         <Box>
-          <img src={cartDetails?.image} alt="" width={100} />
+          <img
+            src={cartDetails?.image}
+            alt=""
+            width={100}
+            style={{ maxHeight: "120px" }}
+          />
         </Box>
         <Box
           display="flex"
@@ -67,7 +72,7 @@ export const SingleItem: React.FunctionComponent<Props> = ({
         </Box>
         {/* <Box></Box> */}
       </Box>
-      <Divider sx={{ mt: 2 }} />
+      <Divider sx={{ mt: 2, maxWidth: "550px" }} />
     </>
   );
 };
