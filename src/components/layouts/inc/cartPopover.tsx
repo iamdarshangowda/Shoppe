@@ -37,6 +37,11 @@ export const CartPopover: React.FunctionComponent<Props> = ({
     setAnchorEl(null);
   };
 
+  const handleCartCheckout = () => {
+    setAnchorEl(null);
+    handleCheckout();
+  };
+
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
 
@@ -74,7 +79,7 @@ export const CartPopover: React.FunctionComponent<Props> = ({
               <CustomButton
                 label="Checkout"
                 sx={{ height: "30px" }}
-                onClick={handleCheckout}
+                onClick={handleCartCheckout}
               />
             </Box>
             <Box textAlign={"center"}>

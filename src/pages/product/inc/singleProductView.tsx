@@ -80,7 +80,11 @@ export const SingleProductView: React.FunctionComponent<Props> = ({
           <Box display="flex" gap={2}>
             <Rating value={rating} readOnly />
             <Divider orientation="vertical" flexItem />
-            <Typography>
+            <Typography
+              fontSize={16}
+              fontWeight={400}
+              color={(theme: Theme) => theme.palette.secondary.light}
+            >
               {productDetails?.rating?.count} customer review
             </Typography>
           </Box>
