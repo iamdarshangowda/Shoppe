@@ -1,3 +1,5 @@
+import { getExperimentalSetting } from "@firebase/util";
+
 interface action {
   type: any;
   qty: any;
@@ -5,11 +7,24 @@ interface action {
 }
 
 export const cartReducer = (state: any, action: action) => {
+  const handleAddCart = () => {
+    const existng = state.cart.filter(
+      (item: any) => item.id == action.payload.id
+    );
+    const remainingItems = state.cart.filter(
+      (item: any) => item.id !== action.payload.id
+    );
+    if (existng.length) {
+      return [...remainingItems, { ...existng[0], qty: action.qty }];
+    } else {
+      return [...state.cart, { ...action.payload, qty: action.qty }];
+    }
+  };
   switch (action?.type) {
     case "ADD-TO-CART":
       return {
         ...state,
-        cart: [...state.cart, { ...action.payload, qty: action.qty }],
+        cart: handleAddCart(),
       };
     case "REMOVE-FROM-CART":
       return {
