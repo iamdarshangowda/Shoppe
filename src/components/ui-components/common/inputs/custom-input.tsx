@@ -34,7 +34,7 @@ const CustomInput: React.FunctionComponent<inputFieldProps> = ({
         <InputLabel
           htmlFor={fieldName}
           sx={{
-            fontSize: 13,
+            fontSize: "0.8em",
             fontWeight: 600,
             mb: "4px",
           }}

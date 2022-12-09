@@ -31,7 +31,7 @@ export const GoogleSigninButton: React.FunctionComponent<Props> = ({
     >
       <img src="/icons/google.png" alt="google icon" width={24} height={24} />
       <Typography
-        fontSize={"15px"}
+        fontSize="0.9em"
         fontWeight={700}
         color={(theme: Theme) => theme.palette.secondary.main}
         textTransform="none"
