@@ -37,7 +37,7 @@ export const SingleProductView: React.FunctionComponent<Props> = ({
 }) => {
   return (
     <Grid container mb={4}>
-      <Grid item xs={12}>
+      <Grid item xs={12} mb={1}>
         <CustomButton
           label="back"
           onClick={handleBack}

@@ -28,12 +28,9 @@ export const ListingCard: React.FunctionComponent<Props> = ({
       sx={{
         boxShadow: "0 0 2px",
         position: "relative",
-        width: {
-          xs: 170,
-          sm: 220,
-          "&:hover": {
-            cursor: "pointer",
-          },
+        maxWidth: 220,
+        "&:hover": {
+          cursor: "pointer",
         },
         height: 340,
       }}

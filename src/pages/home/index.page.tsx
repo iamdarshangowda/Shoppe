@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, Divider, Skeleton } from "@mui/material";
+import { Box, Divider, Skeleton, Grid } from "@mui/material";
 import { Filters } from "./inc/filters";
 import { get } from "src/config/axiosClient";
 import { ListingCard } from "@/components/ui-components/common/cards/listing-card";
@@ -78,20 +78,15 @@ const Home: NextPage<Props> = ({ query }) => {
         </Box>
         <Divider orientation="vertical" flexItem />
         {productList?.length > 0 ? (
-          <Box
-            display={"flex"}
-            justifyContent={"flex-start"}
-            gap={4}
-            flexWrap={"wrap"}
-          >
+          <Grid container spacing={2}>
             {productList.map((item: any, index: number) => (
               <Link href={`/product/${item.id}`} legacyBehavior key={index}>
-                <Box>
+                <Grid item xs={6} sm={6} md={4} lg={3} xl={2}>
                   <ListingCard productDetails={item} />
-                </Box>
+                </Grid>
               </Link>
             ))}
-          </Box>
+          </Grid>
         ) : (
           <Skeleton variant="rectangular" width={"100%"} height={200} />
         )}

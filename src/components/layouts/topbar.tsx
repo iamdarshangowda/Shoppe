@@ -58,16 +58,16 @@ export const Topbar = () => {
       <Box
         display={"flex"}
         justifyContent={"space-between"}
-        py={1}
+        p={1}
         gap={2}
         alignItems={"center"}
       >
-        <Box flexGrow={1}>
+        <Box maxWidth={{ xs: 170, sm: 180 }}>
           <Link href="/home">
-            <img src="/logo.gif" alt="" width={180} />
+            <img src="/logo.gif" alt="" width="100%" />
           </Link>
         </Box>
-        <Box mr={2}>
+        <Box display="flex" gap={2} alignItems={"center"}>
           <CartPopover
             cartCount={cartCount}
             cartTotal={cartTotal}
@@ -75,8 +75,6 @@ export const Topbar = () => {
             handleCheckout={handleCheckout}
             handleClearCart={handleClearCart}
           />
-        </Box>
-        <Box sx={{ flexGrow: 0 }} mr={2}>
           {user ? (
             <ProfileMenu
               user={user}
