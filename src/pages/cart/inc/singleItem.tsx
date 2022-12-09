@@ -33,7 +33,8 @@ export const SingleItem: React.FunctionComponent<Props> = ({
           display="flex"
           flexDirection={"column"}
           gap={2}
-          width="400px"
+          maxWidth="400px"
+          width="100%"
           justifyContent={"space-between"}
         >
           <Box display="flex" justifyContent={"space-between"} gap={2}>

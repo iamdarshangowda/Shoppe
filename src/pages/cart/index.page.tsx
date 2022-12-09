@@ -19,9 +19,9 @@ const Cart = () => {
         color={(theme: Theme) => theme.palette.primary.light}
         textAlign="center"
       >
-        Shopping Cart
+        Cart Details
       </Typography>
-      <Grid container spacing={2} sx={{ px: { xs: 0, sm: 2 } }}>
+      <Grid container spacing={1}>
         <Grid item xs={12} sm={6}>
           {cart.map((item: any, index: number) => (
             <Box key={index} my={3}>
