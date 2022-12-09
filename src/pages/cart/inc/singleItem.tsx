@@ -17,7 +17,7 @@ export const SingleItem: React.FunctionComponent<Props> = ({
     <>
       <Box
         display="flex"
-        gap={3}
+        gap={2}
         sx={{ position: "relative" }}
         maxHeight="120px"
       >
@@ -53,7 +53,7 @@ export const SingleItem: React.FunctionComponent<Props> = ({
               />
             </Box>
           </Box>
-          <Box display="flex" justifyContent={"space-between"}>
+          <Box display="flex" justifyContent={"space-between"} gap={1}>
             <Chip
               label={`$${cartDetails?.price}`}
               icon={<SellIcon sx={{ fontSize: "18px" }} />}

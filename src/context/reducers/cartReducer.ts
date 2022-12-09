@@ -37,6 +37,11 @@ export const cartReducer = (state: any, action: action) => {
         ...state,
         cart: [],
       };
+    case "REPLACE-ALL-ITEMS":
+      return {
+        ...state,
+        cart: action.payload,
+      };
     default:
       return state;
   }

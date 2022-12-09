@@ -3,12 +3,30 @@ import { Box, Typography, Theme, Grid } from "@mui/material";
 import { useContextDetails } from "src/context/ContextProvider";
 import { SingleItem } from "./inc/singleItem";
 import { PriceDetails } from "./inc/priceDetails";
+import { useRouter } from "next/router";
 
 const Cart = () => {
   const {
     cartState: { cart },
+    user,
   }: any = useContextDetails();
-  console.log(cart);
+  const router = useRouter();
+
+  const cartCount = cart.reduce(
+    (total: number, current: any) => Number(current.qty) + total,
+    0
+  );
+
+  const cartTotalPrice = cart.reduce(
+    (total: number, current: any) =>
+      Number(current.price) * Number(current.qty) + total,
+    0
+  );
+
+  const handleLogin = () => {
+    localStorage.setTime("cart", JSON.stringify(cart));
+    router.push(`/signin?cart=true`);
+  };
 
   const handleChange = () => {};
   return (
@@ -39,7 +57,11 @@ const Cart = () => {
           >
             Cart totals
           </Typography>
-          <PriceDetails />
+          <PriceDetails
+            subTotal={cartTotalPrice}
+            isLogin={user}
+            handleLogin={handleLogin}
+          />
         </Grid>
       </Grid>
     </Box>

@@ -62,7 +62,7 @@ export const CartPopover: React.FunctionComponent<Props> = ({
           horizontal: "left",
         }}
       >
-        {cart.length > 0 ? (
+        {cart?.length > 0 ? (
           <Box p={2}>
             {cart.map((item: any, index: number) => (
               <Box key={index}>

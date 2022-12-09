@@ -1,7 +1,18 @@
 import React from "react";
 import { Box, Typography, Theme, Grid, Divider } from "@mui/material";
+import CustomButton from "@/components/ui-components/common/buttons/custom-button";
+import Router, { useRouter } from "next/router";
 
-export const PriceDetails = () => {
+interface Props {
+  subTotal: any;
+  isLogin: any;
+  handleLogin: () => void;
+}
+export const PriceDetails: React.FunctionComponent<Props> = ({
+  subTotal,
+  isLogin,
+  handleLogin,
+}) => {
   return (
     <Grid container sx={{ px: 3 }} spacing={2}>
       <Grid item xs={6}>
@@ -29,7 +40,7 @@ export const PriceDetails = () => {
           fontWeight={500}
           color={(theme: Theme) => theme.palette.primary.main}
         >
-          $ 65,00
+          ${subTotal}
         </Typography>
         <Typography
           my={3}
@@ -50,7 +61,7 @@ export const PriceDetails = () => {
           fontWeight={600}
           color={(theme: Theme) => theme.palette.primary.main}
         >
-          TOTAL
+          TOTAL <Typography fontSize="0.7em">(incl. GST)</Typography>
         </Typography>
       </Grid>
       <Grid item xs={6}>
@@ -60,8 +71,15 @@ export const PriceDetails = () => {
           fontWeight={600}
           color={(theme: Theme) => theme.palette.primary.main}
         >
-          $ 87,00
+          ${(subTotal + subTotal * (18 / 100)).toFixed(2)}
         </Typography>
+      </Grid>
+      <Grid>
+        {isLogin?.email ? (
+          <CustomButton label="Checkout" />
+        ) : (
+          <CustomButton label="Login to Checkout" onClick={handleLogin} />
+        )}
       </Grid>
     </Grid>
   );

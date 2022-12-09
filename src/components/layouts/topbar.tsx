@@ -17,6 +17,29 @@ export const Topbar = () => {
   const router = useRouter();
 
   const handleLogOut = async () => {
+    if (localStorage.getItem("shoppeusers")) {
+      let savedUserData = localStorage.getItem("shoppeusers");
+      let parsedData = JSON.parse(savedUserData || "");
+      // users = [{email: "", cart: []}]
+      let currentUser = parsedData.filter(
+        (item: any) => item.email == user.email
+      );
+      if (currentUser.length) {
+        let remaingUser = parsedData.filter(
+          (item: any) => item.email !== user.email
+        );
+        currentUser[0].cart = cart;
+        let users: any = [...remaingUser, ...currentUser];
+        localStorage.setItem("shoppeusers", JSON.stringify(users));
+      } else {
+        parsedData.push({ email: user.email, cart: cart });
+        localStorage.setItem("shoppeusers", JSON.stringify(parsedData));
+      }
+    } else {
+      let userData = [{ email: user.email, cart: cart }];
+      localStorage.setItem("shoppeusers", JSON.stringify(userData));
+    }
+
     await LogOut().then(
       (res: any) => {
         router.push("/signin");
@@ -42,12 +65,12 @@ export const Topbar = () => {
     });
   };
 
-  const cartCount = cart.reduce(
+  const cartCount = cart?.reduce(
     (total: number, current: any) => Number(current.qty) + total,
     0
   );
 
-  const cartTotal = cart.reduce(
+  const cartTotalPrice = cart?.reduce(
     (total: number, current: any) =>
       Number(current.price) * Number(current.qty) + total,
     0
@@ -70,7 +93,7 @@ export const Topbar = () => {
         <Box display="flex" gap={2} alignItems={"center"}>
           <CartPopover
             cartCount={cartCount}
-            cartTotal={cartTotal}
+            cartTotal={cartTotalPrice}
             cart={cart}
             handleCheckout={handleCheckout}
             handleClearCart={handleClearCart}

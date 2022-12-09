@@ -8,6 +8,7 @@ import Link from "next/link";
 import BackdropLoader from "@/components/ui-components/common/backdropLoader";
 import { useRouter } from "next/router";
 import { NextPage } from "next";
+import { useContextDetails } from "src/context/ContextProvider";
 
 interface Props {
   query?: any;
@@ -17,7 +18,9 @@ const Home: NextPage<Props> = ({ query }) => {
   const router = useRouter();
   const [productList, setProductList] = useState<any | []>([]);
   const [loading, setLoading] = useState<boolean>(false);
-
+  const {
+    cartState: { cart },
+  }: any = useContextDetails();
   const getAllProducts = async (value: any) => {
     setLoading(true);
     await get("products", { sort: value }).then(

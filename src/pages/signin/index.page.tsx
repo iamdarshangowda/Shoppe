@@ -21,13 +21,14 @@ const SignIn = () => {
     email: "",
     password: "",
   });
-  const { LogIn, googleSignIn }: any = useContextDetails();
+  const { LogIn, googleSignIn, cartDispatch, user }: any = useContextDetails();
 
   const handleGoogleSignIn = async () => {
     setSnackbarDetails((prev: any) => ({ ...prev, isError: false, text: "" }));
     setLoading(true);
     await googleSignIn().then(
       (res: any) => {
+        getCartPrefillDetails(res.user.email);
         setSnackbarDetails({
           openModal: true,
           isError: false,
@@ -52,13 +53,18 @@ const SignIn = () => {
     setSnackbarDetails((prev: any) => ({ ...prev, isError: false, text: "" }));
     await LogIn(loginDetails.email, loginDetails.password).then(
       (res: any) => {
+        getCartPrefillDetails(loginDetails.email);
         setSnackbarDetails({
           openModal: true,
           isError: false,
           text: "Logged in successfuly",
         });
+        if (router.query.cart) {
+          router.push("/cart");
+        } else {
+          router.push("/home");
+        }
         setLoading(false);
-        router.push("/home");
       },
       (error: any) => {
         setLoading(false);
@@ -73,6 +79,23 @@ const SignIn = () => {
 
   const handleChange = (value: string, type: string) => {
     setLoginDetails({ ...loginDetails, [type]: value });
+  };
+
+  const getCartPrefillDetails = (currentUserEmail: any) => {
+    if (localStorage.getItem("shoppeusers")) {
+      let savedUserData = localStorage.getItem("shoppeusers");
+      let parsedData = JSON.parse(savedUserData || "");
+      let previousUser = parsedData.filter(
+        (item: any) => item.email == currentUserEmail
+      );
+      if (previousUser.length) {
+        let cartData = previousUser[0];
+        cartDispatch({
+          type: "REPLACE-ALL-ITEMS",
+          payload: cartData.cart,
+        });
+      }
+    }
   };
 
   return (
