@@ -171,11 +171,12 @@ const SignIn = () => {
           Don’t have an account yet?{" "}
           <Typography
             component="span"
-            fontSize="0.8em"
-            fontWeight={500}
+            fontSize={13}
+            fontWeight={600}
             lineHeight={"24px"}
             letterSpacing={"0.01em"}
-            color={(theme: Theme) => theme.palette.primary.main}
+            sx={{ textDecoration: "underline" }}
+            color={(theme: Theme) => theme.palette.primary.light}
           >
             <Link href="/signup" legacyBehavior>
               Sign Up

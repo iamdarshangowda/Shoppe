@@ -26,13 +26,17 @@ export const ListingCard: React.FunctionComponent<Props> = ({
   return (
     <Card
       sx={{
-        position: "relative",
         maxWidth: 220,
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+
         "&:hover": {
           cursor: "pointer",
           boxShadow: "0 0 3px",
         },
-        height: 340,
       }}
     >
       <CardMedia
@@ -50,13 +54,7 @@ export const ListingCard: React.FunctionComponent<Props> = ({
           {productDetails?.title.substring(0, 40)}
         </Typography>
       </CardContent>
-      <CardActions
-        sx={{
-          position: "absolute",
-          left: "10px",
-          bottom: "10px",
-        }}
-      >
+      <CardActions>
         <Chip
           label={`$${productDetails?.price}`}
           icon={<SellIcon />}
