@@ -103,7 +103,7 @@ export const SingleProductView: React.FunctionComponent<Props> = ({
               <CustomButton
                 label="ADD TO CART"
                 onClick={handleAddtoCart}
-                sx={{ width: { xs: "150px", sm: "200px" } }}
+                sx={{ width: { xs: "130px", sm: "180px", md: "200px" } }}
               />
               <Tooltip title="Remove Item from Cart">
                 <IconButton onClick={handleRemovefromCart}>

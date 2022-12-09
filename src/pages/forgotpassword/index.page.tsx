@@ -1,35 +1,45 @@
-import React, { useState, useContext } from "react";
-import { Container, Box, Typography, Theme, Divider } from "@mui/material";
+import React, { useState } from "react";
+import { Container, Box, Typography, Theme } from "@mui/material";
 import CustomInput from "@/components/ui-components/common/inputs/custom-input";
 import CustomButton from "@/components/ui-components/common/buttons/custom-button";
 import Link from "next/link";
 import { SnackbarModal } from "@/components/ui-components/snackbar";
 import { useContextDetails } from "src/context/ContextProvider";
-import Router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 
 const ForgotPassword = () => {
   const router = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
-  const [snackText, setSnackText] = useState<any>("");
-  const [openSnackModal, setOpenSnackModal] = useState<boolean>(false);
+  const [snackbarDetails, setSnackbarDetails] = useState<any | {}>({
+    isError: false,
+    openModal: false,
+    text: "",
+  });
   const [email, setEmail] = useState<any>("");
   const { forgotPassword }: any = useContextDetails();
 
   const handleForgotPassword = async () => {
     setLoading(true);
-    setSnackText("");
+    setSnackbarDetails((prev: any) => ({ ...prev, isError: false, text: "" }));
     await forgotPassword(email).then(
       (res: any) => {
         setLoading(false);
-        setSnackText("Reset link set to your email");
+        setSnackbarDetails({
+          openModal: true,
+          isError: false,
+          text: "Reset link set to your email",
+        });
         setTimeout(() => {
           router.push("/signin");
-        }, 2000);
+        }, 1000);
       },
       (error: any) => {
-        setOpenSnackModal(true);
+        setSnackbarDetails({
+          openModal: true,
+          isError: true,
+          text: error.message,
+        });
         setLoading(false);
-        setSnackText(error.message);
       }
     );
   };
@@ -41,10 +51,12 @@ const ForgotPassword = () => {
   return (
     <>
       <SnackbarModal
-        open={openSnackModal}
-        isError={true}
-        text={snackText}
-        handleClose={() => setOpenSnackModal(false)}
+        open={snackbarDetails.openModal}
+        isError={snackbarDetails.isError}
+        text={snackbarDetails.text}
+        handleClose={() =>
+          setSnackbarDetails((prev: any) => ({ ...prev, openModal: false }))
+        }
       />
       <Container
         maxWidth="sm"

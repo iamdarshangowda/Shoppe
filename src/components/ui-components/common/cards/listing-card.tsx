@@ -26,11 +26,11 @@ export const ListingCard: React.FunctionComponent<Props> = ({
   return (
     <Card
       sx={{
-        boxShadow: "0 0 2px",
         position: "relative",
         maxWidth: 220,
         "&:hover": {
           cursor: "pointer",
+          boxShadow: "0 0 3px",
         },
         height: 340,
       }}

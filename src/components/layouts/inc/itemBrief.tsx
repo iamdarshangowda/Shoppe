@@ -16,7 +16,9 @@ export const ItemBrief: React.FunctionComponent<Props> = ({ item }) => {
         my={1}
       >
         <img src={item?.image} width={50} alt="" />{" "}
-        <Typography fontWeight={600}>x {item?.qty}</Typography>
+        <Typography fontSize="0.9em" fontWeight={600}>
+          x {item?.qty}
+        </Typography>
       </Box>
       <Divider />
     </Box>

@@ -61,7 +61,6 @@ export const CartPopover: React.FunctionComponent<Props> = ({
           vertical: "bottom",
           horizontal: "left",
         }}
-        sx={{ p: 2 }}
       >
         {cart.length > 0 ? (
           <Box p={2}>
@@ -70,19 +69,23 @@ export const CartPopover: React.FunctionComponent<Props> = ({
                 <ItemBrief item={item} />
               </Box>
             ))}
-            <Box display="flex" justifyContent={"space-between"} mt={1}>
-              <Typography fontWeight={600}>Total:</Typography>
-              <Typography fontWeight={600}>${cartTotal}</Typography>
+            <Box display="flex" justifyContent={"space-between"} my={2}>
+              <Typography fontSize="0.9em" fontWeight={600}>
+                Total:
+              </Typography>
+              <Typography fontSize="0.9em" fontWeight={600}>
+                ${cartTotal}
+              </Typography>
             </Box>
             <Divider />
-            <Box my={1}>
+            <Box my={2}>
               <CustomButton
                 label="Checkout"
                 sx={{ height: "30px" }}
                 onClick={handleCartCheckout}
               />
             </Box>
-            <Box textAlign={"center"}>
+            <Box textAlign={"center"} my={1}>
               <Typography
                 fontSize={13}
                 color={(theme: Theme) => theme.palette.warning.main}

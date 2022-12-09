@@ -11,50 +11,61 @@ import { useRouter } from "next/router";
 const SignIn = () => {
   const router = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
-  const [snackText, setSnackText] = useState<any>("");
-  const [openSnackModal, setOpenSnackModal] = useState<boolean>(false);
-  const [isError, setIsError] = useState<boolean>(false);
+  const [snackbarDetails, setSnackbarDetails] = useState<any | {}>({
+    isError: false,
+    openModal: false,
+    text: "",
+  });
   const [loginDetails, setLoginDetails] = useState<any | {}>({
     email: "",
     password: "",
   });
   const { LogIn, googleSignIn }: any = useContextDetails();
+
   const handleGoogleSignIn = async () => {
-    setIsError(false);
+    setSnackbarDetails((prev: any) => ({ ...prev, isError: false, text: "" }));
     setLoading(true);
-    setSnackText("");
     await googleSignIn().then(
       (res: any) => {
-        setSnackText("Logged in successfuly");
-        setOpenSnackModal(true);
+        setSnackbarDetails({
+          openModal: true,
+          isError: false,
+          text: "Logged in successfuly",
+        });
         setLoading(false);
         router.push("/home");
       },
       (error: any) => {
         setLoading(false);
-        setSnackText(error.message);
-        setIsError(true);
-        setOpenSnackModal(true);
+        setSnackbarDetails({
+          openModal: true,
+          isError: true,
+          text: error.message,
+        });
       }
     );
   };
 
   const handleSignIn = async () => {
     setLoading(true);
-    setIsError(false);
-    setSnackText("");
+    setSnackbarDetails((prev: any) => ({ ...prev, isError: false, text: "" }));
     await LogIn(loginDetails.email, loginDetails.password).then(
       (res: any) => {
-        setSnackText("Logged in successfuly");
-        setOpenSnackModal(true);
+        setSnackbarDetails({
+          openModal: true,
+          isError: false,
+          text: "Logged in successfuly",
+        });
         setLoading(false);
         router.push("/home");
       },
       (error: any) => {
         setLoading(false);
-        setSnackText(error.message);
-        setIsError(true);
-        setOpenSnackModal(true);
+        setSnackbarDetails({
+          openModal: true,
+          isError: true,
+          text: error.message,
+        });
       }
     );
   };
@@ -66,10 +77,12 @@ const SignIn = () => {
   return (
     <>
       <SnackbarModal
-        open={openSnackModal}
-        isError={isError}
-        text={snackText}
-        handleClose={() => setOpenSnackModal(false)}
+        open={snackbarDetails.openModal}
+        isError={snackbarDetails.isError}
+        text={snackbarDetails.text}
+        handleClose={() =>
+          setSnackbarDetails((prev: any) => ({ ...prev, openModal: false }))
+        }
       />
 
       <Container

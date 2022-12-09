@@ -1,5 +1,5 @@
-import React, { useState, useContext } from "react";
-import { Container, Box, Typography, Theme, Divider } from "@mui/material";
+import React, { useState } from "react";
+import { Container, Box, Typography, Theme } from "@mui/material";
 import CustomInput from "@/components/ui-components/common/inputs/custom-input";
 import CustomButton from "@/components/ui-components/common/buttons/custom-button";
 import Link from "next/link";
@@ -10,9 +10,11 @@ import { useRouter } from "next/router";
 const SignUp = () => {
   const router = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
-  const [snackText, setSnackText] = useState<any>("");
-  const [openSnackModal, setOpenSnackModal] = useState<boolean>(false);
-  const [isError, setIsError] = useState<boolean>(false);
+  const [snackbarDetails, setSnackbarDetails] = useState<any | {}>({
+    isError: false,
+    openModal: false,
+    text: "",
+  });
   const [loginDetails, setLoginDetails] = useState<any | {}>({
     email: "",
     password: "",
@@ -20,21 +22,25 @@ const SignUp = () => {
   const { SignUp }: any = useContextDetails();
 
   const handleSignUp = async () => {
-    setIsError(false);
+    setSnackbarDetails((prev: any) => ({ ...prev, isError: false, text: "" }));
     setLoading(true);
-    setSnackText("");
     await SignUp(loginDetails.email, loginDetails.password).then(
       (res: any) => {
-        setSnackText("Signed up successfuly");
-        setOpenSnackModal(true);
+        setSnackbarDetails({
+          openModal: true,
+          isError: false,
+          text: "Signed up successfuly",
+        });
         setLoading(false);
         router.push("/home");
       },
       (error: any) => {
         setLoading(false);
-        setSnackText(error.message);
-        setIsError(true);
-        setOpenSnackModal(true);
+        setSnackbarDetails({
+          openModal: true,
+          isError: true,
+          text: error.message,
+        });
       }
     );
   };
@@ -46,10 +52,12 @@ const SignUp = () => {
   return (
     <>
       <SnackbarModal
-        open={openSnackModal}
-        isError={isError}
-        text={snackText}
-        handleClose={() => setOpenSnackModal(false)}
+        open={snackbarDetails.openModal}
+        isError={snackbarDetails.isError}
+        text={snackbarDetails.text}
+        handleClose={() =>
+          setSnackbarDetails((prev: any) => ({ ...prev, openModal: false }))
+        }
       />
       <Container
         maxWidth="sm"
