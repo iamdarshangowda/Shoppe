@@ -29,9 +29,26 @@ export const CustomTabs: React.FunctionComponent<Props> = ({
         bgcolor: "background.paper",
       }}
     >
-      <Tabs value={value} onChange={handleChange} centered scrollButtons="auto">
+      <Tabs
+        value={value}
+        onChange={handleChange}
+        centered
+        scrollButtons="auto"
+        TabIndicatorProps={{
+          style: { background: "#562B08" },
+        }}
+      >
         {menu.map((item: any, index: number) => (
-          <Tab label={item.label} key={index} />
+          <Tab
+            label={item.label}
+            key={index}
+            sx={{
+              color: "#C58940",
+              "&.Mui-selected": {
+                color: "#562B08",
+              },
+            }}
+          />
         ))}
       </Tabs>
     </Box>
