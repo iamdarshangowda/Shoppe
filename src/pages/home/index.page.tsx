@@ -109,9 +109,11 @@ const Home: NextPage<Props> = ({ query }) => {
       </Box>
       <Grid container spacing={2}>
         {firestoneData.map((item: any, index: number) => (
-          <Grid item xs={6} sm={6} md={4} lg={3} xl={2}>
-            <ListingCard productDetails={item} />
-          </Grid>
+          <Link href={`/`} legacyBehavior key={index}>
+            <Grid item xs={6} sm={6} md={4} lg={3} xl={2}>
+              <ListingCard productDetails={item} />
+            </Grid>
+          </Link>
         ))}
       </Grid>
       <BackdropLoader open={loading} />
