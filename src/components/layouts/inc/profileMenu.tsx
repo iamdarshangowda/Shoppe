@@ -58,10 +58,26 @@ export const ProfileMenu: React.FunctionComponent<Props> = ({
       >
         {user && (
           <MenuItem onClick={handleProfile}>
-            <Typography>Hi, {user?.email}</Typography>
+            <Typography color="#E5BA73" fontSize="0.95em" fontWeight={500}>
+              Hi,{" "}
+              <Typography
+                component="span"
+                color="#C58940"
+                fontSize="0.95em"
+                fontWeight={500}
+              >
+                {user?.email}
+              </Typography>
+            </Typography>
           </MenuItem>
         )}
-        {user && <MenuItem onClick={handleLogOut}>Logout</MenuItem>}
+        {user && (
+          <MenuItem onClick={handleLogOut}>
+            <Typography color="#AC4425" fontSize="0.95em" fontWeight={500}>
+              Logout
+            </Typography>
+          </MenuItem>
+        )}
         {!user && <MenuItem onClick={handleLogIn}>Login</MenuItem>}
       </Menu>
     </Box>

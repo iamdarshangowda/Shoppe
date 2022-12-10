@@ -11,9 +11,15 @@ export const EmptyStateCard: React.FunctionComponent<Props> = ({ text }) => {
       display="flex"
       justifyContent="center"
       alignItems="center"
-      bgcolor="#f2f2f2"
+      bgcolor="#FAEAB1"
     >
-      <Typography fontSize={18} p={2}>
+      <Typography
+        color="#AC4425"
+        fontSize="0.95em"
+        fontWeight={500}
+        px={2}
+        py={1}
+      >
         {text}
       </Typography>
     </Box>

@@ -46,11 +46,7 @@ export const ListingCard: React.FunctionComponent<Props> = ({
         alt=""
       />
       <CardContent>
-        <Typography
-          fontSize="0.9em"
-          fontWeight={500}
-          color={(theme: Theme) => theme.palette.primary.light}
-        >
+        <Typography fontSize="0.9em" fontWeight={500} color="#562B08">
           {productDetails?.title.substring(0, 40)}
         </Typography>
       </CardContent>
@@ -61,8 +57,9 @@ export const ListingCard: React.FunctionComponent<Props> = ({
           sx={{
             fontSize: "20px",
             fontWeight: 500,
-            color: "#A18A68",
+            color: "#C58940",
             cursor: "pointer",
+            bgcolor: "#FAEAB1",
           }}
         />
       </CardActions>

@@ -32,7 +32,7 @@ const CustomButton: React.FunctionComponent<PrimaryButtonProps> = ({
       type="submit"
       sx={{
         boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.12)",
-        bgcolor: "#453825",
+        bgcolor: "#C58940",
         textTransform: "none",
         fontWeight: 500,
         height: height ? height : "48px",
@@ -41,7 +41,7 @@ const CustomButton: React.FunctionComponent<PrimaryButtonProps> = ({
         borderRadius: "30px",
         fontSize: "14px",
         "&:hover": {
-          bgcolor: "#453825",
+          bgcolor: "#C69749",
         },
         ...sx,
       }}

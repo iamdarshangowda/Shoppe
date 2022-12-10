@@ -79,7 +79,7 @@ const Home: NextPage<Props> = ({ query }) => {
             clearFilters={handleClearFilters}
           />
         </Box>
-        <Divider orientation="vertical" flexItem />
+        <Divider orientation="vertical" flexItem sx={{ bgcolor: "#FAEAB1" }} />
         {productList?.length > 0 ? (
           <Grid container spacing={2}>
             {productList.map((item: any, index: number) => (

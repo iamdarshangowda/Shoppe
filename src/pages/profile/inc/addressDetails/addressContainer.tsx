@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { AddressData } from "./addressData";
-import { Box } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 import { CircularEditIcon } from "@/components/ui-components/common/buttons/edit-icon";
+import CloseIcon from "@mui/icons-material/Close";
+import { AddressEditForm } from "./addressEditForm";
 
 export const AddressConatiner = () => {
   const [isEdit, setIsEdit] = useState<boolean>(false);
@@ -26,17 +28,31 @@ export const AddressConatiner = () => {
         border="3px solid #E5BA73"
         position="relative"
       >
-        <CircularEditIcon
-          sx={{
-            top: 5,
-            right: 5,
-            "&:hover": {
-              cursor: "pointer",
-            },
-          }}
-          onClick={handleAddressEdit}
-        />
-        <AddressData />
+        {isEdit ? (
+          <>
+            <IconButton
+              sx={{ position: "absolute", top: "5px", right: "5px" }}
+              onClick={handleAddressEdit}
+            >
+              <CloseIcon />
+            </IconButton>
+            <AddressEditForm />
+          </>
+        ) : (
+          <>
+            <CircularEditIcon
+              sx={{
+                top: 5,
+                right: 5,
+                "&:hover": {
+                  cursor: "pointer",
+                },
+              }}
+              onClick={handleAddressEdit}
+            />
+            <AddressData />
+          </>
+        )}
       </Box>
     </Box>
   );
