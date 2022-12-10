@@ -3,8 +3,9 @@ import { Box } from "@mui/material";
 import { CustomTabs } from "@/components/ui-components/common/tabs/custom-tabs";
 import { useRouter } from "next/router";
 import { AddressConatiner } from "./inc/addressDetails/addressContainer";
-import { Orders } from "./inc/orders";
+import { OrdersConatiner } from "./inc/ordersDetails/ordersContainer";
 import { ProfileContainer } from "./inc/profileDetails/profileContainer";
+import BackdropLoader from "@/components/ui-components/common/backdropLoader";
 
 const tabItems = [
   { label: "Profile", value: "profile" },
@@ -14,6 +15,7 @@ const tabItems = [
 
 const Profile = () => {
   const [defaultTabIndex, setDefaultTabIndex] = useState<any>(0);
+  const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
 
   const handleTabChange = (value: any) => {
@@ -38,7 +40,9 @@ const Profile = () => {
 
       {defaultTabIndex == 0 && <ProfileContainer />}
       {defaultTabIndex == 1 && <AddressConatiner />}
-      {defaultTabIndex == 2 && <Orders />}
+      {defaultTabIndex == 2 && <OrdersConatiner />}
+
+      <BackdropLoader open={loading} />
     </Box>
   );
 };

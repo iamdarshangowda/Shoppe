@@ -5,7 +5,7 @@ import CustomButton from "@/components/ui-components/common/buttons/custom-butto
 
 export const AddressEditForm = () => {
   return (
-    <Grid container spacing={4} sx={{ maxWidth: "650px", mt: 1 }}>
+    <Grid container spacing={4}>
       <Grid item xs={12} sm={6}>
         <CustomInput label="Name" />
       </Grid>

@@ -22,6 +22,8 @@ export const AddressConatiner = () => {
       alignItems="center"
     >
       <Box
+        width="100%"
+        maxWidth={700}
         p={2}
         bgcolor="#FAEAB1"
         borderRadius="8px"

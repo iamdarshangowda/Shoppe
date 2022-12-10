@@ -57,7 +57,12 @@ export const ProfileMenu: React.FunctionComponent<Props> = ({
         onClose={handleCloseUserMenu}
       >
         {user && (
-          <MenuItem onClick={handleProfile}>
+          <MenuItem
+            onClick={() => {
+              handleProfile();
+              handleCloseUserMenu();
+            }}
+          >
             <Typography color="#E5BA73" fontSize="0.95em" fontWeight={500}>
               Hi,{" "}
               <Typography
