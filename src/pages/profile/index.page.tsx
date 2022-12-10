@@ -4,6 +4,7 @@ import { CustomTabs } from "@/components/ui-components/common/tabs/custom-tabs";
 import { useRouter } from "next/router";
 import { Address } from "./inc/address";
 import { Orders } from "./inc/orders";
+import { ProfileDetails } from "./inc/profileDetails";
 
 const tabItems = [
   { label: "Profile", value: "profile" },
@@ -35,7 +36,7 @@ const Profile = () => {
         onChange={handleTabChange}
       />
 
-      {defaultTabIndex == 0 && <Profile />}
+      {defaultTabIndex == 0 && <ProfileDetails />}
       {defaultTabIndex == 1 && <Address />}
       {defaultTabIndex == 2 && <Orders />}
     </Box>
