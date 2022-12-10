@@ -65,6 +65,10 @@ export const Topbar = () => {
     });
   };
 
+  const handleProfile = () => {
+    router.push("/profile?tab=profile");
+  };
+
   const cartCount = cart?.reduce(
     (total: number, current: any) => Number(current.qty) + total,
     0
@@ -103,6 +107,7 @@ export const Topbar = () => {
               user={user}
               handleLogOut={handleLogOut}
               handleLogIn={handleLogIn}
+              handleProfile={handleProfile}
             />
           ) : (
             <CustomButton label="Login" height="40px" onClick={handleLogIn} />

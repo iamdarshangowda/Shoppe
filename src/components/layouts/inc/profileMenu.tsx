@@ -13,12 +13,14 @@ interface Props {
   user: any;
   handleLogOut: () => void;
   handleLogIn: () => void;
+  handleProfile: () => void;
 }
 
 export const ProfileMenu: React.FunctionComponent<Props> = ({
   user,
   handleLogOut,
   handleLogIn,
+  handleProfile,
 }) => {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -52,7 +54,7 @@ export const ProfileMenu: React.FunctionComponent<Props> = ({
         onClose={handleCloseUserMenu}
       >
         {user && (
-          <MenuItem>
+          <MenuItem onClick={handleProfile}>
             <Typography>Hi, {user?.email}</Typography>
           </MenuItem>
         )}
