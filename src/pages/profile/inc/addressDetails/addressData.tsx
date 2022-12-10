@@ -63,7 +63,6 @@ export const AddressData = () => {
         sm={6}
         sx={{
           display: "flex",
-          justifyContent: "center",
           alignItems: "center",
           flexDirection: "column",
         }}
@@ -90,7 +89,6 @@ export const AddressData = () => {
         sm={6}
         sx={{
           display: "flex",
-          justifyContent: "center",
           alignItems: "center",
           flexDirection: "column",
         }}
@@ -116,7 +114,6 @@ export const AddressData = () => {
         sm={6}
         sx={{
           display: "flex",
-          justifyContent: "center",
           alignItems: "center",
           flexDirection: "column",
         }}
@@ -132,6 +129,8 @@ export const AddressData = () => {
           fontSize="0.9em"
           fontWeight={600}
           color={(theme: Theme) => theme.palette.primary.main}
+          textAlign="center"
+          maxWidth={250}
         >
           4th Floor, White Building, Opposite Bharghavi PG, Christ Furniture,
           28th Main Road, Block 9, Jayanagar, Bengaluru, Karnataka
@@ -143,7 +142,6 @@ export const AddressData = () => {
         sm={6}
         sx={{
           display: "flex",
-          justifyContent: "center",
           alignItems: "center",
           flexDirection: "column",
         }}

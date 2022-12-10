@@ -13,7 +13,7 @@ export const OrdersConatiner = () => {
       alignItems="center"
     >
       <Box
-        maxWidth={800}
+        maxWidth={600}
         width="100%"
         p={2}
         bgcolor="#FAEAB1"

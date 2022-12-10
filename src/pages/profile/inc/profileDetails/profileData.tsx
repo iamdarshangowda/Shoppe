@@ -80,6 +80,7 @@ export const ProfileData = () => {
           fontWeight={600}
           color={(theme: Theme) => theme.palette.primary.main}
           sx={{ wordWrap: "break-word", whiteSpace: "pre-wrap" }}
+          maxWidth={250}
         >
           darshan@gmail.com
         </Typography>
