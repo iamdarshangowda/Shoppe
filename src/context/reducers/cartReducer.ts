@@ -8,14 +8,15 @@ interface action {
 
 export const cartReducer = (state: any, action: action) => {
   const handleAddCart = () => {
-    const existng = state.cart.filter(
+    const existingIndex = state.cart.findIndex(
       (item: any) => item.id == action.payload.id
     );
-    const remainingItems = state.cart.filter(
-      (item: any) => item.id !== action.payload.id
-    );
-    if (existng.length) {
-      return [...remainingItems, { ...existng[0], qty: action.qty }];
+    if (existingIndex >= 0) {
+      state.cart.splice(existingIndex, 1, {
+        ...action.payload,
+        qty: action.qty,
+      });
+      return state.cart;
     } else {
       return [...state.cart, { ...action.payload, qty: action.qty }];
     }

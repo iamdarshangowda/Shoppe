@@ -1,7 +1,6 @@
 import React from "react";
 import { Box, Typography, Theme, Grid, Divider } from "@mui/material";
 import CustomButton from "@/components/ui-components/common/buttons/custom-button";
-import Router, { useRouter } from "next/router";
 
 interface Props {
   subTotal: any;
@@ -40,7 +39,7 @@ export const PriceDetails: React.FunctionComponent<Props> = ({
           fontWeight={500}
           color={(theme: Theme) => theme.palette.primary.main}
         >
-          ${subTotal}
+          ${subTotal.toFixed(2)}
         </Typography>
         <Typography
           my={3}

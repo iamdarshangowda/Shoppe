@@ -1,17 +1,32 @@
 import React from "react";
-import { Box, Typography, Theme, Divider, Chip } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Theme,
+  Divider,
+  Chip,
+  IconButton,
+} from "@mui/material";
 import GroupedButtons from "@/components/ui-components/common/buttons/grouped-button";
 import CloseIcon from "@mui/icons-material/Close";
 import SellIcon from "@mui/icons-material/Sell";
 
 interface Props {
-  handleChange: (value: number) => void;
-  cartDetails: { image: string; price: string; title: string; qty: number };
+  handleChange: (value: number, item: any) => void;
+  handleRemoveItem: (item: any) => void;
+  cartDetails: {
+    image: string;
+    price: string;
+    title: string;
+    qty: number;
+    id: string;
+  };
 }
 
 export const SingleItem: React.FunctionComponent<Props> = ({
   handleChange,
   cartDetails,
+  handleRemoveItem,
 }) => {
   return (
     <>
@@ -46,11 +61,13 @@ export const SingleItem: React.FunctionComponent<Props> = ({
               {cartDetails?.title.substring(0, 50)}
             </Typography>
             <Box>
-              <CloseIcon
-                sx={{
-                  color: (theme: Theme) => theme.palette.primary.light,
-                }}
-              />
+              <IconButton onClick={() => handleRemoveItem(cartDetails)}>
+                <CloseIcon
+                  sx={{
+                    color: (theme: Theme) => theme.palette.primary.light,
+                  }}
+                />
+              </IconButton>
             </Box>
           </Box>
           <Box display="flex" justifyContent={"space-between"} gap={1}>
@@ -65,13 +82,12 @@ export const SingleItem: React.FunctionComponent<Props> = ({
               }}
             />
             <GroupedButtons
-              handleChange={handleChange}
+              handleChange={(value: number) => handleChange(value, cartDetails)}
               cartCount={cartDetails?.qty}
               sx={{ height: "30px" }}
             />
           </Box>
         </Box>
-        {/* <Box></Box> */}
       </Box>
       <Divider sx={{ mt: 2, maxWidth: "550px" }} />
     </>

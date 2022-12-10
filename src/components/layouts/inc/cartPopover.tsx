@@ -11,6 +11,7 @@ import {
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { ItemBrief } from "./itemBrief";
 import CustomButton from "@/components/ui-components/common/buttons/custom-button";
+import { EmptyStateCard } from "@/components/ui-components/common/cards/empty-state-card";
 
 interface Props {
   cartCount: number;
@@ -74,7 +75,7 @@ export const CartPopover: React.FunctionComponent<Props> = ({
                 Total:
               </Typography>
               <Typography fontSize="0.9em" fontWeight={600}>
-                ${cartTotal}
+                ${cartTotal.toFixed(2)}
               </Typography>
             </Box>
             <Divider />
@@ -97,9 +98,7 @@ export const CartPopover: React.FunctionComponent<Props> = ({
             </Box>
           </Box>
         ) : (
-          <Typography fontSize={18} p={2}>
-            No Items Added
-          </Typography>
+          <EmptyStateCard text={"No Items"} />
         )}
       </Popover>
     </div>
