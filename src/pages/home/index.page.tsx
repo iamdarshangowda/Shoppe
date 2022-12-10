@@ -9,6 +9,7 @@ import BackdropLoader from "@/components/ui-components/common/backdropLoader";
 import { useRouter } from "next/router";
 import { NextPage } from "next";
 import { useContextDetails } from "src/context/ContextProvider";
+import ProductDataServices from "../../services/products.services";
 
 interface Props {
   query?: any;
@@ -65,10 +66,22 @@ const Home: NextPage<Props> = ({ query }) => {
     getAllProducts("");
   };
 
+  const [firestoneData, setFirestoneData] = useState<any | []>([]);
   useEffect(() => {
     getAllProducts(router.query.sortby);
   }, [router.query.sortby]);
 
+  const getProductsFirebase = async () => {
+    const data = await ProductDataServices.getProducts();
+
+    setFirestoneData(
+      data.docs.map((doc: any) => ({ ...doc.data(), id: doc.id }))
+    );
+  };
+
+  useEffect(() => {
+    getProductsFirebase();
+  }, []);
   return (
     <>
       <Box display={{ xs: "block", sm: "flex" }} gap={4} mb={4}>
@@ -94,6 +107,13 @@ const Home: NextPage<Props> = ({ query }) => {
           <Skeleton variant="rectangular" width={"100%"} height={200} />
         )}
       </Box>
+      <Grid container spacing={2}>
+        {firestoneData.map((item: any, index: number) => (
+          <Grid item xs={6} sm={6} md={4} lg={3} xl={2}>
+            <ListingCard productDetails={item} />
+          </Grid>
+        ))}
+      </Grid>
       <BackdropLoader open={loading} />
     </>
   );
