@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import { CustomTabs } from "@/components/ui-components/common/tabs/custom-tabs";
 import { useRouter } from "next/router";
-import { Address } from "./inc/address";
+import { AddressConatiner } from "./inc/addressDetails/addressContainer";
 import { Orders } from "./inc/orders";
-import { ProfileDetails } from "./inc/profileDetails";
+import { ProfileContainer } from "./inc/profileDetails/profileContainer";
 
 const tabItems = [
   { label: "Profile", value: "profile" },
@@ -36,8 +36,8 @@ const Profile = () => {
         onChange={handleTabChange}
       />
 
-      {defaultTabIndex == 0 && <ProfileDetails />}
-      {defaultTabIndex == 1 && <Address />}
+      {defaultTabIndex == 0 && <ProfileContainer />}
+      {defaultTabIndex == 1 && <AddressConatiner />}
       {defaultTabIndex == 2 && <Orders />}
     </Box>
   );

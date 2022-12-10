@@ -114,7 +114,7 @@ export const Topbar = () => {
           )}
         </Box>
       </Box>
-      <Divider />
+      <Divider sx={{ bgcolor: "#FAEAB1" }} />
     </>
   );
 };

@@ -50,7 +50,7 @@ export const CartPopover: React.FunctionComponent<Props> = ({
     <div>
       <IconButton aria-describedby={id} onClick={handleClick}>
         <Badge badgeContent={cartCount} color="primary">
-          <ShoppingCartIcon sx={{ fontSize: "30px" }} />
+          <ShoppingCartIcon sx={{ fontSize: "30px", color: "#C58940" }} />
         </Badge>
       </IconButton>
       <Popover

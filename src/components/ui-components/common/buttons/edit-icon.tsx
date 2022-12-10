@@ -4,9 +4,13 @@ import { Box, Theme } from "@mui/material";
 
 interface Props {
   sx: any;
+  onClick?: () => void;
 }
 
-export const CircularEditIcon: React.FunctionComponent<Props> = ({ sx }) => {
+export const CircularEditIcon: React.FunctionComponent<Props> = ({
+  sx,
+  onClick,
+}) => {
   return (
     <Box
       sx={{
@@ -22,6 +26,7 @@ export const CircularEditIcon: React.FunctionComponent<Props> = ({ sx }) => {
       }}
     >
       <EditIcon
+        onClick={onClick}
         fontSize="small"
         sx={{
           width: 14,

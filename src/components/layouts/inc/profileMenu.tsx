@@ -34,7 +34,10 @@ export const ProfileMenu: React.FunctionComponent<Props> = ({
     <Box>
       <Tooltip title="Open settings">
         <IconButton onClick={handleOpenUserMenu}>
-          <Avatar sx={{ width: 35, height: 35 }} />
+          <Avatar
+            src={"/profile.jpg"}
+            sx={{ width: 40, height: 40, border: "1px solid #E5BA73" }}
+          />
         </IconButton>
       </Tooltip>
       <Menu
