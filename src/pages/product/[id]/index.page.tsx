@@ -7,6 +7,8 @@ import BackdropLoader from "@/components/ui-components/common/backdropLoader";
 import { NextPage } from "next";
 import { useContextDetails } from "src/context/ContextProvider";
 import { SingleProductView } from "../inc/singleProductView";
+import ProductDataServices from "../../../services/products.services";
+import { PricerWithCommas } from "@/utils/dataModifiers";
 
 interface Props {
   query?: any;
@@ -17,7 +19,7 @@ const SingleProduct: NextPage<Props> = ({ query }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [rating, setRating] = useState<any>(0);
   const [openSnackModal, setOpenSnackModal] = useState<boolean>(false);
-  const [productDetails, setProductDetails] = useState<any | {}>({});
+  const [firestoneSingleData, setFirestoneSingleData] = useState<any | {}>({});
   const [snackText, setSnackText] = useState<any>("");
   const {
     cartState: { cart },
@@ -26,22 +28,27 @@ const SingleProduct: NextPage<Props> = ({ query }) => {
   }: any = useContextDetails();
   const [cartCount, setCartCount] = useState<number>(0);
 
-  const getSingleProductDetail = async (id: any) => {
-    setSnackText("");
-    setLoading(true);
-    await get(`products/${id}`).then(
-      (res) => {
-        setProductDetails(res.data);
-        setRating(res.data?.rating?.rate);
-        setLoading(false);
-      },
-      (error) => {
-        setSnackText(error.message);
-        setOpenSnackModal(true);
-        setLoading(false);
-      }
-    );
-  };
+  // const [productDetails, setProductDetails] = useState<any | {}>({});
+  // const getSingleProductDetail = async (id: any) => {
+  //   setSnackText("");
+  //   setLoading(true);
+  //   await get(`products/${id}`).then(
+  //     (res) => {
+  //       setProductDetails(res.data);
+  //       setRating(res.data?.rating?.rate);
+  //       setLoading(false);
+  //     },
+  //     (error) => {
+  //       setSnackText(error.message);
+  //       setOpenSnackModal(true);
+  //       setLoading(false);
+  //     }
+  //   );
+  // };
+
+  // useEffect(() => {
+  //   getSingleProductDetail(query?.id);
+  // }, [query?.id]);
 
   const handleProductCount = (value: number) => {
     setCartCount(value);
@@ -50,7 +57,7 @@ const SingleProduct: NextPage<Props> = ({ query }) => {
   const handleAddtoCart = () => {
     cartDispatch({
       type: "ADD-TO-CART",
-      payload: productDetails,
+      payload: firestoneSingleData,
       qty: cartCount,
     });
   };
@@ -58,7 +65,7 @@ const SingleProduct: NextPage<Props> = ({ query }) => {
   const handleRemovefromCart = () => {
     cartDispatch({
       type: "REMOVE-FROM-CART",
-      payload: productDetails,
+      payload: firestoneSingleData,
     });
     setCartCount(0);
   };
@@ -66,9 +73,6 @@ const SingleProduct: NextPage<Props> = ({ query }) => {
   const handleBack = () => {
     router.back();
   };
-  useEffect(() => {
-    getSingleProductDetail(query?.id);
-  }, [query?.id]);
 
   const handleSetCartPrefill = () => {
     const currentProduct = cart.filter(
@@ -84,6 +88,18 @@ const SingleProduct: NextPage<Props> = ({ query }) => {
     handleSetCartPrefill();
   }, []);
 
+  const getSingleFirebaseProduct = async (collection: any, id: any) => {
+    const data: any = await ProductDataServices.getSingleProduct(
+      collection,
+      id
+    );
+    setFirestoneSingleData(data.data());
+  };
+
+  useEffect(() => {
+    getSingleFirebaseProduct(query.collection, query.id);
+  }, [query?.id]);
+
   return (
     <>
       <SnackbarModal
@@ -94,7 +110,7 @@ const SingleProduct: NextPage<Props> = ({ query }) => {
       />
       <Container maxWidth="xl">
         <SingleProductView
-          productDetails={productDetails}
+          productDetails={firestoneSingleData}
           handleBack={handleBack}
           rating={rating}
           handleProductCount={handleProductCount}

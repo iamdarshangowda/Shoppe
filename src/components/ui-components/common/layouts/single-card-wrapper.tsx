@@ -18,7 +18,12 @@ export const SingleCardWrapper: React.FunctionComponent<Props> = ({
       }}
     >
       <Box mb={{ xs: 3, sm: 0 }}>
-        <img src="/logo.gif" alt="" width={200} />
+        <img
+          src="/shoppe.png"
+          alt=""
+          width={200}
+          style={{ borderRadius: "10px" }}
+        />
       </Box>
       <Box
         maxWidth="400px"

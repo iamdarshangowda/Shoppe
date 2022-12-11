@@ -38,9 +38,9 @@ export const SingleItem: React.FunctionComponent<Props> = ({
       >
         <Box>
           <img
-            src={cartDetails?.image}
+            src={cartDetails?.image?.[0]}
             alt=""
-            width={100}
+            width={120}
             style={{ maxHeight: "120px" }}
           />
         </Box>

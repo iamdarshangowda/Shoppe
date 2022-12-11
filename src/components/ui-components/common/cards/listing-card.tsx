@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { useContextDetails } from "src/context/ContextProvider";
 import SellIcon from "@mui/icons-material/Sell";
+import { PricerWithCommas } from "@/utils/dataModifiers";
 interface Props {
   productDetails: any;
 }
@@ -23,6 +24,7 @@ export const ListingCard: React.FunctionComponent<Props> = ({
   //   cartDispatch,
   // }: any = useContextDetails();
 
+  const formatPrice = PricerWithCommas(productDetails.price);
   return (
     <Card
       sx={{
@@ -42,7 +44,7 @@ export const ListingCard: React.FunctionComponent<Props> = ({
       <CardMedia
         component="img"
         height={200}
-        image={productDetails?.image}
+        image={productDetails?.image[0]}
         alt=""
       />
       <CardContent>
@@ -52,10 +54,10 @@ export const ListingCard: React.FunctionComponent<Props> = ({
       </CardContent>
       <CardActions>
         <Chip
-          label={`$${productDetails?.price}`}
-          icon={<SellIcon />}
+          label={`INR ${formatPrice}`}
+          icon={<SellIcon sx={{ fontSize: "1.2em" }} />}
           sx={{
-            fontSize: "20px",
+            fontSize: "0.9em",
             fontWeight: 500,
             color: "#C58940",
             cursor: "pointer",

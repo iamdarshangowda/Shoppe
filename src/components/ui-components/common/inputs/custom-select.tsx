@@ -54,7 +54,10 @@ const CustomSelect: React.FunctionComponent<props> = ({
   return (
     <Box sx={{ margin: "0 0 16px" }}>
       {label ? (
-        <InputLabel htmlFor={fieldName} sx={{ mb: 1, fontWeight: 600 }}>
+        <InputLabel
+          htmlFor={fieldName}
+          sx={{ mb: 1, fontWeight: 600, fontSize: "0.8em" }}
+        >
           {label}
           {required && <Typography component={"span"}>*</Typography>}
         </InputLabel>

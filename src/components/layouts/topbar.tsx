@@ -91,7 +91,12 @@ export const Topbar = () => {
       >
         <Box maxWidth={{ xs: 170, sm: 180 }}>
           <Link href="/home">
-            <img src="/logo.gif" alt="" width="100%" />
+            <img
+              src="/shoppe.png"
+              alt=""
+              width="100%"
+              style={{ borderRadius: "10px" }}
+            />
           </Link>
         </Box>
         <Box display="flex" gap={2} alignItems={"center"}>

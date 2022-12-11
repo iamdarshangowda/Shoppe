@@ -15,8 +15,8 @@ class ProductDataServices {
     return getDocs(collection(db, collectionName));
   };
 
-  getSingleProduct = (id: any) => {
-    const productDoc = doc(db, "products", id);
+  getSingleProduct = (collection: any, id: any) => {
+    const productDoc = doc(db, collection, id);
     return getDoc(productDoc);
   };
 }

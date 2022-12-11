@@ -39,7 +39,7 @@ const CustomButton: React.FunctionComponent<PrimaryButtonProps> = ({
         minWidth: "80px",
         width: "100%",
         borderRadius: "30px",
-        fontSize: "14px",
+        fontSize: "0.875em",
         "&:hover": {
           bgcolor: "#C69749",
         },
