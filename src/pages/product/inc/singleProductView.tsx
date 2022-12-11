@@ -21,7 +21,6 @@ import CustomSelect from "@/components/ui-components/common/inputs/custom-select
 interface Props {
   productDetails: any;
   handleBack: () => void;
-  rating: number;
   prefillData: any;
   handleAddtoCart: () => void;
   handleRemovefromCart: () => void;
@@ -31,7 +30,6 @@ interface Props {
 export const SingleProductView: React.FunctionComponent<Props> = ({
   productDetails,
   handleBack,
-  rating,
   prefillData,
   handleAddtoCart,
   handleRemovefromCart,

@@ -17,8 +17,11 @@ interface Props {
 const SingleProduct: NextPage<Props> = ({ query }) => {
   const router = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
-  const [rating, setRating] = useState<any>(0);
-  const [openSnackModal, setOpenSnackModal] = useState<boolean>(false);
+  const [snackbarDetails, setSnackbarDetails] = useState<any | {}>({
+    isError: false,
+    openModal: false,
+    text: "",
+  });
   const [firestoneSingleData, setFirestoneSingleData] = useState<any | {}>({});
   const [productDetails, setProductDetails] = useState<any | {}>({
     size: "",
@@ -26,55 +29,51 @@ const SingleProduct: NextPage<Props> = ({ query }) => {
     qty: 0,
     id: "",
   });
-  const [snackText, setSnackText] = useState<any>("");
   const {
     cartState: { cart },
     cartDispatch,
     user,
   }: any = useContextDetails();
-  const [cartCount, setCartCount] = useState<number>(0);
-
-  // const [productDetails, setProductDetails] = useState<any | {}>({});
-  //  const [snackText, setSnackText] = useState<any>("");
-  // const getSingleProductDetail = async (id: any) => {
-  //   setSnackText("");
-  //   setLoading(true);
-  //   await get(`products/${id}`).then(
-  //     (res) => {
-  //       setProductDetails(res.data);
-  //       setRating(res.data?.rating?.rate);
-  //       setLoading(false);
-  //     },
-  //     (error) => {
-  //       setSnackText(error.message);
-  //       setOpenSnackModal(true);
-  //       setLoading(false);
-  //     }
-  //   );
-  // };
-
-  // useEffect(() => {
-  //   getSingleProductDetail(query?.id);
-  // }, [query?.id]);
-
-  const handleProductCount = (value: number) => {
-    setCartCount(value);
-  };
 
   const handleAddtoCart = () => {
+    if (!productDetails.size) {
+      setSnackbarDetails({
+        openModal: true,
+        isError: true,
+        text: "Please select Size",
+      });
+    } else if (!productDetails.color) {
+      setSnackbarDetails({
+        openModal: true,
+        isError: true,
+        text: "Please select Color",
+      });
+    } else if (productDetails.qty <= 0) {
+      setSnackbarDetails({
+        openModal: true,
+        isError: true,
+        text: "Add Quantity",
+      });
+    } else {
+      productDetails.id = router.query.id;
+      const fireStoneData = { ...firestoneSingleData };
+      fireStoneData.id = router.query.id;
+      cartDispatch({
+        type: "ADD-TO-CART",
+        payload: fireStoneData,
+        cartUpdate: productDetails,
+      });
+    }
+  };
+
+  const handleRemovefromCart = () => {
+    const productDetails = { ...firestoneSingleData };
     productDetails.id = router.query.id;
     cartDispatch({
-      type: "ADD-TO-CART",
-      payload: firestoneSingleData,
-      cartUpdate: productDetails,
-    });
-  };
-  const handleRemovefromCart = () => {
-    cartDispatch({
       type: "REMOVE-FROM-CART",
-      payload: firestoneSingleData,
+      payload: productDetails,
     });
-    setCartCount(0);
+    setProductDetails((prev: any) => ({ ...prev, qty: 0 }));
   };
 
   const handleChange = (type: string, value: any) => {
@@ -115,16 +114,17 @@ const SingleProduct: NextPage<Props> = ({ query }) => {
   return (
     <>
       <SnackbarModal
-        open={openSnackModal}
-        isError={true}
-        text={snackText}
-        handleClose={() => setOpenSnackModal(false)}
+        open={snackbarDetails.openModal}
+        isError={snackbarDetails.isError}
+        text={snackbarDetails.text}
+        handleClose={() =>
+          setSnackbarDetails((prev: any) => ({ ...prev, openModal: false }))
+        }
       />
       <Container maxWidth="xl">
         <SingleProductView
           productDetails={firestoneSingleData}
           handleBack={handleBack}
-          rating={rating}
           prefillData={productDetails}
           handleAddtoCart={handleAddtoCart}
           handleRemovefromCart={handleRemovefromCart}
