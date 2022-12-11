@@ -31,10 +31,12 @@ const Cart = () => {
   };
 
   const handleChange = (value: number, item: any) => {
+    let productDetails: any = {};
+    productDetails.qty = value;
     cartDispatch({
       type: "ADD-TO-CART",
       payload: item,
-      qty: value,
+      cartUpdate: productDetails,
     });
   };
 
