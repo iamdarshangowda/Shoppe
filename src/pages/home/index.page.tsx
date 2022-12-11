@@ -66,22 +66,25 @@ const Home: NextPage<Props> = ({ query }) => {
     getAllProducts("");
   };
 
-  const [firestoneData, setFirestoneData] = useState<any | []>([]);
   useEffect(() => {
     getAllProducts(router.query.sortby);
   }, [router.query.sortby]);
 
-  const getProductsFirebase = async () => {
-    const data = await ProductDataServices.getProducts();
+  // const [firestoneData, setFirestoneData] = useState<any | []>([]);
 
-    setFirestoneData(
-      data.docs.map((doc: any) => ({ ...doc.data(), id: doc.id }))
-    );
-  };
+  // const getProductsFirebase = async () => {
+  //   const data = await ProductDataServices.getProducts("shoes");
 
-  useEffect(() => {
-    getProductsFirebase();
-  }, []);
+  //   setFirestoneData(
+  //     data.docs.map((doc: any) => ({ ...doc.data(), id: doc.id }))
+  //   );
+  // };
+
+  // useEffect(() => {
+  //   getProductsFirebase();
+  // }, []);
+
+  // console.log(firestoneData);
   return (
     <>
       <Box display={{ xs: "block", sm: "flex" }} gap={4} mb={4}>
@@ -106,16 +109,16 @@ const Home: NextPage<Props> = ({ query }) => {
         ) : (
           <Skeleton variant="rectangular" width={"100%"} height={200} />
         )}
+        {/* <Grid container spacing={2}>
+          {firestoneData.map((item: any, index: number) => (
+            <Link href={`/`} legacyBehavior key={index}>
+              <Grid item xs={6} sm={6} md={4} lg={3} xl={2}>
+                <ListingCard productDetails={item} />
+              </Grid>
+            </Link>
+          ))}
+        </Grid> */}
       </Box>
-      <Grid container spacing={2}>
-        {firestoneData.map((item: any, index: number) => (
-          <Link href={`/`} legacyBehavior key={index}>
-            <Grid item xs={6} sm={6} md={4} lg={3} xl={2}>
-              <ListingCard productDetails={item} />
-            </Grid>
-          </Link>
-        ))}
-      </Grid>
       <BackdropLoader open={loading} />
     </>
   );

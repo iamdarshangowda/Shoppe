@@ -11,8 +11,8 @@ import {
 
 const productCollectionRef = collection(db, "products");
 class ProductDataServices {
-  getProducts = () => {
-    return getDocs(productCollectionRef);
+  getProducts = (collectionName: string) => {
+    return getDocs(collection(db, collectionName));
   };
 
   getSingleProduct = (id: any) => {
