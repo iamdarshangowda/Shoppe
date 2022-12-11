@@ -86,8 +86,10 @@ const CustomSelect: React.FunctionComponent<props> = ({
           },
         }}
       >
-        <MenuItem value={""} disabled>
-          {placeholder}
+        <MenuItem value={"default"} disabled>
+          <Typography fontSize="1em" color="#8B7E74">
+            {placeholder}
+          </Typography>
         </MenuItem>
         {data?.map((item: any, index: number) => (
           <MenuItem value={valueKey ? item[valueKey] : item} key={index}>

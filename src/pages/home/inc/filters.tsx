@@ -99,30 +99,30 @@ export const Filters: React.FunctionComponent<Props> = ({
               onChange={handleSearch}
             />
           </Box>
-          <Box>
+          <Box mb={3}>
             <CustomSelect
               data={CategoryListHC}
               fieldName="category"
               displayValueKey={"label"}
-              defaultValue=""
               placeholder={"Sort By Category"}
               valueKey={"key"}
               onChange={handleCategory}
-              label={"Sort By Category"}
-              value={router?.query.category ? router?.query.category : ""}
+              //label={"Sort By Category"}
+              value={
+                router?.query.category ? router?.query.category : "default"
+              }
             />
           </Box>
-          <Box>
+          <Box mb={3}>
             <CustomSelect
               data={BrandListHC}
               fieldName="brand"
               displayValueKey={"label"}
-              defaultValue=""
               placeholder={"Sort By Brand"}
               valueKey={"key"}
               onChange={handleBrand}
-              label={"Sort By Brand"}
-              value={router?.query.brand ? router?.query.brand : ""}
+              //label={"Sort By Brand"}
+              value={router?.query.brand ? router?.query.brand : "default"}
             />
           </Box>
           {/* <Box>
