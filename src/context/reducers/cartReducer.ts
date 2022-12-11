@@ -2,7 +2,7 @@ import { getExperimentalSetting } from "@firebase/util";
 
 interface action {
   type: any;
-  qty: any;
+  cartUpdate: any;
   payload: any;
 }
 
@@ -14,11 +14,11 @@ export const cartReducer = (state: any, action: action) => {
     if (existingIndex >= 0) {
       state.cart.splice(existingIndex, 1, {
         ...action.payload,
-        qty: action.qty,
+        ...action.cartUpdate,
       });
       return state.cart;
     } else {
-      return [...state.cart, { ...action.payload, qty: action.qty }];
+      return [...state.cart, { ...action.payload, ...action.cartUpdate }];
     }
   };
 

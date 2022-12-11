@@ -13,10 +13,10 @@ const GroupedButtons: React.FunctionComponent<Props> = ({
   sx,
 }) => {
   const handleIncrement = () => {
-    handleChange(cartCount + 1);
+    handleChange(Number(cartCount) + 1);
   };
   const handleDecrement = () => {
-    handleChange(cartCount - 1);
+    handleChange(Number(cartCount) - 1);
   };
 
   return (

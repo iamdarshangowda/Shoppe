@@ -19,8 +19,8 @@ interface props {
   placeholder?: string;
   defaultValue?: any;
   onChange?: any;
-  valueKey: string;
-  displayValueKey: string;
+  valueKey?: string;
+  displayValueKey?: string;
   disabled?: boolean;
   multiple?: boolean;
 }
@@ -90,8 +90,8 @@ const CustomSelect: React.FunctionComponent<props> = ({
           {placeholder}
         </MenuItem>
         {data?.map((item: any, index: number) => (
-          <MenuItem value={item[valueKey]} key={index}>
-            {item[displayValueKey]}
+          <MenuItem value={valueKey ? item[valueKey] : item} key={index}>
+            {displayValueKey ? item[displayValueKey] : item}
           </MenuItem>
         ))}
       </Select>

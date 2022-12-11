@@ -16,25 +16,26 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import GroupedButtons from "@/components/ui-components/common/buttons/grouped-button";
 import SellIcon from "@mui/icons-material/Sell";
 import { PricerWithCommas } from "@/utils/dataModifiers";
+import CustomSelect from "@/components/ui-components/common/inputs/custom-select";
 
 interface Props {
   productDetails: any;
   handleBack: () => void;
   rating: number;
-  handleProductCount: (value: number) => void;
-  cartCount: number;
+  prefillData: any;
   handleAddtoCart: () => void;
   handleRemovefromCart: () => void;
+  handleChange: (type: string, value: any) => void;
 }
 
 export const SingleProductView: React.FunctionComponent<Props> = ({
   productDetails,
   handleBack,
   rating,
-  handleProductCount,
-  cartCount,
+  prefillData,
   handleAddtoCart,
   handleRemovefromCart,
+  handleChange,
 }) => {
   const formatPrice = PricerWithCommas(productDetails?.price);
 
@@ -104,6 +105,25 @@ export const SingleProductView: React.FunctionComponent<Props> = ({
               {productDetails?.rating?.count} customer review
             </Typography>
           </Box>
+          <Box display="flex" gap={2}>
+            <Box maxWidth={150} width="100%">
+              <CustomSelect
+                label="Select Size"
+                data={productDetails?.size}
+                onChange={(value: any) => handleChange("size", value)}
+                value={prefillData?.size}
+              />
+            </Box>
+            <Divider orientation="vertical" flexItem />
+            <Box maxWidth={150} width="100%">
+              <CustomSelect
+                label="Select Color"
+                data={productDetails?.color}
+                onChange={(value: any) => handleChange("color", value)}
+                value={prefillData?.color}
+              />
+            </Box>
+          </Box>
           <Box
             display="flex"
             gap={2}
@@ -112,8 +132,8 @@ export const SingleProductView: React.FunctionComponent<Props> = ({
             mt={1}
           >
             <GroupedButtons
-              handleChange={handleProductCount}
-              cartCount={cartCount}
+              handleChange={(value: any) => handleChange("qty", value)}
+              cartCount={prefillData?.qty}
             />
             <Box display="flex" justifyContent={"space-between"} gap={1}>
               <CustomButton

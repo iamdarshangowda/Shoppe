@@ -20,6 +20,11 @@ const SingleProduct: NextPage<Props> = ({ query }) => {
   const [rating, setRating] = useState<any>(0);
   const [openSnackModal, setOpenSnackModal] = useState<boolean>(false);
   const [firestoneSingleData, setFirestoneSingleData] = useState<any | {}>({});
+  const [productDetails, setProductDetails] = useState<any | {}>({
+    size: "",
+    color: "",
+    qty: "",
+  });
   const [snackText, setSnackText] = useState<any>("");
   const {
     cartState: { cart },
@@ -29,6 +34,7 @@ const SingleProduct: NextPage<Props> = ({ query }) => {
   const [cartCount, setCartCount] = useState<number>(0);
 
   // const [productDetails, setProductDetails] = useState<any | {}>({});
+  //  const [snackText, setSnackText] = useState<any>("");
   // const getSingleProductDetail = async (id: any) => {
   //   setSnackText("");
   //   setLoading(true);
@@ -55,19 +61,25 @@ const SingleProduct: NextPage<Props> = ({ query }) => {
   };
 
   const handleAddtoCart = () => {
+    console.log(productDetails);
     cartDispatch({
       type: "ADD-TO-CART",
       payload: firestoneSingleData,
-      qty: cartCount,
+      cartUpdate: productDetails,
     });
   };
-
+  console.log(cart);
   const handleRemovefromCart = () => {
     cartDispatch({
       type: "REMOVE-FROM-CART",
       payload: firestoneSingleData,
     });
     setCartCount(0);
+  };
+
+  const handleChange = (type: string, value: any) => {
+    console.log(type, value);
+    setProductDetails((prev: any) => ({ ...prev, [type]: value }));
   };
 
   const handleBack = () => {
@@ -80,7 +92,7 @@ const SingleProduct: NextPage<Props> = ({ query }) => {
     );
 
     if (currentProduct.length) {
-      setCartCount(currentProduct[0].qty);
+      setProductDetails(currentProduct?.[0]);
     }
   };
 
@@ -89,11 +101,13 @@ const SingleProduct: NextPage<Props> = ({ query }) => {
   }, []);
 
   const getSingleFirebaseProduct = async (collection: any, id: any) => {
+    setLoading(true);
     const data: any = await ProductDataServices.getSingleProduct(
       collection,
       id
     );
     setFirestoneSingleData(data.data());
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -113,10 +127,10 @@ const SingleProduct: NextPage<Props> = ({ query }) => {
           productDetails={firestoneSingleData}
           handleBack={handleBack}
           rating={rating}
-          handleProductCount={handleProductCount}
-          cartCount={cartCount}
+          prefillData={productDetails}
           handleAddtoCart={handleAddtoCart}
           handleRemovefromCart={handleRemovefromCart}
+          handleChange={handleChange}
         />
       </Container>
       <BackdropLoader open={loading} />
