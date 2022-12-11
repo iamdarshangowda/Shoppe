@@ -7,12 +7,22 @@ import {
   updateDoc,
   deleteDoc,
   doc,
+  where,
+  query,
 } from "firebase/firestore";
 
 const productCollectionRef = collection(db, "products");
 class ProductDataServices {
-  getProducts = (collectionName: string) => {
-    return getDocs(collection(db, collectionName));
+  getProducts = (collectionName: string, getQuery?: any) => {
+    if (getQuery) {
+      const q = query(
+        collection(db, collectionName),
+        where(getQuery?.type, "==", getQuery?.key)
+      );
+      return getDocs(q);
+    } else {
+      return getDocs(collection(db, collectionName));
+    }
   };
 
   getSingleProduct = (collection: any, id: any) => {

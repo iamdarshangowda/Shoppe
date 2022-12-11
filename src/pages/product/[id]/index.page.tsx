@@ -23,7 +23,8 @@ const SingleProduct: NextPage<Props> = ({ query }) => {
   const [productDetails, setProductDetails] = useState<any | {}>({
     size: "",
     color: "",
-    qty: "",
+    qty: 0,
+    id: "",
   });
   const [snackText, setSnackText] = useState<any>("");
   const {
@@ -61,6 +62,7 @@ const SingleProduct: NextPage<Props> = ({ query }) => {
   };
 
   const handleAddtoCart = () => {
+    productDetails.id = router.query.id;
     cartDispatch({
       type: "ADD-TO-CART",
       payload: firestoneSingleData,
@@ -87,7 +89,6 @@ const SingleProduct: NextPage<Props> = ({ query }) => {
     const currentProduct = cart.filter(
       (item: any) => item.id == router.query.id
     );
-
     if (currentProduct.length) {
       setProductDetails(currentProduct?.[0]);
     }

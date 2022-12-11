@@ -14,14 +14,20 @@ const CategoryList = [
 ];
 
 const BrandList = [
-  { label: "Nike", key: "accessories" },
-  { label: "Puma", key: "shoes" },
-  { label: "Casio", key: "clothes" },
-  { label: "Zara", key: "watches" },
-  { label: "H&M", key: "h&m" },
+  { label: "Nike", key: "nike" },
+  { label: "Puma", key: "puma" },
+  { label: "Casio", key: "casio" },
+  { label: "Zara", key: "zara" },
   { label: "Mango", key: "mango" },
   { label: "Fendi", key: "fendi" },
   { label: "Fossil", key: "fossil" },
+];
+
+const PriceList = [
+  { label: "Below 2,000", key: 2000 },
+  { label: "2000 - 5000", key: 5000 },
+  { label: "5000 - 10000", key: 10000 },
+  { label: "Above 10000", key: 10001 },
 ];
 
 interface Props {
@@ -29,6 +35,7 @@ interface Props {
   handleSearch: (value: string) => void;
   clearFilters: () => void;
   handleBrand: (value: string) => void;
+  handlePrice: (value: number) => void;
 }
 
 export const Filters: React.FunctionComponent<Props> = ({
@@ -36,6 +43,7 @@ export const Filters: React.FunctionComponent<Props> = ({
   handleSearch,
   clearFilters,
   handleBrand,
+  handlePrice,
 }) => {
   const theme: any = useTheme();
   const lessThanSmall = useMediaQuery(theme.breakpoints.down("sm"));
@@ -90,6 +98,7 @@ export const Filters: React.FunctionComponent<Props> = ({
           <Box>
             <CustomSelect
               data={CategoryList}
+              fieldName="category"
               displayValueKey={"label"}
               defaultValue=""
               placeholder={"Sort By Category"}
@@ -99,9 +108,10 @@ export const Filters: React.FunctionComponent<Props> = ({
               value={router?.query.category ? router?.query.category : ""}
             />
           </Box>
-          {/* <Box>
+          <Box>
             <CustomSelect
               data={BrandList}
+              fieldName="brand"
               displayValueKey={"label"}
               defaultValue=""
               placeholder={"Sort By Brand"}
@@ -110,7 +120,20 @@ export const Filters: React.FunctionComponent<Props> = ({
               label={"Sort By Brand"}
               value={router?.query.brand ? router?.query.brand : ""}
             />
-          </Box> */}
+          </Box>
+          <Box>
+            <CustomSelect
+              data={PriceList}
+              fieldName="price"
+              displayValueKey={"label"}
+              defaultValue=""
+              placeholder={"Sort By Price"}
+              valueKey={"key"}
+              onChange={handlePrice}
+              label={"Sort By Price"}
+              value={router?.query.price ? router?.query.price : ""}
+            />
+          </Box>
         </>
       )}
     </Box>

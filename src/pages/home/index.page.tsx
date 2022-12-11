@@ -23,7 +23,7 @@ const Home: NextPage<Props> = ({ query }) => {
   const router = useRouter();
   const [productList, setProductList] = useState<any | []>([]);
   const [firestoneData, setFirestoneData] = useState<any | []>([]);
-
+  const [queryFor, setQueryFor] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const {
     cartState: { cart },
@@ -92,12 +92,34 @@ const Home: NextPage<Props> = ({ query }) => {
   };
 
   const handleFilterByBrand = (brand: string) => {
-    if (router.query.category) {
+    setQueryFor("brand");
+    if (router.query.category && router.query.price) {
       router.replace(
-        `${router.pathname}?category=${router.query.category}&brand=${brand}`
+        `${router.pathname}?category=${router.query.category}&price=${router.query.price}&brand=${brand}`
+      );
+    } else if () {
+      router.replace(`${router.pathname}?brand=${brand}`);
+    }
+  };
+
+  const handleFilterByPrice = (price: number) => {
+    setQueryFor("price");
+    if (router.query.category && router.query.brand) {
+      router.replace(
+        `${router.pathname}?category=${router.query.category}&brand=${router.query.brand}&price=${price}`
+      );
+    } else if (router.query.category) {
+      router.replace(
+        `${router.pathname}?category=${router.query.category}&price=${price}`
+      );
+    } else if (router.query.brand) {
+      router.replace(
+        `${router.pathname}?brand=${router.query.brand}&price=${price}`
       );
     } else {
-      router.replace(`${router.pathname}?brand=${brand}`);
+      router.replace(
+        `${router.pathname}?price=${price}`
+      );
     }
   };
 
@@ -111,27 +133,30 @@ const Home: NextPage<Props> = ({ query }) => {
     setLoading(false);
   });
 
-  const getProductsFirebase = async (category: any) => {
+  const getProductsFirebase = async (category: any, query?: any) => {
     setLoading(true);
-    const shoes = await ProductDataServices.getProducts("shoes");
+    const shoes = await ProductDataServices.getProducts("shoes", query);
     const shoesArr = shoes.docs.map((doc: any) => ({
       ...doc.data(),
       id: doc.id,
     }));
 
-    const clothes = await ProductDataServices.getProducts("clothes");
+    const clothes = await ProductDataServices.getProducts("clothes", query);
     const clothesArr = clothes.docs.map((doc: any) => ({
       ...doc.data(),
       id: doc.id,
     }));
 
-    const accessories = await ProductDataServices.getProducts("Accessories");
+    const accessories = await ProductDataServices.getProducts(
+      "Accessories",
+      query
+    );
     const accessoriesArr = accessories.docs.map((doc: any) => ({
       ...doc.data(),
       id: doc.id,
     }));
 
-    const watches = await ProductDataServices.getProducts("watches");
+    const watches = await ProductDataServices.getProducts("watches", query);
     const watchesArr = watches.docs.map((doc: any) => ({
       ...doc.data(),
       id: doc.id,
@@ -143,7 +168,6 @@ const Home: NextPage<Props> = ({ query }) => {
       ...accessoriesArr,
       ...watchesArr,
     ];
-
     if (category == "all") {
       setFirestoneData(allProducts);
     } else if (category == "shoes") {
@@ -159,7 +183,14 @@ const Home: NextPage<Props> = ({ query }) => {
   };
 
   useEffect(() => {
-    if (router.query.category) {
+    if (router.query.category && router.query.brand) {
+      getProductsFirebase(router.query.category, {
+        type: "brand",
+        key: router.query.brand,
+      });
+    } else if (router.query.brand) {
+      getProductsFirebase("all", { type: queryFor, key: router.query.brand });
+    } else if (router.query.category) {
       getProductsFirebase(router.query.category);
     } else {
       getProductsFirebase("all");
@@ -175,6 +206,7 @@ const Home: NextPage<Props> = ({ query }) => {
             handleSearch={(value: string) => handleSearchDebounce(value)}
             clearFilters={handleClearFilters}
             handleBrand={handleFilterByBrand}
+            handlePrice={handleFilterByPrice}
           />
         </Box>
         <Divider orientation="vertical" flexItem sx={{ bgcolor: "#FAEAB1" }} />

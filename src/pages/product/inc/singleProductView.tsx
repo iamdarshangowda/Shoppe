@@ -40,7 +40,7 @@ export const SingleProductView: React.FunctionComponent<Props> = ({
   const formatPrice = PricerWithCommas(productDetails?.price);
 
   return (
-    <Grid container mb={4} spacing={2}>
+    <Grid container mb={5} spacing={2}>
       <Grid item xs={12} mb={1}>
         <CustomButton
           label="back"
@@ -70,13 +70,24 @@ export const SingleProductView: React.FunctionComponent<Props> = ({
       </Grid>
       <Grid item xs={12} sm={6}>
         <Box display="flex" flexDirection="column" gap={2}>
-          <Typography
-            fontSize="1.625em"
-            fontWeight={400}
-            color={(theme: Theme) => theme.palette.primary.main}
-          >
-            {productDetails?.title}
-          </Typography>
+          <Box display={"flex"} gap={2} alignItems="center">
+            <Typography
+              fontSize="1.625em"
+              fontWeight={400}
+              color={(theme: Theme) => theme.palette.primary.main}
+            >
+              {productDetails?.title}
+            </Typography>
+            <Chip
+              label={productDetails?.brand?.toUpperCase()}
+              sx={{
+                fontSize: "0.9em",
+                fontWeight: 600,
+                color: "#285430 ",
+                bgcolor: "#A4BE7B",
+              }}
+            />
+          </Box>
           <Chip
             label={`INR ${formatPrice}`}
             icon={<SellIcon />}
@@ -103,6 +114,14 @@ export const SingleProductView: React.FunctionComponent<Props> = ({
               color={(theme: Theme) => theme.palette.secondary.light}
             >
               {productDetails?.rating?.count} customer review
+            </Typography>
+            <Divider orientation="vertical" flexItem />
+            <Typography
+              fontSize="1em"
+              fontWeight={400}
+              color={(theme: Theme) => theme.palette.secondary.light}
+            >
+              Only {productDetails?.instock} left in stock
             </Typography>
           </Box>
           <Box display="flex" gap={2}>
