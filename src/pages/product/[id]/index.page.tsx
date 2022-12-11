@@ -61,14 +61,12 @@ const SingleProduct: NextPage<Props> = ({ query }) => {
   };
 
   const handleAddtoCart = () => {
-    console.log(productDetails);
     cartDispatch({
       type: "ADD-TO-CART",
       payload: firestoneSingleData,
       cartUpdate: productDetails,
     });
   };
-  console.log(cart);
   const handleRemovefromCart = () => {
     cartDispatch({
       type: "REMOVE-FROM-CART",
@@ -78,7 +76,6 @@ const SingleProduct: NextPage<Props> = ({ query }) => {
   };
 
   const handleChange = (type: string, value: any) => {
-    console.log(type, value);
     setProductDetails((prev: any) => ({ ...prev, [type]: value }));
   };
 
