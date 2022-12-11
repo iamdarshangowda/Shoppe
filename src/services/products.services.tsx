@@ -14,7 +14,7 @@ import {
 const productCollectionRef = collection(db, "products");
 class ProductDataServices {
   getProducts = (collectionName: string, getQuery?: any) => {
-    if (getQuery) {
+    if (getQuery?.type) {
       const q = query(
         collection(db, collectionName),
         where(getQuery?.type, "==", getQuery?.key)

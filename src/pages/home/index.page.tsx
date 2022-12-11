@@ -77,6 +77,7 @@ const Home: NextPage<Props> = ({ query }) => {
   // }, [router.query.sortby]);
 
   const handleClearFilters = () => {
+    setQueryFor("");
     router.replace(`${router.pathname}`);
     getProductsFirebase("all");
   };
@@ -92,43 +93,40 @@ const Home: NextPage<Props> = ({ query }) => {
   };
 
   const handleFilterByBrand = (brand: string) => {
-    setQueryFor("brand");
-    if (router.query.category && router.query.price) {
+    if (router.query.category) {
       router.replace(
-        `${router.pathname}?category=${router.query.category}&price=${router.query.price}&brand=${brand}`
+        `${router.pathname}?category=${router.query.category}&brand=${brand}`
       );
-    } else if () {
+    } else {
       router.replace(`${router.pathname}?brand=${brand}`);
     }
   };
 
-  const handleFilterByPrice = (price: number) => {
-    setQueryFor("price");
-    if (router.query.category && router.query.brand) {
-      router.replace(
-        `${router.pathname}?category=${router.query.category}&brand=${router.query.brand}&price=${price}`
-      );
-    } else if (router.query.category) {
-      router.replace(
-        `${router.pathname}?category=${router.query.category}&price=${price}`
-      );
-    } else if (router.query.brand) {
-      router.replace(
-        `${router.pathname}?brand=${router.query.brand}&price=${price}`
-      );
-    } else {
-      router.replace(
-        `${router.pathname}?price=${price}`
-      );
-    }
-  };
+  // const handleFilterByPrice = (price: number) => {
+  //   setQueryFor("price");
+  //   if (router.query.category && router.query.brand) {
+  //     router.replace(
+  //       `${router.pathname}?category=${router.query.category}&brand=${router.query.brand}&price=${price}`
+  //     );
+  //   } else if (router.query.category) {
+  //     router.replace(
+  //       `${router.pathname}?category=${router.query.category}&price=${price}`
+  //     );
+  //   } else if (router.query.brand) {
+  //     router.replace(
+  //       `${router.pathname}?brand=${router.query.brand}&price=${price}`
+  //     );
+  //   } else {
+  //     router.replace(`${router.pathname}?price=${price}`);
+  //   }
+  // };
 
   const handleSearchDebounce = debounce((value: any) => {
     setLoading(true);
     if (value.length > 0) {
       setFirestoneData(SearchProducts(firestoneData, value));
     } else {
-      getProductsFirebase("all");
+      getProductsByRouteCheck();
     }
     setLoading(false);
   });
@@ -182,19 +180,34 @@ const Home: NextPage<Props> = ({ query }) => {
     setLoading(false);
   };
 
-  useEffect(() => {
+  const getProductsByRouteCheck = () => {
     if (router.query.category && router.query.brand) {
       getProductsFirebase(router.query.category, {
         type: "brand",
         key: router.query.brand,
       });
     } else if (router.query.brand) {
-      getProductsFirebase("all", { type: queryFor, key: router.query.brand });
+      getProductsFirebase("all", { type: "brand", key: router.query.brand });
     } else if (router.query.category) {
       getProductsFirebase(router.query.category);
     } else {
       getProductsFirebase("all");
     }
+  };
+
+  useEffect(() => {
+    getProductsByRouteCheck();
+
+    // getProductsFirebase(router.query.category ? router.query.category : "all", {
+    //   type: queryFor,
+    //   brandKey: router.query.brand,
+    //   priceKey1: router.query.price?.toString().split("-")?.[0]
+    //     ? router.query.price?.toString().split("-")?.[0]
+    //     : null,
+    //   priceKey2: router.query.price?.toString().split("-")?.[1]
+    //     ? router.query.price?.toString().split("-")?.[1]
+    //     : null,
+    // });
   }, [router.query]);
 
   return (
@@ -206,7 +219,6 @@ const Home: NextPage<Props> = ({ query }) => {
             handleSearch={(value: string) => handleSearchDebounce(value)}
             clearFilters={handleClearFilters}
             handleBrand={handleFilterByBrand}
-            handlePrice={handleFilterByPrice}
           />
         </Box>
         <Divider orientation="vertical" flexItem sx={{ bgcolor: "#FAEAB1" }} />

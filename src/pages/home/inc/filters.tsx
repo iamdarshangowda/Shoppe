@@ -23,19 +23,19 @@ const BrandList = [
   { label: "Fossil", key: "fossil" },
 ];
 
-const PriceList = [
-  { label: "Below 2,000", key: 2000 },
-  { label: "2000 - 5000", key: 5000 },
-  { label: "5000 - 10000", key: 10000 },
-  { label: "Above 10000", key: 10001 },
-];
+// const PriceList = [
+//   { label: "Below 2,000", key: "0-2000" },
+//   { label: "2000 - 5000", key: "2001-5000" },
+//   { label: "5000 - 10000", key: "50001-10000" },
+//   { label: "Above 10000", key: "10001" },
+// ];
 
 interface Props {
   handleCategory: (value: string) => void;
   handleSearch: (value: string) => void;
   clearFilters: () => void;
   handleBrand: (value: string) => void;
-  handlePrice: (value: number) => void;
+  handlePrice?: (value: number) => void;
 }
 
 export const Filters: React.FunctionComponent<Props> = ({
@@ -121,7 +121,7 @@ export const Filters: React.FunctionComponent<Props> = ({
               value={router?.query.brand ? router?.query.brand : ""}
             />
           </Box>
-          <Box>
+          {/* <Box>
             <CustomSelect
               data={PriceList}
               fieldName="price"
@@ -133,7 +133,7 @@ export const Filters: React.FunctionComponent<Props> = ({
               label={"Sort By Price"}
               value={router?.query.price ? router?.query.price : ""}
             />
-          </Box>
+          </Box> */}
         </>
       )}
     </Box>
