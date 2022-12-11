@@ -6,14 +6,14 @@ import CustomButton from "@/components/ui-components/common/buttons/custom-butto
 import { useRouter } from "next/router";
 import { useTheme } from "@mui/styles";
 
-const CategoryList = [
+const CategoryListHC = [
   { label: "Accessories", key: "accessories" },
   { label: "Shoes", key: "shoes" },
   { label: "Clothes", key: "clothes" },
   { label: "Watches", key: "watches" },
 ];
 
-const BrandList = [
+const BrandListHC = [
   { label: "Nike", key: "nike" },
   { label: "Puma", key: "puma" },
   { label: "Casio", key: "casio" },
@@ -36,6 +36,8 @@ interface Props {
   clearFilters: () => void;
   handleBrand: (value: string) => void;
   handlePrice?: (value: number) => void;
+  brandList?: any;
+  categoryList?: any;
 }
 
 export const Filters: React.FunctionComponent<Props> = ({
@@ -44,6 +46,8 @@ export const Filters: React.FunctionComponent<Props> = ({
   clearFilters,
   handleBrand,
   handlePrice,
+  brandList,
+  categoryList,
 }) => {
   const theme: any = useTheme();
   const lessThanSmall = useMediaQuery(theme.breakpoints.down("sm"));
@@ -97,7 +101,7 @@ export const Filters: React.FunctionComponent<Props> = ({
           </Box>
           <Box>
             <CustomSelect
-              data={CategoryList}
+              data={CategoryListHC}
               fieldName="category"
               displayValueKey={"label"}
               defaultValue=""
@@ -110,7 +114,7 @@ export const Filters: React.FunctionComponent<Props> = ({
           </Box>
           <Box>
             <CustomSelect
-              data={BrandList}
+              data={BrandListHC}
               fieldName="brand"
               displayValueKey={"label"}
               defaultValue=""

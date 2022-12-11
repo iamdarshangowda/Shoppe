@@ -4,8 +4,10 @@ import { Filters } from "./inc/filters";
 import { get } from "src/config/axiosClient";
 import { ListingCard } from "@/components/ui-components/common/cards/listing-card";
 import {
+  CapitalizeFirstLetter,
   debounce,
   FilterProductsByCategory,
+  getUniqueValuesFromArrayOfObjects,
   SearchProducts,
 } from "@/utils/dataModifiers";
 import Link from "next/link";
@@ -14,6 +16,7 @@ import { useRouter } from "next/router";
 import { NextPage } from "next";
 import { useContextDetails } from "src/context/ContextProvider";
 import ProductDataServices from "../../services/products.services";
+import { EmptyStateCard } from "@/components/ui-components/common/cards/empty-state-card";
 
 interface Props {
   query?: any;
@@ -21,63 +24,15 @@ interface Props {
 
 const Home: NextPage<Props> = ({ query }) => {
   const router = useRouter();
-  const [productList, setProductList] = useState<any | []>([]);
   const [firestoneData, setFirestoneData] = useState<any | []>([]);
-  const [queryFor, setQueryFor] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+  const [categoryList, setCategoryList] = useState<any | []>([]);
+  const [brandList, setBrandList] = useState<any | []>([]);
   const {
     cartState: { cart },
   }: any = useContextDetails();
-  // const getAllProducts = async (value: any) => {
-  //   setLoading(true);
-  //   await get("products", { sort: value }).then(
-  //     (res) => {
-  //       setProductList(res.data);
-  //       setLoading(false);
-  //     },
-  //     (error) => {
-  //       setLoading(false);
-  //     }
-  //   );
-  // };
-
-  // const handleSearchDebounce = debounce((value: any) => {
-  //   if (value.length > 0) {
-  //     getProductsByCategory(value);
-  //   } else {
-  //     getAllProducts(router.query.sortby);
-  //   }
-  // });
-
-  // const getProductsByCategory = async (value?: any) => {
-  //   setLoading(true);
-  //   await get(`products/category/${value}`).then(
-  //     (res) => {
-  //       setProductList(res.data);
-  //       setLoading(false);
-  //     },
-  //     (error) => {
-  //       setLoading(false);
-  //     }
-  //   );
-  // };
-
-  // const handleSort = (value: string) => {
-  //   router.replace(`${router.pathname}?sortby=${value}`);
-  //   getAllProducts(value);
-  // };
-
-  // const handleClearFilters = () => {
-  //   router.replace(`${router.pathname}`);
-  //   getAllProducts("");
-  // };
-
-  // useEffect(() => {
-  //   getAllProducts(router.query.sortby);
-  // }, [router.query.sortby]);
 
   const handleClearFilters = () => {
-    setQueryFor("");
     router.replace(`${router.pathname}`);
     getProductsFirebase("all");
   };
@@ -197,17 +152,6 @@ const Home: NextPage<Props> = ({ query }) => {
 
   useEffect(() => {
     getProductsByRouteCheck();
-
-    // getProductsFirebase(router.query.category ? router.query.category : "all", {
-    //   type: queryFor,
-    //   brandKey: router.query.brand,
-    //   priceKey1: router.query.price?.toString().split("-")?.[0]
-    //     ? router.query.price?.toString().split("-")?.[0]
-    //     : null,
-    //   priceKey2: router.query.price?.toString().split("-")?.[1]
-    //     ? router.query.price?.toString().split("-")?.[1]
-    //     : null,
-    // });
   }, [router.query]);
 
   return (
@@ -219,22 +163,11 @@ const Home: NextPage<Props> = ({ query }) => {
             handleSearch={(value: string) => handleSearchDebounce(value)}
             clearFilters={handleClearFilters}
             handleBrand={handleFilterByBrand}
+            brandList={brandList}
+            categoryList={categoryList}
           />
         </Box>
         <Divider orientation="vertical" flexItem sx={{ bgcolor: "#FAEAB1" }} />
-        {/* {productList?.length > 0 ? (
-          <Grid container spacing={2}>
-            {productList.map((item: any, index: number) => (
-              <Link href={`/product/${item.id}`} legacyBehavior key={index}>
-                <Grid item xs={6} sm={6} md={4} lg={3} xl={2}>
-                  <ListingCard productDetails={item} />
-                </Grid>
-              </Link>
-            ))}
-          </Grid>
-        ) : (
-          <Skeleton variant="rectangular" width={"100%"} height={200} />
-        )} */}
         {firestoneData.length > 0 ? (
           <Grid container spacing={2}>
             {firestoneData.map((item: any, index: number) => (
@@ -250,7 +183,7 @@ const Home: NextPage<Props> = ({ query }) => {
             ))}
           </Grid>
         ) : (
-          <Skeleton variant="rectangular" width={"100%"} height={200} />
+          <EmptyStateCard text={"No Items"} />
         )}
       </Box>
       <BackdropLoader open={loading} />
