@@ -7,6 +7,7 @@ import { SnackbarModal } from "@/components/ui-components/snackbar";
 import { useContextDetails } from "src/context/ContextProvider";
 import { useRouter } from "next/router";
 import { SingleCardWrapper } from "@/components/ui-components/common/layouts/single-card-wrapper";
+import { CreateUserDocument } from "src/services/users.services";
 
 const SignUp = () => {
   const router = useRouter();
@@ -27,6 +28,7 @@ const SignUp = () => {
     setLoading(true);
     await SignUp(loginDetails.email, loginDetails.password).then(
       (res: any) => {
+        CreateUserDocument(res.user);
         setSnackbarDetails({
           openModal: true,
           isError: false,

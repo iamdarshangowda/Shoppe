@@ -2,7 +2,11 @@ import React from "react";
 import { Grid, Typography, Box, Theme, Avatar } from "@mui/material";
 import { CircularEditIcon } from "@/components/ui-components/common/buttons/edit-icon";
 
-export const ProfilePhoto = () => {
+interface Props {
+  userData?: any;
+}
+
+export const ProfilePhoto: React.FunctionComponent<Props> = ({ userData }) => {
   return (
     <Box
       width={120}

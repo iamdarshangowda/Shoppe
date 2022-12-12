@@ -6,7 +6,17 @@ import { ProfileData } from "./profileData";
 import { CircularEditIcon } from "@/components/ui-components/common/buttons/edit-icon";
 import CloseIcon from "@mui/icons-material/Close";
 
-export const ProfileContainer = () => {
+interface Props {
+  userData?: any;
+  handleEventChange: any;
+  handleSubmit: () => void;
+}
+
+export const ProfileContainer: React.FunctionComponent<Props> = ({
+  userData,
+  handleEventChange,
+  handleSubmit,
+}) => {
   const [isEdit, setIsEdit] = useState<boolean>(false);
 
   const handleProfileEdit = () => {
@@ -23,7 +33,7 @@ export const ProfileContainer = () => {
     >
       <Box>
         <Box my={2}>
-          <ProfilePhoto />
+          <ProfilePhoto userData={userData} />
         </Box>
         <Box
           p={2}
@@ -34,7 +44,14 @@ export const ProfileContainer = () => {
         >
           {isEdit ? (
             <>
-              <ProfileEditForm />
+              <ProfileEditForm
+                userData={userData}
+                handleEventChange={handleEventChange}
+                handleSubmit={() => {
+                  handleSubmit();
+                  setIsEdit(false);
+                }}
+              />
               <IconButton
                 sx={{ position: "absolute", top: "5px", right: "5px" }}
                 onClick={handleProfileEdit}
@@ -54,7 +71,7 @@ export const ProfileContainer = () => {
                 }}
                 onClick={handleProfileEdit}
               />{" "}
-              <ProfileData />
+              <ProfileData userData={userData} />
             </>
           )}
         </Box>

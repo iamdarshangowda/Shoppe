@@ -1,7 +1,11 @@
 import React from "react";
 import { Grid, Typography, Box, Theme } from "@mui/material";
 
-export const ProfileData = () => {
+interface Props {
+  userData?: any;
+}
+
+export const ProfileData: React.FunctionComponent<Props> = ({ userData }) => {
   return (
     <Grid container spacing={4} sx={{ maxWidth: "650px" }}>
       <Grid
@@ -28,7 +32,7 @@ export const ProfileData = () => {
           color={(theme: Theme) => theme.palette.primary.main}
           sx={{ whiteSpace: "initial" }}
         >
-          Darshan
+          {userData?.first_name}
         </Typography>
       </Grid>
       <Grid
@@ -54,7 +58,7 @@ export const ProfileData = () => {
           fontWeight={600}
           color={(theme: Theme) => theme.palette.primary.main}
         >
-          Gowda
+          {userData?.last_name}
         </Typography>
       </Grid>
       <Grid
@@ -82,7 +86,7 @@ export const ProfileData = () => {
           sx={{ wordWrap: "break-word", whiteSpace: "pre-wrap" }}
           maxWidth={250}
         >
-          darshan@gmail.com
+          {userData?.email}
         </Typography>
       </Grid>
       <Grid
@@ -108,7 +112,7 @@ export const ProfileData = () => {
           fontWeight={600}
           color={(theme: Theme) => theme.palette.primary.main}
         >
-          8884335220
+          {userData?.phone}
         </Typography>
       </Grid>
     </Grid>
