@@ -10,6 +10,7 @@ import {
 import GroupedButtons from "@/components/ui-components/common/buttons/grouped-button";
 import CloseIcon from "@mui/icons-material/Close";
 import SellIcon from "@mui/icons-material/Sell";
+import { PricerWithCommas } from "@/utils/dataModifiers";
 
 interface Props {
   handleChange: (value: number, item: any) => void;
@@ -20,6 +21,8 @@ interface Props {
     title: string;
     qty: number;
     id: string;
+    size: string;
+    color: string;
   };
 }
 
@@ -55,7 +58,7 @@ export const SingleItem: React.FunctionComponent<Props> = ({
           <Box display="flex" justifyContent={"space-between"} gap={2}>
             <Typography
               fontSize="1em"
-              fontWeight={400}
+              fontWeight={500}
               color={(theme: Theme) => theme.palette.primary.main}
             >
               {cartDetails?.title.substring(0, 50)}
@@ -70,9 +73,25 @@ export const SingleItem: React.FunctionComponent<Props> = ({
               </IconButton>
             </Box>
           </Box>
+          <Box display="flex" gap={2}>
+            <Typography
+              fontSize="0.9em"
+              fontWeight={400}
+              color={(theme: Theme) => theme.palette.primary.main}
+            >
+              Size: {cartDetails?.size},
+            </Typography>
+            <Typography
+              fontSize="0.9em"
+              fontWeight={400}
+              color={(theme: Theme) => theme.palette.primary.main}
+            >
+              Color: {cartDetails?.color}
+            </Typography>
+          </Box>
           <Box display="flex" justifyContent={"space-between"} gap={1}>
             <Chip
-              label={`$${cartDetails?.price}`}
+              label={`$${PricerWithCommas(cartDetails?.price)}`}
               icon={<SellIcon sx={{ fontSize: "18px" }} />}
               sx={{
                 fontSize: "16px",

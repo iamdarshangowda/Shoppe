@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Typography, Theme, Grid, Divider } from "@mui/material";
 import CustomButton from "@/components/ui-components/common/buttons/custom-button";
+import { PricerWithCommas } from "@/utils/dataModifiers";
 
 interface Props {
   subTotal: any;
@@ -39,7 +40,7 @@ export const PriceDetails: React.FunctionComponent<Props> = ({
           fontWeight={500}
           color={(theme: Theme) => theme.palette.primary.main}
         >
-          ${subTotal.toFixed(2)}
+          ${PricerWithCommas(subTotal.toFixed(2))}
         </Typography>
         <Typography
           my={3}
@@ -70,7 +71,7 @@ export const PriceDetails: React.FunctionComponent<Props> = ({
           fontWeight={600}
           color={(theme: Theme) => theme.palette.primary.main}
         >
-          ${(subTotal + subTotal * (18 / 100)).toFixed(2)}
+          ${PricerWithCommas((subTotal + subTotal * (18 / 100)).toFixed(2))}
         </Typography>
       </Grid>
       <Grid>
