@@ -7,13 +7,10 @@ interface action {
 }
 
 export const cartReducer = (state: any, action: action) => {
-  console.log(state);
-  console.log(action);
   const handleAddCart = () => {
     const existingIndex = state.cart.findIndex(
       (item: any) => item.id == action.payload.id
     );
-    console.log(existingIndex);
     if (existingIndex !== -1) {
       state.cart.splice(existingIndex, 1, {
         ...action.payload,

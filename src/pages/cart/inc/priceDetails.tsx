@@ -40,7 +40,7 @@ export const PriceDetails: React.FunctionComponent<Props> = ({
           fontWeight={500}
           color={(theme: Theme) => theme.palette.primary.main}
         >
-          ${PricerWithCommas(subTotal.toFixed(2))}
+          INR {PricerWithCommas(subTotal.toFixed(2))}
         </Typography>
         <Typography
           my={3}
@@ -71,7 +71,7 @@ export const PriceDetails: React.FunctionComponent<Props> = ({
           fontWeight={600}
           color={(theme: Theme) => theme.palette.primary.main}
         >
-          ${PricerWithCommas((subTotal + subTotal * (18 / 100)).toFixed(2))}
+          INR {PricerWithCommas((subTotal + subTotal * (18 / 100)).toFixed(2))}
         </Typography>
       </Grid>
       <Grid>

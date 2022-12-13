@@ -91,7 +91,7 @@ export const SingleItem: React.FunctionComponent<Props> = ({
           </Box>
           <Box display="flex" justifyContent={"space-between"} gap={1}>
             <Chip
-              label={`$${PricerWithCommas(cartDetails?.price)}`}
+              label={`INR ${PricerWithCommas(cartDetails?.price)}`}
               icon={<SellIcon sx={{ fontSize: "18px" }} />}
               sx={{
                 fontSize: "16px",
