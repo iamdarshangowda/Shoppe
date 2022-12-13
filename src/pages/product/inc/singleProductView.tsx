@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Grid,
@@ -9,6 +9,7 @@ import {
   IconButton,
   Tooltip,
   Chip,
+  Button,
 } from "@mui/material";
 import CustomButton from "@/components/ui-components/common/buttons/custom-button";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -17,6 +18,8 @@ import GroupedButtons from "@/components/ui-components/common/buttons/grouped-bu
 import SellIcon from "@mui/icons-material/Sell";
 import { PricerWithCommas } from "@/utils/dataModifiers";
 import CustomSelect from "@/components/ui-components/common/inputs/custom-select";
+import Lightbox from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/styles.css";
 
 interface Props {
   productDetails: any;
@@ -36,9 +39,24 @@ export const SingleProductView: React.FunctionComponent<Props> = ({
   handleChange,
 }) => {
   const formatPrice = PricerWithCommas(productDetails?.price);
+  const [open, setOpen] = useState(false);
+  const [imageList, setImageList] = useState<any | []>([]);
+
+  const ImageLightboxList = (dataBaseImages: any) => {
+    let tempArr: any = [];
+    dataBaseImages?.forEach((item: any) => {
+      tempArr.push({ src: item });
+    });
+    setImageList(tempArr);
+  };
+
+  useEffect(() => {
+    ImageLightboxList(productDetails?.image);
+  }, [productDetails?.image]);
 
   return (
     <>
+      <Lightbox open={open} close={() => setOpen(false)} slides={imageList} />
       <Grid container mb={5} spacing={2}>
         <Grid item xs={12} mb={1}>
           <CustomButton
@@ -56,6 +74,8 @@ export const SingleProductView: React.FunctionComponent<Props> = ({
           sx={{
             display: "flex",
             justifyContent: "center",
+            flexDirection: { xs: "column", sm: "row" },
+            gap: 1,
           }}
         >
           <Box maxWidth={400} maxHeight={450}>
@@ -66,8 +86,33 @@ export const SingleProductView: React.FunctionComponent<Props> = ({
               height="100%"
               style={{
                 cursor: "pointer",
+                objectFit: "cover",
               }}
+              onClick={() => setOpen(true)}
             />
+          </Box>
+          <Box
+            display={"flex"}
+            flexDirection={{ xs: "row", sm: "column" }}
+            justifyContent={"flex-start"}
+            flexWrap={"wrap"}
+            gap={1}
+          >
+            {productDetails?.image?.map((item: any) => (
+              <Box maxWidth="100px" maxHeight="100px">
+                <img
+                  src={item}
+                  alt=""
+                  width="100%"
+                  height="100%"
+                  style={{
+                    cursor: "pointer",
+                    objectFit: "cover",
+                  }}
+                  onClick={() => setOpen(true)}
+                />
+              </Box>
+            ))}
           </Box>
         </Grid>
         <Grid item xs={12} sm={6}>
