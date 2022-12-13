@@ -11,7 +11,12 @@ export const CreateUserDocument = async (user: any) => {
     const { email } = user;
 
     try {
-      setDoc(userRef, { email: email, createdAt: new Date() });
+      setDoc(userRef, {
+        email: email,
+        createdAt: new Date(),
+        address: {},
+        cart: [],
+      });
     } catch (error: any) {
       console.log(error);
     }
@@ -27,4 +32,14 @@ export const GetUserDocument = async (userData: any) => {
 export const UpdateUserDocument = async (userData: any, uid: string) => {
   const userRef = doc(db, `users`, uid);
   await updateDoc(userRef, userData);
+};
+
+export const UpdateUserAddress = async (addressData: any, uid: string) => {
+  const userRef = doc(db, `users`, uid);
+  await updateDoc(userRef, { address: addressData });
+};
+
+export const UpdateUserCart = async (cartData: any, uid: string) => {
+  const userRef = doc(db, `users`, uid);
+  await updateDoc(userRef, { cart: cartData });
 };

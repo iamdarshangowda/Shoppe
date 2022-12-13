@@ -1,7 +1,11 @@
 import React from "react";
 import { Grid, Typography, Box, Theme } from "@mui/material";
 
-export const AddressData = () => {
+interface Props {
+  userData?: any;
+}
+
+export const AddressData: React.FunctionComponent<Props> = ({ userData }) => {
   return (
     <Grid container spacing={4} sx={{ maxWidth: "650px" }}>
       <Grid
@@ -28,7 +32,7 @@ export const AddressData = () => {
           color={(theme: Theme) => theme.palette.primary.main}
           sx={{ whiteSpace: "initial" }}
         >
-          Darshan Gowda
+          {userData?.name}
         </Typography>
       </Grid>
       <Grid
@@ -54,7 +58,7 @@ export const AddressData = () => {
           fontWeight={600}
           color={(theme: Theme) => theme.palette.primary.main}
         >
-          8884335220
+          {userData?.phone}
         </Typography>
       </Grid>
       <Grid
@@ -80,7 +84,7 @@ export const AddressData = () => {
           color={(theme: Theme) => theme.palette.primary.main}
           sx={{ wordWrap: "break-word", whiteSpace: "pre-wrap" }}
         >
-          560069
+          {userData?.pincode}
         </Typography>
       </Grid>
       <Grid
@@ -105,7 +109,7 @@ export const AddressData = () => {
           fontWeight={600}
           color={(theme: Theme) => theme.palette.primary.main}
         >
-          Jayanagar
+          {userData?.city}
         </Typography>
       </Grid>
       <Grid
@@ -132,8 +136,7 @@ export const AddressData = () => {
           textAlign="center"
           maxWidth={250}
         >
-          4th Floor, White Building, Opposite Bharghavi PG, Christ Furniture,
-          28th Main Road, Block 9, Jayanagar, Bengaluru, Karnataka
+          {userData?.street}
         </Typography>
       </Grid>
       <Grid
@@ -158,7 +161,7 @@ export const AddressData = () => {
           fontWeight={600}
           color={(theme: Theme) => theme.palette.primary.main}
         >
-          Ragigudda Temple
+          {userData?.landmark}
         </Typography>
       </Grid>
     </Grid>

@@ -5,9 +5,18 @@ import { CircularEditIcon } from "@/components/ui-components/common/buttons/edit
 import CloseIcon from "@mui/icons-material/Close";
 import { AddressEditForm } from "./addressEditForm";
 
-export const AddressConatiner = () => {
-  const [isEdit, setIsEdit] = useState<boolean>(false);
+interface Props {
+  userData?: any;
+  handleEventChange: any;
+  handleSubmit: () => void;
+}
 
+export const AddressConatiner: React.FunctionComponent<Props> = ({
+  userData,
+  handleEventChange,
+  handleSubmit,
+}) => {
+  const [isEdit, setIsEdit] = useState<boolean>(false);
   const handleAddressEdit = () => {
     setIsEdit(!isEdit);
   };
@@ -24,7 +33,8 @@ export const AddressConatiner = () => {
       <Box
         width="100%"
         maxWidth={700}
-        p={2}
+        py={4}
+        px={2}
         bgcolor="#FAEAB1"
         borderRadius="8px"
         border="3px solid #E5BA73"
@@ -38,7 +48,14 @@ export const AddressConatiner = () => {
             >
               <CloseIcon />
             </IconButton>
-            <AddressEditForm />
+            <AddressEditForm
+              userData={userData}
+              handleEventChange={handleEventChange}
+              handleSubmit={() => {
+                handleSubmit();
+                setIsEdit(false);
+              }}
+            />
           </>
         ) : (
           <>
@@ -52,7 +69,7 @@ export const AddressConatiner = () => {
               }}
               onClick={handleAddressEdit}
             />
-            <AddressData />
+            <AddressData userData={userData} />
           </>
         )}
       </Box>

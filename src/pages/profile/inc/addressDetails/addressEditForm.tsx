@@ -3,26 +3,61 @@ import { Grid } from "@mui/material";
 import CustomInput from "@/components/ui-components/common/inputs/custom-input";
 import CustomButton from "@/components/ui-components/common/buttons/custom-button";
 
-export const AddressEditForm = () => {
+interface Props {
+  userData?: any;
+  handleEventChange: any;
+  handleSubmit: () => void;
+}
+
+export const AddressEditForm: React.FunctionComponent<Props> = ({
+  userData,
+  handleEventChange,
+  handleSubmit,
+}) => {
+  console.log(userData);
   return (
     <Grid container spacing={4}>
       <Grid item xs={12} sm={6}>
-        <CustomInput label="Name" />
+        <CustomInput
+          label="Name"
+          value={userData?.name}
+          onChange={(value: string) => handleEventChange(value, "name")}
+        />
       </Grid>
       <Grid item xs={12} sm={6}>
-        <CustomInput label="Phone" />
+        <CustomInput
+          label="Phone"
+          value={userData?.phone}
+          onChange={(value: string) => handleEventChange(value, "phone")}
+        />
       </Grid>
       <Grid item xs={12} sm={6}>
-        <CustomInput label="Pincode" disabled />
+        <CustomInput
+          label="Pincode"
+          value={userData?.pincode}
+          onChange={(value: string) => handleEventChange(value, "pincode")}
+        />
       </Grid>
       <Grid item xs={12} sm={6}>
-        <CustomInput label="City/District/Town" />
+        <CustomInput
+          label="City/District/Town"
+          value={userData?.city}
+          onChange={(value: string) => handleEventChange(value, "city")}
+        />
       </Grid>
       <Grid item xs={12} sm={6}>
-        <CustomInput label="Address (Area and Street)" />
+        <CustomInput
+          label="Address (Area and Street)"
+          value={userData?.street}
+          onChange={(value: string) => handleEventChange(value, "street")}
+        />
       </Grid>
       <Grid item xs={12} sm={6}>
-        <CustomInput label="Landmark" />
+        <CustomInput
+          label="Landmark"
+          value={userData?.landmark}
+          onChange={(value: string) => handleEventChange(value, "landmark")}
+        />
       </Grid>
       <Grid
         item
@@ -34,7 +69,11 @@ export const AddressEditForm = () => {
           gap: 2,
         }}
       >
-        <CustomButton label="Save Details" sx={{ maxWidth: "150px" }} />
+        <CustomButton
+          label="Save Details"
+          sx={{ maxWidth: "150px" }}
+          onClick={handleSubmit}
+        />
       </Grid>
     </Grid>
   );
