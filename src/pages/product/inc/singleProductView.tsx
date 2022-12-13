@@ -98,8 +98,8 @@ export const SingleProductView: React.FunctionComponent<Props> = ({
             flexWrap={"wrap"}
             gap={1}
           >
-            {productDetails?.image?.map((item: any) => (
-              <Box maxWidth="100px" maxHeight="100px">
+            {productDetails?.image?.map((item: any, index: number) => (
+              <Box maxWidth="100px" maxHeight="100px" key={index}>
                 <img
                   src={item}
                   alt=""
