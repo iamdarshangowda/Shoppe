@@ -23,21 +23,11 @@ const BrandListHC = [
   { label: "Fossil", key: "fossil" },
 ];
 
-// const PriceList = [
-//   { label: "Below 2,000", key: "0-2000" },
-//   { label: "2000 - 5000", key: "2001-5000" },
-//   { label: "5000 - 10000", key: "50001-10000" },
-//   { label: "Above 10000", key: "10001" },
-// ];
-
 interface Props {
   handleCategory: (value: string) => void;
-  handleSearch: (value: string) => void;
+  handleSearch?: (value: string) => void;
   clearFilters: () => void;
   handleBrand: (value: string) => void;
-  handlePrice?: (value: number) => void;
-  brandList?: any;
-  categoryList?: any;
 }
 
 export const Filters: React.FunctionComponent<Props> = ({
@@ -45,9 +35,6 @@ export const Filters: React.FunctionComponent<Props> = ({
   handleSearch,
   clearFilters,
   handleBrand,
-  handlePrice,
-  brandList,
-  categoryList,
 }) => {
   const theme: any = useTheme();
   const lessThanSmall = useMediaQuery(theme.breakpoints.down("sm"));
@@ -125,19 +112,6 @@ export const Filters: React.FunctionComponent<Props> = ({
               value={router?.query.brand ? router?.query.brand : "default"}
             />
           </Box>
-          {/* <Box>
-            <CustomSelect
-              data={PriceList}
-              fieldName="price"
-              displayValueKey={"label"}
-              defaultValue=""
-              placeholder={"Sort By Price"}
-              valueKey={"key"}
-              onChange={handlePrice}
-              label={"Sort By Price"}
-              value={router?.query.price ? router?.query.price : ""}
-            />
-          </Box> */}
         </>
       )}
     </Box>
