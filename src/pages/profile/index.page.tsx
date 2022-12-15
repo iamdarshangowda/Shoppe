@@ -78,23 +78,23 @@ const Profile = () => {
     GetUserDocument(user).then(
       (res: any) => {
         setUserData({
-          first_name: res.first_name,
-          last_name: res.last_name,
-          phone: res.phone,
-          email: res.email,
+          first_name: res?.first_name,
+          last_name: res?.last_name,
+          phone: res?.phone,
+          email: res?.email,
         });
         setUserAddressData({
-          name: res.address?.name,
-          phone: res.address?.phone,
-          pincode: res.address?.pincode,
-          city: res.address?.city,
-          street: res.address?.street,
-          landmark: res.address?.landmark,
+          name: res?.address?.name,
+          phone: res?.address?.phone,
+          pincode: res?.address?.pincode,
+          city: res?.address?.city,
+          street: res?.address?.street,
+          landmark: res?.address?.landmark,
         });
         setLoading(false);
       },
       (error: any) => {
-        setLoading(true);
+        setLoading(false);
       }
     );
   };

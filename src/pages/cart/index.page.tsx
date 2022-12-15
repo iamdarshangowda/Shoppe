@@ -26,7 +26,7 @@ const Cart = () => {
   );
 
   const handleLogin = () => {
-    localStorage.setTime("cart", JSON.stringify(cart));
+    localStorage.setItem("cart", JSON.stringify(cart));
     router.push(`/signin?cart=true`);
   };
 
@@ -47,10 +47,12 @@ const Cart = () => {
     });
   };
 
+  console.log(user);
+
   return (
     <>
       {cart.length > 0 ? (
-        <Box>
+        <Box mb={4}>
           <Typography
             fontSize="2em"
             fontWeight={500}
@@ -85,6 +87,7 @@ const Cart = () => {
                 subTotal={cartTotalPrice}
                 isLogin={user}
                 handleLogin={handleLogin}
+                user={user}
               />
             </Grid>
           </Grid>

@@ -14,8 +14,16 @@ export const CreateUserDocument = async (user: any) => {
       setDoc(userRef, {
         email: email,
         createdAt: new Date(),
-        address: {},
+        address: {
+          name: "",
+          phone: "",
+          pincode: "",
+          city: "",
+          street: "",
+          landmark: "",
+        },
         cart: [],
+        orders: [],
       });
     } catch (error: any) {
       console.log(error);

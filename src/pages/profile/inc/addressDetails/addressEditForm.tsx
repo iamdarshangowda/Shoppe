@@ -14,7 +14,6 @@ export const AddressEditForm: React.FunctionComponent<Props> = ({
   handleEventChange,
   handleSubmit,
 }) => {
-  console.log(userData);
   return (
     <Grid container spacing={4}>
       <Grid item xs={12} sm={6}>

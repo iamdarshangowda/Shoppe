@@ -8,6 +8,7 @@ import { useContextDetails } from "src/context/ContextProvider";
 import { SnackbarModal } from "@/components/ui-components/snackbar";
 import { useRouter } from "next/router";
 import { SingleCardWrapper } from "@/components/ui-components/common/layouts/single-card-wrapper";
+import { CreateUserDocument } from "src/services/users.services";
 
 const SignIn = () => {
   const router = useRouter();
@@ -28,6 +29,7 @@ const SignIn = () => {
     setLoading(true);
     await googleSignIn().then(
       (res: any) => {
+        CreateUserDocument(res.user);
         getCartPrefillDetails(res.user.email);
         setSnackbarDetails({
           openModal: true,

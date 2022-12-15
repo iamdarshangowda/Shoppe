@@ -44,7 +44,7 @@ export const SingleItem: React.FunctionComponent<Props> = ({
             src={cartDetails?.image?.[0]}
             alt=""
             width={120}
-            style={{ maxHeight: "120px" }}
+            style={{ maxHeight: "120px", objectFit: "cover" }}
           />
         </Box>
         <Box
