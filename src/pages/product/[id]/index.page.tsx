@@ -34,6 +34,7 @@ const SingleProduct: NextPage<Props> = ({ query }) => {
   }: any = useContextDetails();
 
   //update if else check
+
   const handleAddtoCart = () => {
     if (user) {
       if (!productDetails.size) {
