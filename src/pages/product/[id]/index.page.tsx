@@ -33,33 +33,42 @@ const SingleProduct: NextPage<Props> = ({ query }) => {
     user,
   }: any = useContextDetails();
 
+  //update if else check
   const handleAddtoCart = () => {
-    if (!productDetails.size) {
-      setSnackbarDetails({
-        openModal: true,
-        isError: true,
-        text: "Please select Size",
-      });
-    } else if (!productDetails.color) {
-      setSnackbarDetails({
-        openModal: true,
-        isError: true,
-        text: "Please select Color",
-      });
-    } else if (productDetails.qty <= 0) {
-      setSnackbarDetails({
-        openModal: true,
-        isError: true,
-        text: "Add Quantity",
-      });
+    if (user) {
+      if (!productDetails.size) {
+        setSnackbarDetails({
+          openModal: true,
+          isError: true,
+          text: "Please select Size",
+        });
+      } else if (!productDetails.color) {
+        setSnackbarDetails({
+          openModal: true,
+          isError: true,
+          text: "Please select Color",
+        });
+      } else if (productDetails.qty <= 0) {
+        setSnackbarDetails({
+          openModal: true,
+          isError: true,
+          text: "Add Quantity",
+        });
+      } else {
+        productDetails.id = router.query.id;
+        const fireStoneData = { ...firestoneSingleData };
+        fireStoneData.id = router.query.id;
+        cartDispatch({
+          type: "ADD-TO-CART",
+          payload: fireStoneData,
+          cartUpdate: productDetails,
+        });
+      }
     } else {
-      productDetails.id = router.query.id;
-      const fireStoneData = { ...firestoneSingleData };
-      fireStoneData.id = router.query.id;
-      cartDispatch({
-        type: "ADD-TO-CART",
-        payload: fireStoneData,
-        cartUpdate: productDetails,
+      setSnackbarDetails({
+        openModal: true,
+        isError: true,
+        text: "Please Login to add Products",
       });
     }
   };
@@ -96,7 +105,7 @@ const SingleProduct: NextPage<Props> = ({ query }) => {
   }, []);
 
   useEffect(() => {
-    if (user.uid) UpdateUserCart(cart, user.uid);
+    if (user?.uid) UpdateUserCart(cart, user.uid);
   }, [cart]);
 
   return (

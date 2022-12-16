@@ -12,7 +12,6 @@ interface Props {
 export const Layout: React.FunctionComponent<Props> = ({ children }) => {
   const router = useRouter();
   const { cartDispatch, user }: any = useContextDetails();
-
   const getCartPrefillDetails = async () => {
     await GetUserDocument(user).then((res: any) => {
       cartDispatch({
@@ -23,7 +22,7 @@ export const Layout: React.FunctionComponent<Props> = ({ children }) => {
   };
 
   useEffect(() => {
-    if (user.uid) getCartPrefillDetails();
+    if (user?.uid) getCartPrefillDetails();
   }, [user]);
 
   return (
