@@ -14,7 +14,7 @@ const Cart = () => {
     user,
   }: any = useContextDetails();
   const router = useRouter();
-  console.log(cart);
+
   const cartCount = cart.reduce(
     (total: number, current: any) => Number(current.qty) + total,
     0

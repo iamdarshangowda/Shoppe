@@ -49,6 +49,5 @@ export const UpdateUserAddress = async (addressData: any, uid: string) => {
 
 export const UpdateUserCart = async (cartData: any, uid: string) => {
   const userRef = doc(db, `users`, uid);
-  console.log(cartData);
   await updateDoc(userRef, { cart: [...cartData] });
 };
