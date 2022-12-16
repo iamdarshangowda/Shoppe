@@ -7,6 +7,7 @@ import { NextPage } from "next";
 import { useContextDetails } from "src/context/ContextProvider";
 import { SingleProductView } from "../inc/singleProductView";
 import { useSingleProduct } from "@/utils/hooks/useSingleProduct";
+import { UpdateUserCart } from "src/services/users.services";
 
 interface Props {
   query?: any;
@@ -93,6 +94,10 @@ const SingleProduct: NextPage<Props> = ({ query }) => {
   useEffect(() => {
     handleSetCartPrefill();
   }, []);
+
+  useEffect(() => {
+    UpdateUserCart(cart, user.uid);
+  }, [cart]);
 
   return (
     <>

@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Typography, Theme, Grid } from "@mui/material";
 import { useContextDetails } from "src/context/ContextProvider";
 import { SingleItem } from "./inc/singleItem";
 import { PriceDetails } from "./inc/priceDetails";
 import { useRouter } from "next/router";
 import { EmptyStateCard } from "@/components/ui-components/common/cards/empty-state-card";
+import { UpdateUserCart } from "../../services/users.services";
 
 const Cart = () => {
   const {
@@ -13,7 +14,7 @@ const Cart = () => {
     user,
   }: any = useContextDetails();
   const router = useRouter();
-
+  console.log(cart);
   const cartCount = cart.reduce(
     (total: number, current: any) => Number(current.qty) + total,
     0
@@ -26,8 +27,7 @@ const Cart = () => {
   );
 
   const handleLogin = () => {
-    localStorage.setItem("cart", JSON.stringify(cart));
-    router.push(`/signin?cart=true`);
+    router.push(`/signin`);
   };
 
   const handleChange = (value: number, item: any) => {
@@ -46,6 +46,10 @@ const Cart = () => {
       payload: item,
     });
   };
+
+  useEffect(() => {
+    UpdateUserCart(cart, user.uid);
+  }, [cart]);
 
   return (
     <>

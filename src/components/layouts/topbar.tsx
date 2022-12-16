@@ -17,29 +17,6 @@ export const Topbar = () => {
   const router = useRouter();
 
   const handleLogOut = async () => {
-    if (localStorage.getItem("shoppeusers")) {
-      let savedUserData = localStorage.getItem("shoppeusers");
-      let parsedData = JSON.parse(savedUserData || "");
-      // users = [{email: "", cart: []}]
-      let currentUser = parsedData.filter(
-        (item: any) => item.email == user.email
-      );
-      if (currentUser.length) {
-        let remaingUser = parsedData.filter(
-          (item: any) => item.email !== user.email
-        );
-        currentUser[0].cart = cart;
-        let users: any = [...remaingUser, ...currentUser];
-        localStorage.setItem("shoppeusers", JSON.stringify(users));
-      } else {
-        parsedData.push({ email: user.email, cart: cart });
-        localStorage.setItem("shoppeusers", JSON.stringify(parsedData));
-      }
-    } else {
-      let userData = [{ email: user.email, cart: cart }];
-      localStorage.setItem("shoppeusers", JSON.stringify(userData));
-    }
-
     await LogOut().then(
       (res: any) => {
         router.push("/signin");

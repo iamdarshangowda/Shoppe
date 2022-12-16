@@ -93,7 +93,7 @@ export const PriceDetails: React.FunctionComponent<Props> = ({
         }
       />
       <Grid container sx={{ px: 3 }} spacing={2}>
-        <Grid item xs={6}>
+        <Grid item xs={4}>
           <Typography
             my={3}
             fontSize="1em"
@@ -113,7 +113,7 @@ export const PriceDetails: React.FunctionComponent<Props> = ({
             </Typography>
           )}
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={8}>
           <Typography
             my={3}
             fontSize="1em"
@@ -277,7 +277,7 @@ export const PriceDetails: React.FunctionComponent<Props> = ({
           >
             INR{" "}
             {isDetails
-              ? PricerWithCommas((subTotal + subTotal * (18 / 100)).toFixed(2))
+              ? PricerWithCommas((subTotal + subTotal * (9 / 100)).toFixed(2))
               : PricerWithCommas(subTotal.toFixed(2))}
           </Typography>
         </Grid>
