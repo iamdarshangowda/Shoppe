@@ -8,10 +8,7 @@ import { useContextDetails } from "src/context/ContextProvider";
 import { SnackbarModal } from "@/components/ui-components/snackbar";
 import { useRouter } from "next/router";
 import { SingleCardWrapper } from "@/components/ui-components/common/layouts/single-card-wrapper";
-import {
-  CreateUserDocument,
-  GetUserDocument,
-} from "src/services/users.services";
+import { CreateUserDocument } from "src/services/users.services";
 
 const SignIn = () => {
   const router = useRouter();
@@ -33,7 +30,6 @@ const SignIn = () => {
     await googleSignIn().then(
       (res: any) => {
         CreateUserDocument(res.user);
-        getCartPrefillDetails(res.user);
         setSnackbarDetails({
           openModal: true,
           isError: false,
@@ -58,7 +54,6 @@ const SignIn = () => {
     setSnackbarDetails((prev: any) => ({ ...prev, isError: false, text: "" }));
     await LogIn(loginDetails.email, loginDetails.password).then(
       (res: any) => {
-        getCartPrefillDetails(res.user);
         setSnackbarDetails({
           openModal: true,
           isError: false,
@@ -84,15 +79,6 @@ const SignIn = () => {
 
   const handleChange = (value: string, type: string) => {
     setLoginDetails({ ...loginDetails, [type]: value });
-  };
-
-  const getCartPrefillDetails = async (user: any) => {
-    await GetUserDocument(user).then((res: any) => {
-      cartDispatch({
-        type: "REPLACE-ALL-ITEMS",
-        payload: res.cart,
-      });
-    });
   };
 
   return (
