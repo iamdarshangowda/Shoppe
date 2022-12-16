@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Typography, Theme, useMediaQuery, Button } from "@mui/material";
 import CustomInput from "@/components/ui-components/common/inputs/custom-input";
 import CustomSelect from "@/components/ui-components/common/inputs/custom-select";
@@ -24,26 +24,30 @@ const BrandListHC = [
 ];
 
 interface Props {
-  handleCategory: (value: string) => void;
+  handleQueryChange: (type: string, value: string) => void;
   handleSearch?: (value: string) => void;
   clearFilters: () => void;
-  handleBrand: (value: string) => void;
 }
 
 export const Filters: React.FunctionComponent<Props> = ({
-  handleCategory,
   handleSearch,
   clearFilters,
-  handleBrand,
+  handleQueryChange,
 }) => {
   const theme: any = useTheme();
   const lessThanSmall = useMediaQuery(theme.breakpoints.down("sm"));
-  const [hide, setHide] = useState<boolean>(lessThanSmall ? true : false);
+  const [hide, setHide] = useState<boolean>(false);
   const router = useRouter();
 
   const handleHide = () => {
     setHide(!hide);
   };
+
+  useEffect(() => {
+    if (lessThanSmall) {
+      setHide(true);
+    }
+  }, []);
 
   return (
     <Box>
@@ -93,8 +97,7 @@ export const Filters: React.FunctionComponent<Props> = ({
               displayValueKey={"label"}
               placeholder={"Sort By Category"}
               valueKey={"key"}
-              onChange={handleCategory}
-              //label={"Sort By Category"}
+              onChange={(value: string) => handleQueryChange("category", value)}
               value={
                 router?.query.category ? router?.query.category : "default"
               }
@@ -107,8 +110,7 @@ export const Filters: React.FunctionComponent<Props> = ({
               displayValueKey={"label"}
               placeholder={"Sort By Brand"}
               valueKey={"key"}
-              onChange={handleBrand}
-              //label={"Sort By Brand"}
+              onChange={(value: string) => handleQueryChange("brand", value)}
               value={router?.query.brand ? router?.query.brand : "default"}
             />
           </Box>

@@ -22,34 +22,21 @@ const Home: NextPage<Props> = ({ query }) => {
     router.replace(`${router.pathname}`);
   };
 
-  const handleFilterByCategory = (category: string) => {
-    if (router.query.brand) {
-      router.replace(
-        `${router.pathname}?category=${category}&brand=${router.query.brand}`
-      );
-    } else {
-      router.replace(`${router.pathname}?category=${category}`);
-    }
+  const handleRouterQuery = (type: string, category: string) => {
+    router.push({
+      pathname: "/home",
+      query: { ...query, [type]: category },
+    });
   };
 
-  const handleFilterByBrand = (brand: string) => {
-    if (router.query.category) {
-      router.replace(
-        `${router.pathname}?category=${router.query.category}&brand=${brand}`
-      );
-    } else {
-      router.replace(`${router.pathname}?brand=${brand}`);
-    }
-  };
   return (
     <>
       <Box display={{ xs: "block", sm: "flex" }} gap={4} mb={4}>
         <Box width={"100%"} maxWidth={{ xs: "100%", sm: 252 }} flexGrow={1}>
           <Filters
-            handleCategory={handleFilterByCategory}
+            handleQueryChange={handleRouterQuery}
             handleSearch={(value: string) => setSearchValue(value)}
             clearFilters={handleClearFilters}
-            handleBrand={handleFilterByBrand}
           />
         </Box>
         <Divider orientation="vertical" flexItem sx={{ bgcolor: "#FAEAB1" }} />

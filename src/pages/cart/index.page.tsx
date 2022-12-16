@@ -47,8 +47,6 @@ const Cart = () => {
     });
   };
 
-  console.log(user);
-
   return (
     <>
       {cart.length > 0 ? (
