@@ -79,7 +79,7 @@ export const PriceDetails: React.FunctionComponent<Props> = ({
   };
 
   useEffect(() => {
-    getUserPrefillData();
+    if (user?.uid) getUserPrefillData();
   }, [user]);
 
   return (

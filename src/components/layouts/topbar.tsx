@@ -20,7 +20,6 @@ export const Topbar = () => {
     await LogOut().then(
       (res: any) => {
         router.push("/signin");
-        console.log("logout", res);
       },
       (error: any) => {
         console.log(error.message);
