@@ -1,14 +1,12 @@
 import { SnackbarModal } from "@/components/ui-components/snackbar";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { get } from "src/config/axiosClient";
 import { Container } from "@mui/material";
 import BackdropLoader from "@/components/ui-components/common/backdropLoader";
 import { NextPage } from "next";
 import { useContextDetails } from "src/context/ContextProvider";
 import { SingleProductView } from "../inc/singleProductView";
-import ProductDataServices from "../../../services/products.services";
-import { PricerWithCommas } from "@/utils/dataModifiers";
+import { useSingleProduct } from "@/utils/hooks/useSingleProduct";
 
 interface Props {
   query?: any;
@@ -16,13 +14,12 @@ interface Props {
 
 const SingleProduct: NextPage<Props> = ({ query }) => {
   const router = useRouter();
-  const [loading, setLoading] = useState<boolean>(false);
+  const { firestoneSingleData, loading } = useSingleProduct();
   const [snackbarDetails, setSnackbarDetails] = useState<any | {}>({
     isError: false,
     openModal: false,
     text: "",
   });
-  const [firestoneSingleData, setFirestoneSingleData] = useState<any | {}>({});
   const [productDetails, setProductDetails] = useState<any | {}>({
     size: "",
     color: "",
@@ -96,20 +93,6 @@ const SingleProduct: NextPage<Props> = ({ query }) => {
   useEffect(() => {
     handleSetCartPrefill();
   }, []);
-
-  const getSingleFirebaseProduct = async (collection: any, id: any) => {
-    setLoading(true);
-    const data: any = await ProductDataServices.getSingleProduct(
-      collection,
-      id
-    );
-    setFirestoneSingleData(data.data());
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    getSingleFirebaseProduct(query.collection, query.id);
-  }, [query?.id]);
 
   return (
     <>

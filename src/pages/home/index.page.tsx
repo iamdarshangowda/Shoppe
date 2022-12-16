@@ -17,8 +17,7 @@ const Home: NextPage<Props> = ({ query }) => {
   const router = useRouter();
   const [searchValue, setSearchValue] = useState<any>("");
   const { firestoneData, loading } = useProducts(searchValue);
-  console.log(query);
-  console.log(firestoneData);
+
   const handleClearFilters = () => {
     router.replace(`${router.pathname}`);
   };
@@ -42,7 +41,6 @@ const Home: NextPage<Props> = ({ query }) => {
       router.replace(`${router.pathname}?brand=${brand}`);
     }
   };
-  console.log(loading);
   return (
     <>
       <Box display={{ xs: "block", sm: "flex" }} gap={4} mb={4}>
@@ -69,11 +67,10 @@ const Home: NextPage<Props> = ({ query }) => {
               </Link>
             ))}
           </Grid>
-        ) : loading ? (
-          <BackdropLoader open={loading} />
         ) : (
           <EmptyStateCard text={"No Items"} />
         )}
+        <BackdropLoader open={loading} />
       </Box>
     </>
   );

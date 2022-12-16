@@ -90,12 +90,12 @@ export const useProducts = (searchValue: ProductsProps) => {
   };
 
   useEffect(() => {
-    getProductsByRouteCheck();
-  }, [router.query]);
-
-  useEffect(() => {
-    handleSearchDebounce(searchValue);
-  }, [searchValue]);
+    if (searchValue.length) {
+      handleSearchDebounce(searchValue);
+    } else {
+      getProductsByRouteCheck();
+    }
+  }, [router.query, searchValue]);
 
   return { firestoneData, loading };
 };
