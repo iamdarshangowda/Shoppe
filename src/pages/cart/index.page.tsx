@@ -48,7 +48,7 @@ const Cart = () => {
   };
 
   useEffect(() => {
-    UpdateUserCart(cart, user.uid);
+    if (user.uid) UpdateUserCart(cart, user.uid);
   }, [cart]);
 
   return (
