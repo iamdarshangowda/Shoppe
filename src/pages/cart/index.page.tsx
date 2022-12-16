@@ -50,7 +50,6 @@ const Cart = () => {
   useEffect(() => {
     if (user.uid) UpdateUserCart(cart, user.uid);
   }, [cart]);
-
   return (
     <>
       {cart.length > 0 ? (
