@@ -100,7 +100,7 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    getUserPrefillData();
+    if(user.uid) getUserPrefillData();
   }, [user]);
 
   const handleTabChange = (value: any) => {

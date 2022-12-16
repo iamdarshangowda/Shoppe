@@ -96,7 +96,7 @@ const SingleProduct: NextPage<Props> = ({ query }) => {
   }, []);
 
   useEffect(() => {
-    UpdateUserCart(cart, user.uid);
+    if (user.uid) UpdateUserCart(cart, user.uid);
   }, [cart]);
 
   return (
