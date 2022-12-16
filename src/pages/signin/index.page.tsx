@@ -30,7 +30,6 @@ const SignIn = () => {
     await googleSignIn().then(
       (res: any) => {
         CreateUserDocument(res.user);
-        getCartPrefillDetails(res.user.email);
         setSnackbarDetails({
           openModal: true,
           isError: false,
@@ -55,7 +54,6 @@ const SignIn = () => {
     setSnackbarDetails((prev: any) => ({ ...prev, isError: false, text: "" }));
     await LogIn(loginDetails.email, loginDetails.password).then(
       (res: any) => {
-        getCartPrefillDetails(loginDetails.email);
         setSnackbarDetails({
           openModal: true,
           isError: false,
@@ -81,23 +79,6 @@ const SignIn = () => {
 
   const handleChange = (value: string, type: string) => {
     setLoginDetails({ ...loginDetails, [type]: value });
-  };
-
-  const getCartPrefillDetails = (currentUserEmail: any) => {
-    if (localStorage.getItem("shoppeusers")) {
-      let savedUserData = localStorage.getItem("shoppeusers");
-      let parsedData = JSON.parse(savedUserData || "");
-      let previousUser = parsedData.filter(
-        (item: any) => item.email == currentUserEmail
-      );
-      if (previousUser.length) {
-        let cartData = previousUser[0];
-        cartDispatch({
-          type: "REPLACE-ALL-ITEMS",
-          payload: cartData.cart,
-        });
-      }
-    }
   };
 
   return (
