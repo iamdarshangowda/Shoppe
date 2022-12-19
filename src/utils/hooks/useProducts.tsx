@@ -3,27 +3,25 @@ import React, { useState, useEffect } from "react";
 import ProductDataServices from "../../services/products.services";
 import { debounce, SearchProducts } from "../dataModifiers";
 
-interface ProductsProps extends React.FunctionComponent {
-  searchValue?: string;
-}
+// interface ProductsProps extends React.FunctionComponent {
+//   searchValue?: string;
+// }
 
-export const useProducts = (searchValue: ProductsProps) => {
+export const useProducts = () => {
   const router = useRouter();
 
   const [loading, setLoading] = useState<boolean>(false);
   const [firestoneData, setFirestoneData] = useState<any[]>([]);
 
-  const handleSearchDebounce = debounce((value: any) => {
-    if (value?.length > 0) {
-      setLoading(true);
-      setFirestoneData(SearchProducts(firestoneData, value));
-      setLoading(false);
-    } else {
-      setLoading(true);
-      getProductsByRouteCheck();
-      setLoading(false);
-    }
-  });
+  // const handleSearchDebounce = debounce((value: any) => {
+  // setLoading(true);
+  //   if (value?.length > 0) {
+  //     setFirestoneData(SearchProducts(firestoneData, value));
+  //   } else {
+  //     getProductsByRouteCheck();
+  //   }
+  //     setLoading(false);
+  // });
 
   const getProductsFirebase = async (category: any, query?: any) => {
     setLoading(true);
@@ -89,13 +87,17 @@ export const useProducts = (searchValue: ProductsProps) => {
     }
   };
 
+  // useEffect(() => {
+  //   if (searchValue.length) {
+  //     handleSearchDebounce(searchValue);
+  //   } else {
+  //     getProductsByRouteCheck();
+  //   }
+  // }, [router.query, searchValue]);
+
   useEffect(() => {
-    if (searchValue.length) {
-      handleSearchDebounce(searchValue);
-    } else {
-      getProductsByRouteCheck();
-    }
-  }, [router.query, searchValue]);
+    getProductsByRouteCheck();
+  }, [router.query]);
 
   return { firestoneData, loading };
 };

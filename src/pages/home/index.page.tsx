@@ -16,10 +16,11 @@ interface Props {
 const Home: NextPage<Props> = ({ query }) => {
   const router = useRouter();
   const [searchValue, setSearchValue] = useState<any>("");
-  const { firestoneData, loading } = useProducts(searchValue);
+  const { firestoneData, loading } = useProducts();
 
   const handleClearFilters = () => {
     router.replace(`${router.pathname}`);
+    setSearchValue("");
   };
 
   const handleRouterQuery = (type: string, category: string) => {
@@ -37,22 +38,33 @@ const Home: NextPage<Props> = ({ query }) => {
             handleQueryChange={handleRouterQuery}
             handleSearch={(value: string) => setSearchValue(value)}
             clearFilters={handleClearFilters}
+            searchValue={searchValue}
           />
         </Box>
         <Divider orientation="vertical" flexItem sx={{ bgcolor: "#FAEAB1" }} />
         {firestoneData.length > 0 ? (
           <Grid container spacing={2}>
-            {firestoneData.map((item: any, index: number) => (
-              <Link
-                href={`/product/${item.id}?collection=${item.category}`}
-                legacyBehavior
-                key={index}
-              >
-                <Grid item xs={6} sm={6} md={4} lg={3} xl={2} key={index}>
-                  <ListingCard productDetails={item} />
-                </Grid>
-              </Link>
-            ))}
+            {firestoneData
+              .filter((item) => {
+                if (searchValue === "") {
+                  return item;
+                } else if (
+                  item.title.toLowerCase().includes(searchValue.toLowerCase())
+                ) {
+                  return item;
+                }
+              })
+              .map((item: any, index: number) => (
+                <Link
+                  href={`/product/${item.id}?collection=${item.category}`}
+                  legacyBehavior
+                  key={index}
+                >
+                  <Grid item xs={6} sm={6} md={4} lg={3} xl={2} key={index}>
+                    <ListingCard productDetails={item} />
+                  </Grid>
+                </Link>
+              ))}
           </Grid>
         ) : (
           <EmptyStateCard text={"No Items"} />
