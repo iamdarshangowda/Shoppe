@@ -27,12 +27,14 @@ interface Props {
   handleQueryChange: (type: string, value: string) => void;
   handleSearch?: (value: string) => void;
   clearFilters: () => void;
+  searchValue: string;
 }
 
 export const Filters: React.FunctionComponent<Props> = ({
   handleSearch,
   clearFilters,
   handleQueryChange,
+  searchValue,
 }) => {
   const theme: any = useTheme();
   const lessThanSmall = useMediaQuery(theme.breakpoints.down("sm"));
@@ -88,6 +90,7 @@ export const Filters: React.FunctionComponent<Props> = ({
               placeholder="Search..."
               sx={{ height: "40px", border: "none" }}
               onChange={handleSearch}
+              value={searchValue}
             />
           </Box>
           <Box mb={3}>
