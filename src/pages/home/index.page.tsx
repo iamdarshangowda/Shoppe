@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { Box, Divider, Grid } from "@mui/material";
 import { Filters } from "./inc/filters";
 import { ListingCard } from "@/components/ui-components/common/cards/listing-card";
@@ -17,6 +17,14 @@ const Home: NextPage<Props> = ({ query }) => {
   const router = useRouter();
   const [searchValue, setSearchValue] = useState<any>("");
   const { firestoneData, loading } = useProducts();
+
+  const filteredData = useMemo(() => {
+    if (searchValue === "") return firestoneData;
+
+    return firestoneData.filter((item) =>
+      item.title.toLowerCase().includes(searchValue.toLowerCase())
+    );
+  }, [firestoneData, searchValue]);
 
   const handleClearFilters = () => {
     router.replace(`${router.pathname}`);
@@ -44,27 +52,17 @@ const Home: NextPage<Props> = ({ query }) => {
         <Divider orientation="vertical" flexItem sx={{ bgcolor: "#FAEAB1" }} />
         {firestoneData.length > 0 ? (
           <Grid container spacing={2}>
-            {firestoneData
-              .filter((item) => {
-                if (searchValue === "") {
-                  return item;
-                } else if (
-                  item.title.toLowerCase().includes(searchValue.toLowerCase())
-                ) {
-                  return item;
-                }
-              })
-              .map((item: any, index: number) => (
-                <Link
-                  href={`/product/${item.id}?collection=${item.category}`}
-                  legacyBehavior
-                  key={index}
-                >
-                  <Grid item xs={6} sm={6} md={4} lg={3} xl={2} key={index}>
-                    <ListingCard productDetails={item} />
-                  </Grid>
-                </Link>
-              ))}
+            {filteredData.map((item: any, index: number) => (
+              <Link
+                href={`/product/${item.id}?collection=${item.category}`}
+                legacyBehavior
+                key={index}
+              >
+                <Grid item xs={6} sm={6} md={4} lg={3} xl={2} key={index}>
+                  <ListingCard productDetails={item} />
+                </Grid>
+              </Link>
+            ))}
           </Grid>
         ) : (
           <EmptyStateCard text={"No Items"} />
