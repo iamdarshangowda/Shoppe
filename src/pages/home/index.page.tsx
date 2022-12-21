@@ -7,7 +7,7 @@ import BackdropLoader from "@/components/ui-components/common/backdropLoader";
 import { useRouter } from "next/router";
 import { NextPage } from "next";
 import { EmptyStateCard } from "@/components/ui-components/common/cards/empty-state-card";
-import { useProducts } from "@/utils/hooks/useProducts";
+import { useProducts } from "@/utils/customHooks/useProducts";
 
 interface Props {
   query?: any;
