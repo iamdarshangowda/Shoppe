@@ -22,7 +22,7 @@ export const ProfilePhoto: React.FunctionComponent<Props> = ({ userData }) => {
           style={{ display: "none" }}
         />
         <Avatar
-          src={"/profile.jpg"}
+          src={"/temp_profile.png"}
           sx={{
             mx: "auto",
             width: "120px",
