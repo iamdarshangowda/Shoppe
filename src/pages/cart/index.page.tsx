@@ -1,11 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Typography, Theme, Grid } from "@mui/material";
 import { useContextDetails } from "src/context/ContextProvider";
 import { SingleItem } from "./inc/singleItem";
 import { PriceDetails } from "./inc/priceDetails";
 import { useRouter } from "next/router";
 import { EmptyStateCard } from "@/components/ui-components/common/cards/empty-state-card";
-import { UpdateUserCart } from "../../services/users.services";
+import {
+  GetUserDocument,
+  UpdateUserCart,
+  UpdateUserOrders,
+} from "../../services/users.services";
+import usePrevOrders from "@/utils/customHooks/usePrevOrders";
 
 const Cart = () => {
   const {
@@ -14,6 +19,7 @@ const Cart = () => {
     user,
   }: any = useContextDetails();
   const router = useRouter();
+  const { prevOrders } = usePrevOrders();
 
   const cartCount = cart.reduce(
     (total: number, current: any) => Number(current.qty) + total,
@@ -33,6 +39,7 @@ const Cart = () => {
   const handleChange = (value: number, item: any) => {
     let productDetails: any = {};
     productDetails.qty = value;
+    productDetails.total = value * item.qty;
     cartDispatch({
       type: "ADD-TO-CART",
       payload: item,
@@ -44,6 +51,21 @@ const Cart = () => {
     cartDispatch({
       type: "REMOVE-FROM-CART",
       payload: item,
+    });
+  };
+
+  const handleOrdersUpdate = async () => {
+    const currentOrder = [
+      {
+        productList: cart,
+        subTotal: (cartTotalPrice + cartTotalPrice * (9 / 100)).toFixed(2),
+        orderedOn: new Date(),
+        orderId: Math.floor(Math.random() * 10000),
+      },
+    ];
+    await UpdateUserOrders(currentOrder, user.uid, prevOrders);
+    cartDispatch({
+      type: "REMOVE-ALL-ITEMS",
     });
   };
 
@@ -89,6 +111,7 @@ const Cart = () => {
                 isLogin={user}
                 handleLogin={handleLogin}
                 user={user}
+                handleOrdersUpdate={handleOrdersUpdate}
               />
             </Grid>
           </Grid>

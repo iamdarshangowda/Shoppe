@@ -1,10 +1,10 @@
 import { getExperimentalSetting } from "@firebase/util";
 
-interface action {
+type action = {
   type: any;
   cartUpdate: any;
   payload: any;
-}
+};
 
 export const cartReducer = (state: any, action: action) => {
   const handleAddCart = () => {

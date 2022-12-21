@@ -11,12 +11,14 @@ interface Props {
   isLogin: any;
   handleLogin: () => void;
   user: any;
+  handleOrdersUpdate: () => void;
 }
 export const PriceDetails: React.FunctionComponent<Props> = ({
   subTotal,
   isLogin,
   handleLogin,
   user,
+  handleOrdersUpdate,
 }) => {
   const router = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
@@ -35,7 +37,8 @@ export const PriceDetails: React.FunctionComponent<Props> = ({
     text: "",
   });
 
-  const handleCheckOut = () => {
+  const handleCheckOut = async () => {
+    await handleOrdersUpdate();
     isDetails
       ? router.push("/payments")
       : setSnackbarDetails({
@@ -282,11 +285,7 @@ export const PriceDetails: React.FunctionComponent<Props> = ({
           </Typography>
         </Grid>
         <Grid item xs={6}>
-          {isLogin?.email ? (
-            <CustomButton label="Checkout" onClick={handleCheckOut} />
-          ) : (
-            <CustomButton label="Login to Checkout" onClick={handleLogin} />
-          )}
+          <CustomButton label="Buy" onClick={handleCheckOut} />
         </Grid>
       </Grid>
     </>

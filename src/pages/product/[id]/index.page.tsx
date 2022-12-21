@@ -6,7 +6,7 @@ import BackdropLoader from "@/components/ui-components/common/backdropLoader";
 import { NextPage } from "next";
 import { useContextDetails } from "src/context/ContextProvider";
 import { SingleProductView } from "../inc/singleProductView";
-import { useSingleProduct } from "@/utils/hooks/useSingleProduct";
+import { useSingleProduct } from "@/utils/customHooks/useSingleProduct";
 import { UpdateUserCart } from "src/services/users.services";
 
 interface Props {

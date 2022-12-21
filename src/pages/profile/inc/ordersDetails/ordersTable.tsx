@@ -1,46 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
 import { useTheme } from "@mui/styles";
 import { useMediaQuery } from "@mui/material";
+import { getDateFmt } from "@/utils/dataModifiers";
+
+interface Props {
+  prevOrders: any[];
+}
 
 const columns: GridColDef[] = [
-  { field: "id", headerName: "Order ID", width: 90 },
-  { field: "item", headerName: "Item name", width: 140 },
-  { field: "price", headerName: "Price", width: 100 },
-  {
-    field: "status",
-    headerName: "Status",
-    type: "number",
-    width: 120,
-  },
+  { field: "id", headerName: "Order ID", width: 70 },
+  { field: "item", headerName: "Item name", width: 140, flex: 1 },
+  { field: "price", headerName: "SubTotal", width: 120 },
+  { field: "date", headerName: "Ordered On", width: 120 },
   {
     field: "action",
     headerName: "Action",
-    width: 100,
+    width: 70,
   },
-  // {
-  //   field: "fullName",
-  //   headerName: "Full name",
-  //   description: "This column has a value getter and is not sortable.",
-  //   sortable: false,
-  //   width: 160,
-  //   valueGetter: (params: GridValueGetterParams) =>
-  //     `${params.row.firstName || ""} ${params.row.lastName || ""}`,
-  // },
 ];
 
-const rows = [
-  { id: 1, item: "Snow", price: "200", status: "Delivered", action: "View" },
-  { id: 2, item: "Snow", price: "200", status: "Delivered", action: "View" },
-  { id: 3, item: "Snow", price: "200", status: "Delivered", action: "View" },
-  { id: 4, item: "Snow", price: "200", status: "Delivered", action: "View" },
-  { id: 5, item: "Snow", price: "200", status: "Delivered", action: "View" },
-  { id: 6, item: "Snow", price: "200", status: "Delivered", action: "View" },
-  { id: 7, item: "Snow", price: "200", status: "Delivered", action: "View" },
-  { id: 8, item: "Snow", price: "200", status: "Delivered", action: "View" },
-];
-
-export const OrderTable = () => {
+export const OrderTable: React.FunctionComponent<Props> = ({ prevOrders }) => {
   const theme: any = useTheme();
   let pageSize: number = 5;
   //const greaterThanMid = useMediaQuery(theme.breakpoints.up("md"));
@@ -51,8 +31,24 @@ export const OrderTable = () => {
     pageSize = 10;
   }
 
+  const [rows, setRows] = useState<any[]>([]);
+  const setOrderRows = () => {
+    const rowsData = prevOrders.map((item: any, index: number) => ({
+      id: item?.orderId ? item?.orderId : index,
+      item: item?.productList.map((item: any) => item.title),
+      price: `${item?.subTotal}`,
+      date: getDateFmt(new Date(item?.orderedOn?.seconds * 1000)),
+      action: "View",
+    }));
+    setRows(rowsData);
+  };
+
+  useEffect(() => {
+    setOrderRows();
+  }, [prevOrders]);
+
   return (
-    <div style={{ height: pageSize == 5 ? 371 : 600, width: "100%" }}>
+    <div style={{ height: pageSize == 5 ? 371 : 600 }}>
       <DataGrid
         rows={rows}
         columns={columns}
