@@ -12,6 +12,7 @@ import {
   UpdateUserAddress,
   UpdateUserDocument,
 } from "src/services/users.services";
+import usePrevOrders from "@/utils/customHooks/usePrevOrders";
 
 const tabItems = [
   { label: "Profile", value: "profile" },
@@ -20,6 +21,7 @@ const tabItems = [
 ];
 
 const Profile = () => {
+  const { prevOrders } = usePrevOrders();
   const [defaultTabIndex, setDefaultTabIndex] = useState<any>(0);
   const [loading, setLoading] = useState<boolean>(false);
   const [userData, setUserData] = useState<any | {}>({
@@ -137,7 +139,7 @@ const Profile = () => {
           handleSubmit={handleSubmitAddress}
         />
       )}
-      {defaultTabIndex == 2 && <OrdersConatiner />}
+      {defaultTabIndex == 2 && <OrdersConatiner prevOrders={prevOrders} />}
 
       <BackdropLoader open={loading} />
     </Box>

@@ -60,6 +60,7 @@ const Cart = () => {
         productList: cart,
         subTotal: (cartTotalPrice + cartTotalPrice * (9 / 100)).toFixed(2),
         orderedOn: new Date(),
+        orderId: Math.floor(Math.random() * 10000),
       },
     ];
     await UpdateUserOrders(currentOrder, user.uid, prevOrders);

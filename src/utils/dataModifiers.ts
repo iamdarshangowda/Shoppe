@@ -1,3 +1,5 @@
+import Moment from "moment";
+
 export const debounce = (fn: Function, ms = 500) => {
   let timeoutId: ReturnType<typeof setTimeout>;
   return function (this: any, ...args: any[]) {
@@ -50,4 +52,9 @@ export const getUniqueValuesFromArrayOfObjects = (tempArr: any) => {
     }
     return null;
   });
+};
+
+export const getDateFmt = (date: any) => {
+  Moment.locale("en");
+  return Moment(date).format("YYYY-MM-DD");
 };
