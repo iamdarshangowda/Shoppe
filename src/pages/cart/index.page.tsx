@@ -5,7 +5,10 @@ import { SingleItem } from "./inc/singleItem";
 import { PriceDetails } from "./inc/priceDetails";
 import { useRouter } from "next/router";
 import { EmptyStateCard } from "@/components/ui-components/common/cards/empty-state-card";
-import { UpdateUserCart } from "../../services/users.services";
+import {
+  UpdateUserCart,
+  UpdateUserOrders,
+} from "../../services/users.services";
 
 const Cart = () => {
   const {
@@ -45,6 +48,11 @@ const Cart = () => {
       type: "REMOVE-FROM-CART",
       payload: item,
     });
+  };
+
+  const handleOrdersUpdate = async () => {
+    await UpdateUserOrders(cart, user.uid);
+    UpdateUserCart([], user.uid);
   };
 
   useEffect(() => {
@@ -89,6 +97,7 @@ const Cart = () => {
                 isLogin={user}
                 handleLogin={handleLogin}
                 user={user}
+                handleOrdersUpdate={handleOrdersUpdate}
               />
             </Grid>
           </Grid>
